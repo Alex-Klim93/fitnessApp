@@ -1,0 +1,23 @@
+.butup_box {
+  position: absolute;
+  left: 50%;
+  bottom: 81px;
+  /* Button */
+  width: 127px;
+  height: 52px;
+
+  border-radius: 46px;
+  background: rgba(188, 236, 48, 1);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.but__link {
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: center;
+}

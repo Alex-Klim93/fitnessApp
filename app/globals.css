@@ -1,26 +1,146 @@
-@import "tailwindcss";
-
+/* app/globals.css */
+/* Определяем CSS переменные */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-roboto:
+    var(--font-roboto), -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Сброс и базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  min-height: 100dvh;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100dvh;
+  font-family: var(--font-roboto);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Типографика с Roboto */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-roboto);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Классы для разных начертаний Roboto */
+.font-roboto-thin {
+  font-family: var(--font-roboto);
+  font-weight: 100;
+}
+
+.font-roboto-light {
+  font-family: var(--font-roboto);
+  font-weight: 300;
+}
+
+.font-roboto-regular {
+  font-family: var(--font-roboto);
+  font-weight: 400;
+}
+
+.font-roboto-medium {
+  font-family: var(--font-roboto);
+  font-weight: 500;
+}
+
+.font-roboto-bold {
+  font-family: var(--font-roboto);
+  font-weight: 700;
+}
+
+.font-roboto-black {
+  font-family: var(--font-roboto);
+  font-weight: 900;
+}
+
+.font-roboto-italic {
+  font-family: var(--font-roboto);
+  font-style: italic;
+}
+
+/* Адаптивная типографика */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  body {
+    font-size: 0.9375rem;
+  }
+}
+
+/* Утилитарные классы */
+.text-roboto {
+  font-family: var(--font-roboto);
+}
+
+.leading-normal {
+  line-height: 1.5;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+.leading-tight {
+  line-height: 1.25;
 }
