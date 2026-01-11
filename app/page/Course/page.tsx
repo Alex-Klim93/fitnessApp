@@ -131,7 +131,7 @@ export default function CoursePage() {
         <Image
           width={670.18}
           height={390.98}
-          className={styles.Directions__imgSvg2}
+          className={styles.motivation__imgSvg2}
           src="/img/Vector 6084.svg"
           alt="Sparcle"
           priority
@@ -139,7 +139,7 @@ export default function CoursePage() {
         <Image
           width={50}
           height={42.5}
-          className={styles.Directions__imgSvg1}
+          className={styles.motivation__imgSvg1}
           src="/img/Vector 6094.svg"
           alt="Sparcle"
           priority
@@ -147,7 +147,7 @@ export default function CoursePage() {
         <Image
           width={547}
           height={566}
-          className={styles.Directions__img}
+          className={styles.motivation__img}
           src="/img/skypro_mid23_Crouching_man_in_green_polo_shirt_and_navy_shorts__934c6a97-07c8-4c5b-9487-96389d003dfd Background Removed 2.png"
           alt="Sparcle"
           priority

@@ -1,11 +1,12 @@
 .wrapper {
   width: 100%;
-  min-height: 100%;
+  min-height: 100dvh;
   overflow: hidden;
   background-color: #ffffff;
 }
 
 .container {
+  min-height: 100dvh;
   max-width: 1440px;
   margin: 0 auto;
   position: relative;

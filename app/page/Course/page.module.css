@@ -141,7 +141,7 @@
   letter-spacing: 0px;
   text-align: left;
 }
-.Directions__img {
+.motivation__img {
   display: inline-block;
   position: absolute;
   object-fit: contain;
@@ -151,7 +151,7 @@
   z-index: 3;
   transform: rotate(-2.99deg);
 }
-.Directions__imgSvg1 {
+.motivation__imgSvg1 {
   display: inline-block;
   position: absolute;
   object-fit: contain;
@@ -160,7 +160,7 @@
   margin-left: auto;
   z-index: 1;
 }
-.Directions__imgSvg2 {
+.motivation__imgSvg2 {
   display: inline-block;
   position: absolute;
   object-fit: contain;

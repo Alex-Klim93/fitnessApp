@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Header from '../components/Header/Header';
 import Subtitle from '../components/Subtitle/Subtitle';
 import styles from './page.module.css';
+import TestNav from '../components/TestNav/TestNav';
 
 export default function PageLayout({
   children,
@@ -19,6 +20,7 @@ export default function PageLayout({
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <main className={styles.main}>
+          <TestNav />
           <Header />
           {isCoursePage && <Subtitle />}
 
