@@ -1,9 +1,9 @@
 .TestNav {
-  width: 100px;
-  height: 130px;
+  width: 150px;
+  height: 200px;
   position: absolute;
   left: 0%;
-  top: 81px;
+  top: 0%;
 
   border-radius: 10px;
   background: rgb(100, 100, 100);
@@ -15,6 +15,7 @@
 .TestNav__link {
   text-decoration: none; /* Убирает подчеркивание */
   color: white; /* Наследует цвет от родителя */
+  font-size: 24px;
 }
 .TestNav__li {
   list-style: none; /* Убирает маркеры/нумерацию */
