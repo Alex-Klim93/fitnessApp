@@ -1,0 +1,46 @@
+.header_box {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_logo {
+  width: 220px;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo__link {
+  color: rgba(0, 0, 0, 1);
+  font-size: 28px;
+  font-weight: 500;
+}
+.but__box {
+  /* Button */
+  width: 103px;
+  height: 52px;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8;
+  padding: 16px 26px 16px 26px;
+
+  border-radius: 46px;
+  background: rgba(188, 236, 48, 1);
+
+  color: rgba(0, 0, 0, 1);
+  font-style: Regular;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: center;
+}
