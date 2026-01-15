@@ -4,7 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styles from './SignupPopup.module.css';
-import { register, isAuthenticated, getCurrentUser } from '@/app/api/auth';
+import {
+  register,
+  isAuthenticated,
+  getCurrentUser,
+  login,
+} from '@/app/api/auth';
 import { getErrorMessage } from '@/app/api/errors';
 import { validatePassword, isValidEmail } from '@/app/api/api-utils';
 
@@ -26,7 +31,6 @@ export default function SignupPopup({
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     if (isOpen) {
@@ -34,6 +38,7 @@ export default function SignupPopup({
 
       if (isAuthenticated()) {
         const user = getCurrentUser();
+        console.log('Пользователь уже авторизован:', user?.email);
         onClose();
         onRegisterSuccess();
       }
@@ -49,17 +54,18 @@ export default function SignupPopup({
     e.preventDefault();
     setLoading(true);
     setErrors([]);
-    setSuccessMessage('');
 
-    // Валидация на фронтенде
+    // Валидация на фронтенде перед отправкой
     const validationErrors: string[] = [];
 
+    // Проверка email
     if (!email.trim()) {
       validationErrors.push('Введите Email');
     } else if (!isValidEmail(email)) {
       validationErrors.push('Введите корректный email адрес');
     }
 
+    // Проверка пароля
     if (!password.trim()) {
       validationErrors.push('Введите пароль');
     } else {
@@ -69,6 +75,7 @@ export default function SignupPopup({
       }
     }
 
+    // Проверка подтверждения пароля
     if (!confirmPassword.trim()) {
       validationErrors.push('Повторите пароль');
     } else if (password !== confirmPassword) {
@@ -82,28 +89,23 @@ export default function SignupPopup({
     }
 
     try {
-      // Регистрация
-      const result = await register(email, password);
+      // Отправляем запрос на регистрацию
+      await register(email, password);
 
-      console.log('Регистрация успешна:', result);
-
-      if (result.message) {
-        setSuccessMessage('Регистрация успешна! Теперь войдите в систему.');
-
-        // Очищаем форму
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-
-        // Через 3 секунды переключаемся на вход
-        setTimeout(() => {
-          onClose();
-          onOpenSignin();
-        }, 3000);
+      // Пытаемся автоматически войти после регистрации
+      try {
+        await login(email, password);
+        onClose();
+        onRegisterSuccess();
+      } catch (loginError) {
+        console.log('Регистрация успешна, но автоматический вход не удался');
+        // Если вход не удался, открываем форму входа
+        onClose();
+        onOpenSignin();
       }
     } catch (error: any) {
       const errorMessage = getErrorMessage(error);
-      console.error('Registration error:', error);
+      console.error('Ошибка регистрации:', errorMessage);
       setErrors([errorMessage]);
     } finally {
       setLoading(false);
@@ -129,21 +131,9 @@ export default function SignupPopup({
     );
   };
 
-  const handleClose = () => {
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setErrors([]);
-    setSuccessMessage('');
-    onClose();
-  };
-
   return (
-    <div className={styles.overlay} onClick={handleClose}>
+    <div className={styles.overlay} onClick={onClose}>
       <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeButton} onClick={handleClose}>
-          ×
-        </button>
         <div className={styles.header_logo}>
           <Image
             width={29}
@@ -152,12 +142,12 @@ export default function SignupPopup({
             src="/img/Logo.png"
             alt="logo"
             priority
-          />
+          ></Image>
           <Link href="/" className={styles.logo__link}>
             SkyFitnessPro
           </Link>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <div className={styles.auth__Box}>
             <div className={styles.auth__inputBox}>
               <input
@@ -184,12 +174,6 @@ export default function SignupPopup({
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 disabled={loading}
               />
-
-              {successMessage && (
-                <div className={styles.successBox}>
-                  <div className={styles.successText}>{successMessage}</div>
-                </div>
-              )}
 
               {errors.length > 0 && (
                 <div className={styles.errorBox}>

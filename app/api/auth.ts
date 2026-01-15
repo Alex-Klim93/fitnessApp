@@ -1,5 +1,7 @@
+// app/api/auth.ts
 const API_BASE_URL = 'https://wedev-api.sky.pro/api/fitness';
 
+// Экспортируем AuthError
 export class AuthError extends Error {
   constructor(message: string) {
     super(message);
@@ -12,7 +14,40 @@ interface User {
   selectedCourses: string[];
 }
 
-// Сохранение токена
+interface LoginResponse {
+  token: string;
+}
+
+interface RegisterResponse {
+  message: string;
+}
+
+interface ApiError {
+  message: string;
+}
+
+// Проверка валидности токена (упрощенная проверка)
+const isTokenValid = (token: string): boolean => {
+  if (!token) return false;
+
+  try {
+    // Простая проверка структуры JWT
+    const parts = token.split('.');
+    if (parts.length !== 3) return false;
+
+    // Проверяем срок действия (если есть в payload)
+    const payload = JSON.parse(atob(parts[1]));
+    if (payload.exp && payload.exp < Date.now() / 1000) {
+      return false;
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+// Сохранение токена в localStorage
 export const saveToken = (token: string): void => {
   if (typeof window !== 'undefined') {
     localStorage.setItem('auth_token', token);
@@ -20,7 +55,7 @@ export const saveToken = (token: string): void => {
   }
 };
 
-// Получение токена
+// Получение токена из localStorage
 export const getToken = (): string | null => {
   if (typeof window !== 'undefined') {
     return localStorage.getItem('auth_token');
@@ -28,22 +63,22 @@ export const getToken = (): string | null => {
   return null;
 };
 
-// Удаление токена
+// Удаление токена (выход)
 export const removeToken = (): void => {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('auth_token');
-    localStorage.removeItem('current_user');
     localStorage.removeItem('token_timestamp');
+    localStorage.removeItem('current_user');
   }
 };
 
-// Проверка авторизации
+// Проверка авторизации пользователя
 export const isAuthenticated = (): boolean => {
   const token = getToken();
-  return !!token && token.length > 10;
+  return !!token && isTokenValid(token);
 };
 
-// Получение данных пользователя
+// Получение данных текущего пользователя
 export const getCurrentUser = (): User | null => {
   if (typeof window !== 'undefined') {
     const userData = localStorage.getItem('current_user');
@@ -65,151 +100,94 @@ const saveCurrentUser = (user: User): void => {
   }
 };
 
-// Регистрация пользователя - УПРОЩЕННАЯ ВЕРСИЯ
+// Регистрация пользователя - БЕЗ ЗАГОЛОВКОВ
 export const register = async (
   email: string,
   password: string
-): Promise<{ message: string }> => {
-  console.log('Register attempt:', { email, password });
-
-  // Проверяем пароль по требованиям API
-  if (password.length < 6) {
-    throw new AuthError('Пароль должен содержать не менее 6 символов');
-  }
-
-  if (!/[A-ZА-Я]/.test(password)) {
-    throw new AuthError(
-      'Пароль должен содержать как минимум одну заглавную букву'
-    );
-  }
-
-  const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-  const specialCharMatches = password.match(specialChars) || [];
-  if (specialCharMatches.length < 2) {
-    throw new AuthError(
-      'Пароль должен содержать не менее 2 специальных символов'
-    );
-  }
-
+): Promise<RegisterResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+      // БЕЗ ЗАГОЛОВКОВ - только метод и тело
+      body: JSON.stringify({ email, password }),
     });
 
-    console.log('Register response status:', response.status);
-
-    // Если статус не 200, пытаемся прочитать текст
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.log('Register error text:', errorText);
-
-      // Пытаемся распарсить как JSON
-      try {
-        const errorJson = JSON.parse(errorText);
-        throw new AuthError(errorJson.message || errorText);
-      } catch {
-        throw new AuthError(errorText || `Ошибка ${response.status}`);
-      }
-    }
-
+    // Сначала получаем текст ответа
     const responseText = await response.text();
-    console.log('Register success text:', responseText);
 
+    // Пытаемся распарсить JSON
+    let data: RegisterResponse | ApiError;
     try {
-      const data = JSON.parse(responseText);
-      return data;
+      data = JSON.parse(responseText);
     } catch {
-      return { message: responseText };
+      // Если не JSON, создаем сообщение об ошибке
+      throw new AuthError(`Ошибка сервера: ${response.status}`);
     }
-  } catch (error: any) {
-    console.error('Register fetch error:', error);
 
+    if (!response.ok) {
+      throw new AuthError((data as ApiError).message);
+    }
+
+    // Возвращаем успешный ответ
+    return data as RegisterResponse;
+  } catch (error) {
     if (error instanceof AuthError) {
       throw error;
     }
-
-    if (error.message?.includes('Failed to fetch')) {
-      throw new AuthError('Ошибка сети. Проверьте подключение к интернету.');
-    }
-
-    throw new AuthError(error.message || 'Ошибка при регистрации');
+    // Любую другую ошибку преобразуем в AuthError
+    throw new AuthError(
+      error instanceof Error
+        ? error.message
+        : 'Неизвестная ошибка при регистрации'
+    );
   }
 };
 
-// Авторизация пользователя - УПРОЩЕННАЯ ВЕРСИЯ
+// Авторизация пользователя - БЕЗ ЗАГОЛОВКОВ
 export const login = async (email: string, password: string): Promise<void> => {
-  console.log('Login attempt:', { email, password });
-
   try {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+      // БЕЗ ЗАГОЛОВКОВ - только метод и тело
+      body: JSON.stringify({ email, password }),
     });
 
-    console.log('Login response status:', response.status);
-
-    // Если статус не 200, пытаемся прочитать текст
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.log('Login error text:', errorText);
-
-      // Пытаемся распарсить как JSON
-      try {
-        const errorJson = JSON.parse(errorText);
-        throw new AuthError(errorJson.message || errorText);
-      } catch {
-        throw new AuthError(errorText || `Ошибка ${response.status}`);
-      }
-    }
-
+    // Сначала получаем текст ответа
     const responseText = await response.text();
-    console.log('Login success text:', responseText);
 
-    let token;
+    // Пытаемся распарсить JSON
+    let data: LoginResponse | ApiError;
     try {
-      const data = JSON.parse(responseText);
-      token = data.token;
+      data = JSON.parse(responseText);
     } catch {
-      // Если не JSON, возможно токен пришел как чистый текст
-      token = responseText;
+      // Если не JSON, создаем сообщение об ошибке
+      throw new AuthError(`Ошибка сервера: ${response.status}`);
     }
 
-    if (!token) {
-      throw new AuthError('Токен не получен от сервера');
+    if (!response.ok) {
+      throw new AuthError((data as ApiError).message);
     }
 
+    // Сохраняем токен
+    const { token } = data as LoginResponse;
     saveToken(token);
 
-    // Пытаемся получить данные пользователя
-    try {
-      await fetchUserData();
-    } catch (userError) {
-      console.warn('Failed to fetch user data after login:', userError);
-      // Но все равно считаем авторизацию успешной, если есть токен
-    }
-  } catch (error: any) {
-    console.error('Login fetch error:', error);
-
+    // Получаем данные пользователя
+    await fetchUserData();
+  } catch (error) {
     if (error instanceof AuthError) {
       throw error;
     }
-
-    if (error.message?.includes('Failed to fetch')) {
-      throw new AuthError('Ошибка сети. Проверьте подключение к интернету.');
-    }
-
-    throw new AuthError(error.message || 'Ошибка при авторизации');
+    // Любую другую ошибку преобразуем в AuthError
+    throw new AuthError(
+      error instanceof Error
+        ? error.message
+        : 'Неизвестная ошибка при авторизации'
+    );
   }
 };
 
-// Получение данных пользователя
+// Получение данных пользователя - БЕЗ ЗАГОЛОВКОВ кроме Authorization
 export const fetchUserData = async (): Promise<User> => {
   const token = getToken();
 
@@ -217,29 +195,47 @@ export const fetchUserData = async (): Promise<User> => {
     throw new AuthError('Пользователь не авторизован');
   }
 
-  const response = await fetch(`${API_BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/me`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new AuthError(errorText || 'Ошибка получения данных пользователя');
+    // Сначала получаем текст ответа
+    const responseText = await response.text();
+
+    // Пытаемся распарсить JSON
+    let data: User | ApiError;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      // Если не JSON, создаем сообщение об ошибке
+      throw new AuthError(`Ошибка сервера: ${response.status}`);
+    }
+
+    if (!response.ok) {
+      throw new AuthError((data as ApiError).message);
+    }
+
+    const user = data as User;
+    saveCurrentUser(user);
+    return user;
+  } catch (error) {
+    if (error instanceof AuthError) {
+      throw error;
+    }
+    throw new AuthError('Ошибка при получении данных пользователя');
   }
-
-  const data = await response.json();
-  saveCurrentUser(data);
-  return data;
 };
 
-// Выход
+// Выход из системы
 export const logout = (): void => {
   removeToken();
 };
 
-// Проверка авторизации при старте
+// Проверка авторизации при старте приложения
 export const checkAuthOnStart = async (): Promise<{
   isAuthenticated: boolean;
   user: User | null;
@@ -248,8 +244,7 @@ export const checkAuthOnStart = async (): Promise<{
     try {
       const user = await fetchUserData();
       return { isAuthenticated: true, user };
-    } catch (error) {
-      console.error('Auth check failed:', error);
+    } catch {
       removeToken();
       return { isAuthenticated: false, user: null };
     }

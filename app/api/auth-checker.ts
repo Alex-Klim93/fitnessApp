@@ -1,3 +1,4 @@
+// app/api/auth-checker.ts
 import { checkAuthOnStart as checkAuth } from './auth';
 
 // Re-export для удобства
