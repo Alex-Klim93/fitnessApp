@@ -7,58 +7,61 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { logout as authLogout, isAuthenticated } from '@/app/api/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '@/app/store/store';
-import { loadUserData } from '@/app/store/slices/authSlice';
-import MyСourses from '@/app/components/MyCourses/MyСourses';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/app/store/store';
+import { loadUserProfile } from '@/app/store/slices/authSlice'; // Используем новое имя
+import dynamic from 'next/dynamic';
+import { useGetCurrentUserQuery } from '@/app/api/userApi';
+
+// Ленивая загрузка тяжелого компонента
+const MyСourses = dynamic(
+  () => import('@/app/components/MyCourses/MyСourses'),
+  {
+    loading: () => <div>Загрузка курсов...</div>,
+  }
+);
 
 export default function ProfilePage() {
   const [userLogin, setUserLogin] = useState<string>('');
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
-  // Получаем данные из Redux
-  const { user, loading } = useSelector((state: RootState) => state.auth);
+  const { data: userData, isLoading } = useGetCurrentUserQuery(undefined, {
+    skip: !isAuthenticated(),
+  });
 
   useEffect(() => {
-    console.log('ProfilePage: user из Redux:', user);
-    console.log('ProfilePage: selectedCourses:', user?.selectedCourses);
-    console.log(
-      'ProfilePage: количество курсов:',
-      user?.selectedCourses?.length || 0
-    );
-  }, [user]);
-
-  useEffect(() => {
-    const checkAuthAndLoadData = async () => {
-      const isAuth = isAuthenticated();
-
-      if (!isAuth) {
+    const checkAuth = async () => {
+      if (!isAuthenticated()) {
         console.log('Пользователь не авторизован, перенаправляем на SignIn');
         router.push('/page/SignIn');
         return;
       }
 
       // Загружаем данные пользователя через Redux
-      dispatch(loadUserData());
+      dispatch(loadUserProfile()); // Используем новое имя
     };
 
-    checkAuthAndLoadData();
+    checkAuth();
   }, [router, dispatch]);
 
   useEffect(() => {
-    if (user?.email) {
-      const login = user.email.split('@')[0];
+    if (userData?.user?.email) {
+      const login = userData.user.email.split('@')[0];
+      setUserLogin(login);
+    } else if (userData?.email) {
+      // Альтернативная структура данных
+      const login = userData.email.split('@')[0];
       setUserLogin(login);
     }
-  }, [user]);
+  }, [userData]);
 
   const handleLogout = () => {
     authLogout();
     router.push('/');
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div style={{ padding: '40px', textAlign: 'center' }}>
         <div>Загрузка профиля...</div>
@@ -66,7 +69,7 @@ export default function ProfilePage() {
     );
   }
 
-  if (!user) {
+  if (!userData) {
     return (
       <div style={{ padding: '40px', textAlign: 'center' }}>
         <div>Пользователь не найден</div>

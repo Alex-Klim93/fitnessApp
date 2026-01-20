@@ -1,7 +1,13 @@
 // app/api/errors.ts
 
+interface ApiErrorResponse {
+  message?: string;
+}
+
 // Функция для получения понятного сообщения об ошибке из API
-export const getErrorMessage = (error: any): string => {
+export const getErrorMessage = (
+  error: Error | string | ApiErrorResponse | null
+): string => {
   if (!error) return 'Произошла неизвестная ошибка';
 
   // Если это строка, возвращаем её
@@ -30,7 +36,7 @@ export const getErrorMessage = (error: any): string => {
   }
 
   // Если это объект с полем message
-  if (error.message && typeof error.message === 'string') {
+  if ('message' in error && typeof error.message === 'string') {
     return error.message;
   }
 

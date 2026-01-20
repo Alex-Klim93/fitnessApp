@@ -1,10 +1,10 @@
-// app/components/PopUp/LessonMaterials/LessonMaterials.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './LessonMaterials.module.css';
-import { getCourseWorkouts, getUserProgress } from '@/app/api/simple-api';
+import { useGetCourseWorkoutsQuery } from '@/app/api/coursesApi';
+import { useGetUserProgressQuery } from '@/app/api/progressApi';
 
 interface LessonMaterialsProps {
   isOpen: boolean;
@@ -26,6 +26,12 @@ interface WorkoutProgress {
   progressData: number[];
 }
 
+interface CourseProgress {
+  courseId: string;
+  courseCompleted: boolean;
+  workoutsProgress: WorkoutProgress[];
+}
+
 export default function LessonMaterials({
   isOpen,
   onClose,
@@ -36,15 +42,30 @@ export default function LessonMaterials({
 }: LessonMaterialsProps) {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [workoutProgress, setWorkoutProgress] = useState<WorkoutProgress[]>([]);
-  const [loading, setLoading] = useState(false);
   const [selectedWorkouts, setSelectedWorkouts] = useState<string[]>([]);
   const router = useRouter();
 
+  // RTK Query запросы
+  const { data: workoutsData, isLoading: workoutsLoading } =
+    useGetCourseWorkoutsQuery(courseId, {
+      skip: !courseId || !isOpen,
+    });
+
+  const { data: progressData } = useGetUserProgressQuery(
+    { courseId },
+    { skip: !courseId || !isOpen }
+  );
+
+  // Обновление состояния при получении данных
   useEffect(() => {
-    if (isOpen && courseId) {
-      loadWorkoutsAndProgress();
+    if (workoutsData) {
+      setWorkouts(workoutsData);
     }
-  }, [isOpen, courseId]);
+
+    if (progressData?.workoutsProgress) {
+      setWorkoutProgress(progressData.workoutsProgress);
+    }
+  }, [workoutsData, progressData]);
 
   useEffect(() => {
     if (isOpen) {
@@ -54,32 +75,6 @@ export default function LessonMaterials({
       document.body.style.overflow = 'auto';
     };
   }, [isOpen]);
-
-  const loadWorkoutsAndProgress = async () => {
-    try {
-      setLoading(true);
-      setSelectedWorkouts([]);
-
-      const workoutsData = await getCourseWorkouts(courseId);
-      setWorkouts(workoutsData);
-
-      try {
-        const progressResponse = await getUserProgress(courseId);
-        if (progressResponse?.workoutsProgress) {
-          setWorkoutProgress(progressResponse.workoutsProgress);
-        }
-      } catch (progressError) {
-        console.log(
-          'Прогресс не найден или пользователь не авторизован:',
-          progressError
-        );
-      }
-    } catch (err) {
-      console.error('Ошибка загрузки тренировок:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const isWorkoutCompleted = (workoutId: string): boolean => {
     const progress = workoutProgress.find((wp) => wp.workoutId === workoutId);
@@ -143,7 +138,7 @@ export default function LessonMaterials({
 
         <div className={styles.workout__box}>
           <div className={styles.workout__list}>
-            {loading ? (
+            {workoutsLoading ? (
               <div className={styles.loading}>Загрузка тренировок...</div>
             ) : workouts.length === 0 ? (
               <div className={styles.empty}>Тренировки не найдены</div>

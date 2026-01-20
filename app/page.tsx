@@ -7,8 +7,7 @@ import styles from './page.module.css';
 import Subtitle from './components/Subtitle/Subtitle';
 import MainTitle from './components/MainTitle/MainTitle';
 import Сourses from './components/Сourses/Сourses';
-import ButUp from './components/ButUp/ButUp';
-import TestNav from '@/app/components/TestNav/TestNav';
+import ButUp from './components/ButUp/ButUp'
 // УДАЛИТЬ ЭТУ СТРОКУ: import { initializeUser } from '@/app/api/auth';
 
 export default function Home() {

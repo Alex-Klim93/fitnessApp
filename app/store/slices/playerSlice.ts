@@ -19,6 +19,12 @@ const initialState: PlaybackState = {
   playbackRate: 1.0,
 };
 
+interface UpdateWorkoutProgressParams {
+  courseId: string;
+  workoutId: string;
+  progressData: number[];
+}
+
 // Обновление прогресса тренировки
 export const updateWorkoutProgress = createAsyncThunk(
   'player/updateProgress',
@@ -26,16 +32,15 @@ export const updateWorkoutProgress = createAsyncThunk(
     courseId,
     workoutId,
     progressData,
-  }: {
-    courseId: string;
-    workoutId: string;
-    progressData: number[];
-  }) => {
+  }: UpdateWorkoutProgressParams) => {
     try {
       await saveWorkoutProgress(courseId, workoutId, progressData);
       return { workoutId, progressData };
-    } catch (error: any) {
-      throw new Error(getErrorMessage(error));
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(getErrorMessage(error));
+      }
+      throw new Error('Неизвестная ошибка при сохранении прогресса');
     }
   }
 );

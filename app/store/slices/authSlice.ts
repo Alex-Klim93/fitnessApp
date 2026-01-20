@@ -1,10 +1,8 @@
 // app/store/slices/authSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getCurrentUser } from '@/app/api/simple-api';
 import { login as apiLogin, logout as apiLogout } from '@/app/api/auth';
 import { getErrorMessage } from '@/app/api/errors';
 
-// Интерфейс пользователя
 export interface User {
   _id: string;
   email: string;
@@ -25,46 +23,43 @@ const initialState: AuthState = {
   error: null,
 };
 
-// Функция для загрузки данных пользователя с сервера
-export const loadUserData = createAsyncThunk('auth/loadUserData', async () => {
-  console.log('loadUserData: Начинаю загрузку данных пользователя...');
-
-  if (typeof window === 'undefined') {
-    console.log('loadUserData: window не определен');
-    return null;
-  }
-
-  try {
-    console.log('loadUserData: Отправляю запрос к API...');
-
-    const userData = await getCurrentUser();
-    console.log('loadUserData: Данные получены:', userData);
-
-    // Гарантируем, что selectedCourses - массив
-    const user: User = {
-      _id: userData._id,
-      email: userData.email || '',
-      selectedCourses: Array.isArray(userData.selectedCourses)
-        ? userData.selectedCourses
-        : [],
-    };
-
-    console.log('loadUserData: Возвращаю пользователя:', user);
-    return user;
-  } catch (error: any) {
-    console.error('Ошибка загрузки данных пользователя:', error);
-
-    // Если ошибка 401 - токен невалидный, удаляем его
-    if (error.message?.includes('401')) {
-      console.log('loadUserData: Токен невалидный (401), удаляю...');
-      localStorage.removeItem('auth_token');
-      localStorage.removeItem('user_email');
-      localStorage.removeItem('user_login');
+// Удаляем старую функцию loadUserData и заменяем её на loadUserProfile
+export const loadUserProfile = createAsyncThunk(
+  'auth/loadUserProfile',
+  async (_, { rejectWithValue }) => {
+    if (typeof window === 'undefined') {
+      return null;
     }
 
-    return null;
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      return null;
+    }
+
+    try {
+      // Данные теперь загружаются через RTK Query в компонентах
+      // Эта функция используется только для установки состояния в Redux
+      const userFromLocalStorage = localStorage.getItem('user_email');
+      if (userFromLocalStorage) {
+        const coursesFromStorage = localStorage.getItem('user_courses');
+        return {
+          _id: 'temp-id', // Временный ID, будет заменен RTK Query
+          email: userFromLocalStorage,
+          selectedCourses: coursesFromStorage
+            ? JSON.parse(coursesFromStorage)
+            : [],
+        };
+      }
+      return null;
+    } catch (error) {
+      console.error('Ошибка загрузки данных пользователя:', error);
+      if (error instanceof Error) {
+        return rejectWithValue(getErrorMessage(error));
+      }
+      return rejectWithValue('Неизвестная ошибка загрузки данных пользователя');
+    }
   }
-});
+);
 
 // Вход
 export const login = createAsyncThunk(
@@ -73,26 +68,22 @@ export const login = createAsyncThunk(
     { email, password }: { email: string; password: string },
     { dispatch }
   ) => {
-    console.log('login: Начинаю вход для', email);
-
     try {
       await apiLogin(email, password);
-      console.log('login: Успешный вход');
-
-      // После успешного входа загружаем данные пользователя
-      await dispatch(loadUserData());
-
+      // Загружаем профиль после успешного входа
+      await dispatch(loadUserProfile());
       return { email };
-    } catch (error: any) {
-      console.error('login: Ошибка входа:', error);
-      throw new Error(getErrorMessage(error));
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(getErrorMessage(error));
+      }
+      throw new Error('Неизвестная ошибка входа');
     }
   }
 );
 
 // Выход
 export const logout = createAsyncThunk('auth/logout', async () => {
-  console.log('logout: Выход из системы');
   apiLogout();
   return null;
 });
@@ -104,6 +95,11 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
       state.isAuthenticated = true;
+    },
+    updateUser: (state, action: PayloadAction<Partial<User>>) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
     },
     updateUserCourses: (state, action: PayloadAction<string[]>) => {
       if (state.user) {
@@ -130,22 +126,19 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // loadUserData
-      .addCase(loadUserData.pending, (state) => {
-        console.log('Redux: loadUserData.pending');
+      // loadUserProfile
+      .addCase(loadUserProfile.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(loadUserData.fulfilled, (state, action) => {
-        console.log('Redux: loadUserData.fulfilled', action.payload);
+      .addCase(loadUserProfile.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
         state.isAuthenticated = !!action.payload;
       })
-      .addCase(loadUserData.rejected, (state, action) => {
-        console.log('Redux: loadUserData.rejected', action.error);
+      .addCase(loadUserProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Ошибка загрузки данных';
+        state.error = (action.payload as string) || 'Ошибка загрузки профиля';
       })
       // login
       .addCase(login.pending, (state) => {
@@ -155,7 +148,6 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state) => {
         state.loading = false;
         state.error = null;
-        // Данные пользователя уже загружены через loadUserData
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -172,6 +164,7 @@ const authSlice = createSlice({
 
 export const {
   setUser,
+  updateUser,
   updateUserCourses,
   addUserCourse,
   removeUserCourse,

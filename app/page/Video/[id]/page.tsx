@@ -1,19 +1,35 @@
-// app/page/video/[id]/page.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import styles from './page.module.css';
 import Link from 'next/link';
-import VideoPlayer from '@/app/components/VideoPlayer/VideoPlayer';
+import dynamic from 'next/dynamic';
 import { useSearchParams, useRouter } from 'next/navigation';
-import {
-  getCourseById,
-  getWorkoutById,
-  getUserProgress,
-  getCourseWorkouts,
-} from '@/app/api/simple-api';
 import { isAuthenticated } from '@/app/api/auth';
-import ProgressPopup from '@/app/components/PopUp/ProgressPopup/ProgressPopup';
+import {
+  useGetCourseByIdQuery,
+  useGetCourseWorkoutsQuery,
+} from '@/app/api/coursesApi';
+import { useGetUserProgressQuery } from '@/app/api/progressApi';
+import { useGetWorkoutByIdQuery } from '@/app/api/workoutsApi';
+
+// Ленивая загрузка тяжелых компонентов
+const VideoPlayer = dynamic(
+  () => import('@/app/components/VideoPlayer/VideoPlayer'),
+  {
+    loading: () => (
+      <div className={styles.videoLoading}>Загрузка плеера...</div>
+    ),
+    ssr: false,
+  }
+);
+
+const ProgressPopup = dynamic(
+  () => import('@/app/components/PopUp/ProgressPopup/ProgressPopup'),
+  {
+    loading: () => <div>Загрузка формы...</div>,
+  }
+);
 
 interface Exercise {
   _id: string;
@@ -28,9 +44,10 @@ interface Workout {
   exercises: Exercise[];
 }
 
-interface CourseWorkout {
+interface Course {
   _id: string;
-  name: string;
+  nameEN: string;
+  nameRU: string;
 }
 
 interface WorkoutProgress {
@@ -39,10 +56,10 @@ interface WorkoutProgress {
   progressData: number[];
 }
 
-interface Course {
-  _id: string;
-  nameEN: string;
-  nameRU: string;
+interface CourseProgress {
+  courseId: string;
+  courseCompleted: boolean;
+  workoutsProgress: WorkoutProgress[];
 }
 
 export default function VideoPage({
@@ -52,7 +69,6 @@ export default function VideoPage({
 }) {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [course, setCourse] = useState<Course | null>(null);
-  const [courseWorkouts, setCourseWorkouts] = useState<CourseWorkout[]>([]);
   const [workoutsProgress, setWorkoutsProgress] = useState<
     Record<string, WorkoutProgress>
   >({});
@@ -70,99 +86,119 @@ export default function VideoPage({
   const courseId = searchParams?.get('courseId') || '';
   const workoutIdsParam = searchParams?.get('workoutIds') || '';
 
+  // Получаем параметры асинхронно
   useEffect(() => {
-    const getWorkoutId = async () => {
+    const getParamsData = async () => {
       const { id } = await params;
       setWorkoutId(id);
 
-      // Парсим workoutIds из параметров
       if (workoutIdsParam) {
         const ids = decodeURIComponent(workoutIdsParam).split(',');
         setSelectedWorkoutIds(ids);
       }
     };
-    getWorkoutId();
+
+    getParamsData();
   }, [params, workoutIdsParam]);
 
+  // RTK Query запросы
+  const { data: currentWorkout, isLoading: workoutLoading } =
+    useGetWorkoutByIdQuery(workoutId, {
+      skip: !workoutId,
+    });
+
+  const { data: courseData, isLoading: courseLoading } = useGetCourseByIdQuery(
+    courseId,
+    {
+      skip: !courseId,
+    }
+  );
+
+  const { data: progressData } = useGetUserProgressQuery(
+    { courseId },
+    { skip: !courseId || !isAuthenticated() }
+  );
+
+  const { data: allWorkoutsData } = useGetCourseWorkoutsQuery(courseId, {
+    skip: !courseId,
+  });
+
+  // Загружаем все выбранные тренировки
   useEffect(() => {
-    const loadAllData = async () => {
+    const loadSelectedWorkouts = async () => {
+      if (!allWorkoutsData || selectedWorkoutIds.length === 0) return;
+
       try {
-        setLoading(true);
-        setError(null);
-
-        if (!workoutId) return;
-
-        if (!courseId) {
-          throw new Error(
-            'ID курса не указан. Пожалуйста, перейдите из раздела "Мои курсы"'
-          );
-        }
-
-        // Загружаем курс
-        const courseData = await getCourseById(courseId);
-        setCourse(courseData);
-
-        // Определяем какие тренировки загружать
-        let workoutIdsToLoad: string[] = [];
-
-        if (selectedWorkoutIds.length > 0) {
-          // Загружаем все выбранные тренировки
-          workoutIdsToLoad = selectedWorkoutIds;
-        } else {
-          // Если не выбраны, загружаем только текущую тренировку
-          workoutIdsToLoad = [workoutId];
-        }
-
-        // Загружаем все тренировки параллельно
-        const workoutPromises = workoutIdsToLoad.map((id) =>
-          getWorkoutById(id)
+        const selectedWorkouts = allWorkoutsData.filter((workout: Workout) =>
+          selectedWorkoutIds.includes(workout._id)
         );
-        const workoutsData = await Promise.all(workoutPromises);
-        setWorkouts(workoutsData);
-
-        // Загружаем список всех тренировок курса
-        try {
-          const allWorkouts = await getCourseWorkouts(courseId);
-          setCourseWorkouts(allWorkouts);
-        } catch (err) {
-          console.error('Ошибка загрузки тренировок курса:', err);
-        }
-
-        // Загружаем прогресс для авторизованных пользователей
-        if (isAuthenticated() && courseId) {
-          try {
-            const progressResponse = await getUserProgress(courseId);
-
-            if (progressResponse?.workoutsProgress) {
-              const progressMap: Record<string, WorkoutProgress> = {};
-              progressResponse.workoutsProgress.forEach(
-                (wp: WorkoutProgress) => {
-                  progressMap[wp.workoutId] = wp;
-                }
-              );
-              setWorkoutsProgress(progressMap);
-            }
-          } catch (progressError) {
-            console.log('Прогресс не найден или ошибка:', progressError);
-          }
-        }
-      } catch (err: any) {
-        console.error('Ошибка загрузки данных:', err);
-        setError(err.message || 'Ошибка при загрузке данных тренировки');
-      } finally {
-        setLoading(false);
+        setWorkouts(selectedWorkouts);
+      } catch (error) {
+        console.error('Ошибка фильтрации тренировок:', error);
       }
     };
 
-    if (workoutId && courseId) {
-      loadAllData();
-    } else if (workoutId && !courseId) {
-      setLoading(false);
+    loadSelectedWorkouts();
+  }, [allWorkoutsData, selectedWorkoutIds]);
+
+  // Обновление состояния при получении данных
+  useEffect(() => {
+    if (courseData) {
+      setCourse(courseData);
+    }
+
+    if (progressData?.workoutsProgress) {
+      const progressMap: Record<string, WorkoutProgress> = {};
+      progressData.workoutsProgress.forEach((wp: WorkoutProgress) => {
+        progressMap[wp.workoutId] = wp;
+      });
+      setWorkoutsProgress(progressMap);
+    }
+
+    // Если выбраны тренировки из попапа, используем их
+    if (selectedWorkoutIds.length > 0 && allWorkoutsData) {
+      // Проверяем загрузку всех данных
+      if (courseData && !courseLoading && !workoutLoading) {
+        setLoading(false);
+      }
+    } else {
+      // Если тренировка только одна (старый путь)
+      if (currentWorkout && courseData) {
+        setWorkouts([currentWorkout]);
+        if (!courseLoading && !workoutLoading) {
+          setLoading(false);
+        }
+      }
+    }
+
+    // Проверка на ошибки
+    if (!courseLoading && !workoutLoading && courseId && workoutId) {
+      if (!courseData && !currentWorkout) {
+        setError('Не удалось загрузить данные тренировки');
+        setLoading(false);
+      }
+    }
+  }, [
+    currentWorkout,
+    courseData,
+    progressData,
+    allWorkoutsData,
+    courseLoading,
+    workoutLoading,
+    courseId,
+    workoutId,
+    selectedWorkoutIds,
+  ]);
+
+  // Если нет courseId, показываем ошибку
+  useEffect(() => {
+    if (workoutId && !courseId && !loading) {
       setError(
         'ID курса не указан. Пожалуйста, перейдите из раздела "Мои курсы"'
       );
+      setLoading(false);
     }
-  }, [workoutId, courseId, selectedWorkoutIds]);
+  }, [workoutId, courseId, loading]);
 
   const handleOpenProgressPopup = (workoutId: string) => {
     setSelectedWorkoutForPopup(workoutId);
@@ -276,12 +312,25 @@ export default function VideoPage({
     <div>
       <div className={styles.title}>
         <h1 className={styles.video__title}>{course.nameRU}</h1>
+        {selectedWorkoutIds.length > 0 && (
+          <p className={styles.workoutCount}>
+            Просмотр {selectedWorkoutIds.length} тренировок
+          </p>
+        )}
       </div>
       {workouts.map((workout, index) => {
         const totalProgress = calculateTotalProgressForWorkout(workout._id);
 
         return (
           <div key={workout._id} className={styles.video}>
+            <div className={styles.video__header}>
+              <h3 className={styles.workoutTitle}>{workout.name}</h3>
+              {totalProgress > 0 && (
+                <span className={styles.workoutProgress}>
+                  Прогресс: {totalProgress}%
+                </span>
+              )}
+            </div>
             <div className={styles.video__player}>
               <VideoPlayer videoUrl={workout.video} />
             </div>

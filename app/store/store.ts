@@ -2,21 +2,20 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import authReducer from './slices/authSlice';
-import coursesReducer from './slices/coursesSlice';
 import playerReducer from './slices/playerSlice';
 import videoPlayerReducer from './slices/videoPlayerSlice';
 import { logger } from './middleware/logger';
+import { apiSlice } from '../api/apiSlice';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-// Проверяем, инициализировано ли уже хранилище на клиенте
 let storeInstance: ReturnType<typeof makeStore> | null = null;
 
 const makeStore = () => {
   return configureStore({
     reducer: {
+      [apiSlice.reducerPath]: apiSlice.reducer,
       auth: authReducer,
-      courses: coursesReducer,
       player: playerReducer,
       videoPlayer: videoPlayerReducer,
     },
@@ -29,16 +28,14 @@ const makeStore = () => {
         immutableCheck: {
           warnAfter: 100,
         },
-      });
+      }).concat(apiSlice.middleware);
 
-      // Добавляем logger только в development
       if (isDevelopment) {
         return middleware.concat(logger);
       }
 
       return middleware;
     },
-    // Упрощаем конфигурацию DevTools - убираем дублирование
     devTools: isDevelopment
       ? {
           name: 'Fitness App',
@@ -50,12 +47,10 @@ const makeStore = () => {
 };
 
 export const initializeStore = () => {
-  // Для серверного рендеринга всегда создаем новое хранилище
   if (typeof window === 'undefined') {
     return makeStore();
   }
 
-  // Для клиента используем синглтон
   if (!storeInstance) {
     storeInstance = makeStore();
     setupListeners(storeInstance.dispatch);
@@ -70,7 +65,6 @@ export type AppStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<AppStore['getState']>;
 export type AppDispatch = AppStore['dispatch'];
 
-// Экспортируем синглтон для использования в компонентах
 export const getStore = () => {
   if (!storeInstance) {
     throw new Error('Store not initialized. Call initializeStore() first.');

@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import styles from './ProgressPopup.module.css';
 import { saveWorkoutProgress } from '@/app/api/simple-api';
+import Performance from '../Performance/Performance'; // Исправьте путь если нужно
 
 interface ProgressPopupProps {
   isOpen: boolean;
@@ -25,6 +26,9 @@ interface ProgressPopupProps {
 export default function ProgressPopup({
   isOpen,
   onClose,
+  userEmail,
+  loginName,
+  onLogout,
   courseId,
   workoutId,
   exercises,
@@ -33,6 +37,7 @@ export default function ProgressPopup({
 }: ProgressPopupProps) {
   const [progressData, setProgressData] = useState<number[]>(currentProgress);
   const [saving, setSaving] = useState(false);
+  const [showPerformancePopup, setShowPerformancePopup] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -44,6 +49,17 @@ export default function ProgressPopup({
     };
   }, [isOpen, currentProgress]);
 
+  // Эффект для автоматического закрытия Performance попапа через несколько секунд
+  useEffect(() => {
+    if (showPerformancePopup) {
+      const timer = setTimeout(() => {
+        setShowPerformancePopup(false);
+      }, 3000); // Закрыть через 3 секунды
+
+      return () => clearTimeout(timer);
+    }
+  }, [showPerformancePopup]);
+
   const handleProgressChange = (index: number, value: number) => {
     const newProgress = [...progressData];
     const maxQuantity = exercises[index]?.quantity || 0;
@@ -53,20 +69,34 @@ export default function ProgressPopup({
 
   const saveProgress = async () => {
     if (!courseId || !workoutId) {
-      alert('Отсутствует ID курса или тренировки');
+      console.error('Отсутствует ID курса или тренировки');
       return;
     }
 
     setSaving(true);
 
     try {
+      // Проверяем что ID корректны
+      console.log('Сохранение прогресса:', {
+        courseId,
+        workoutId,
+        progressData,
+      });
+
       await saveWorkoutProgress(courseId, workoutId, progressData);
       onProgressSaved(progressData);
-      alert('Прогресс успешно сохранен!');
-      onClose();
+
+      // Показываем Performance попап
+      setShowPerformancePopup(true);
+
+      // Закрываем попап прогресса через 1 секунду
+      setTimeout(() => {
+        onClose();
+      }, 1000);
     } catch (err: any) {
       console.error('Ошибка сохранения прогресса:', err);
-      alert(err.message || 'Ошибка при сохранении прогресса');
+      // Можно добавить здесь логику для показа ошибки пользователю
+      // но без alert как требовалось
     } finally {
       setSaving(false);
     }
@@ -81,43 +111,56 @@ export default function ProgressPopup({
   };
 
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.popup}>
-        <p className={styles.title}>Мой прогресс</p>
-        <div className={styles.progress__box}>
-          <div className={styles.progress__list}>
-            {exercises.map((exercise, index) => (
-              <div
-                key={exercise._id || index}
-                className={styles.progress__element}
+    <>
+      <div className={styles.overlay} onClick={handleOverlayClick}>
+        <div className={styles.popup}>
+          <p className={styles.title}>Мой прогресс</p>
+          <div className={styles.progress__box}>
+            <div className={styles.progress__list}>
+              {exercises.map((exercise, index) => (
+                <div
+                  key={exercise._id || index}
+                  className={styles.progress__element}
+                >
+                  <p className={styles.progress__description}>
+                    Сколько раз вы сделали {exercise.name}?
+                  </p>
+                  <input
+                    type="number"
+                    min="0"
+                    max={exercise.quantity}
+                    value={progressData[index] || 0}
+                    onChange={(e) =>
+                      handleProgressChange(index, parseInt(e.target.value) || 0)
+                    }
+                    className={styles.progress}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className={styles.progress__but}>
+              <button
+                onClick={saveProgress}
+                className={styles.saveButton}
+                disabled={saving}
               >
-                <p className={styles.progress__description}>
-                  Сколько раз вы сделали {exercise.name}?
-                </p>
-                <input
-                  type="number"
-                  min="0"
-                  max={exercise.quantity}
-                  value={progressData[index] || 0}
-                  onChange={(e) =>
-                    handleProgressChange(index, parseInt(e.target.value) || 0)
-                  }
-                  className={styles.progress}
-                />
-              </div>
-            ))}
-          </div>
-          <div className={styles.progress__but}>
-            <button
-              onClick={saveProgress}
-              className={styles.saveButton}
-              disabled={saving}
-            >
-              {saving ? 'Сохранение...' : 'Сохранить'}
-            </button>
+                {saving ? 'Сохранение...' : 'Сохранить'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Рендерим Performance попап когда нужно */}
+      {showPerformancePopup && (
+        <Performance
+          isOpen={showPerformancePopup}
+          onClose={() => setShowPerformancePopup(false)}
+          userEmail={userEmail}
+          loginName={loginName}
+          onLogout={onLogout}
+        />
+      )}
+    </>
   );
 }
