@@ -210,8 +210,8 @@ export default function LessonMaterials({
             disabled={selectedWorkouts.length === 0}
           >
             {selectedWorkouts.length === 1
-              ? 'Начать тренировку'
-              : `Начать ${selectedWorkouts.length} тренировок`}
+              ? 'Начать'
+              : `Начать`}
           </button>
         </div>
       </div>

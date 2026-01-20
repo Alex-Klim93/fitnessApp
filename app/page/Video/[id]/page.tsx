@@ -328,31 +328,19 @@ export default function VideoPage({
     <div>
       <div className={styles.title}>
         <h1 className={styles.video__title}>{course.nameRU}</h1>
-        {selectedWorkoutIds.length > 0 && (
-          <p className={styles.workoutCount}>
-            Просмотр {selectedWorkoutIds.length} тренировок
-          </p>
-        )}
       </div>
       {workouts.map((workout, index) => {
         const totalProgress = calculateTotalProgressForWorkout(workout._id);
 
         return (
           <div key={workout._id} className={styles.video}>
-            <div className={styles.video__header}>
-              <h3 className={styles.workoutTitle}>{workout.name}</h3>
-              {totalProgress > 0 && (
-                <span className={styles.workoutProgress}>
-                  Прогресс: {totalProgress}%
-                </span>
-              )}
-            </div>
+            <div className={styles.video__header}></div>
             <div className={styles.video__player}>
               <VideoPlayer videoUrl={workout.video} />
             </div>
             <div className={styles.video__exercises}>
               <h4 className={styles.exercises__title}>
-                Упражнения тренировки ({workout.exercises.length})
+                Упражнения тренировки {index + 1}
               </h4>
               <div className={styles.exercises__box}>
                 {workout.exercises.map((exercise, exIndex) => {
@@ -388,11 +376,11 @@ export default function VideoPage({
               >
                 {isAuthenticated() ? (
                   <div className={styles.exercises__link}>
-                    Заполнить свой прогресс для этой тренировки
+                    Обновить свой прогресс
                   </div>
                 ) : (
                   <Link href="/page/SignIn" className={styles.exercises__link}>
-                    Войдите, чтобы сохранить прогресс
+                    Обновить свой прогресс
                   </Link>
                 )}
               </div>
