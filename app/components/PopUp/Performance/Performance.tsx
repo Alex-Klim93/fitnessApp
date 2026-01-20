@@ -1,10 +1,8 @@
-// app/components/ProfilePopup/ProfilePopup.tsx
+// app/components/Performance/Performance.tsx
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
 import styles from './Performance.module.css';
-import { logout } from '@/app/api/auth';
 import Image from 'next/image';
 
 interface PerformanceProps {
@@ -12,7 +10,7 @@ interface PerformanceProps {
   onClose: () => void;
   userEmail: string;
   loginName: string;
-  onLogout?: () => void; // Опциональный callback для родительского компонента
+  onLogout?: () => void;
 }
 
 export default function Performance({
@@ -37,24 +35,6 @@ export default function Performance({
     if (e.target === e.currentTarget) {
       onClose();
     }
-  };
-
-  const handleLogoutClick = () => {
-    // Вызываем функцию выхода
-    logout();
-
-    // Вызываем callback если есть (для родительского компонента)
-    if (onLogout) {
-      onLogout();
-    }
-
-    // Закрываем попап
-    onClose();
-
-    // Принудительно перезагружаем страницу для обновления состояния
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
 
   return (

@@ -31,6 +31,13 @@ const ProgressPopup = dynamic(
   }
 );
 
+const Performance = dynamic(
+  () => import('@/app/components/PopUp/Performance/Performance'),
+  {
+    loading: () => <div>Загрузка...</div>,
+  }
+);
+
 interface Exercise {
   _id: string;
   name: string;
@@ -76,15 +83,16 @@ export default function VideoPage({
   const [error, setError] = useState<string | null>(null);
   const [workoutId, setWorkoutId] = useState<string>('');
   const [isProgressPopupOpen, setIsProgressPopupOpen] = useState(false);
+  const [isPerformanceOpen, setIsPerformanceOpen] = useState(false);
   const [selectedWorkoutForPopup, setSelectedWorkoutForPopup] =
     useState<string>('');
   const [currentProgressData, setCurrentProgressData] = useState<number[]>([]);
-  const [selectedWorkoutIds, setSelectedWorkoutIds] = useState<string[]>([]);
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const courseId = searchParams?.get('courseId') || '';
   const workoutIdsParam = searchParams?.get('workoutIds') || '';
+  const [selectedWorkoutIds, setSelectedWorkoutIds] = useState<string[]>([]);
 
   // Получаем параметры асинхронно
   useEffect(() => {
@@ -226,6 +234,14 @@ export default function VideoPage({
         progressData: newProgress,
       },
     }));
+  };
+
+  const handleOpenPerformance = () => {
+    setIsPerformanceOpen(true);
+  };
+
+  const handleClosePerformance = () => {
+    setIsPerformanceOpen(false);
   };
 
   const calculateExercisePercentage = (
@@ -385,6 +401,7 @@ export default function VideoPage({
         );
       })}
 
+      {/* ProgressPopup */}
       {selectedWorkoutForPopup && (
         <ProgressPopup
           isOpen={isProgressPopupOpen}
@@ -398,11 +415,21 @@ export default function VideoPage({
               ?.exercises || []
           }
           currentProgress={currentProgressData}
-          onProgressSaved={(newProgress) =>
-            handleProgressSaved(selectedWorkoutForPopup, newProgress)
-          }
+          onProgressSaved={(newProgress) => {
+            handleProgressSaved(selectedWorkoutForPopup, newProgress);
+            // После сохранения прогресса показываем Performance
+            handleOpenPerformance();
+          }}
         />
       )}
+
+      {/* Performance */}
+      <Performance
+        isOpen={isPerformanceOpen}
+        onClose={handleClosePerformance}
+        userEmail=""
+        loginName=""
+      />
     </div>
   );
 }

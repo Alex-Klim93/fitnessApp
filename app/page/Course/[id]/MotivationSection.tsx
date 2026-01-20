@@ -4,122 +4,67 @@
 import Image from 'next/image';
 import styles from './page.module.css';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import {
   useAddCourseToUserMutation,
   useRemoveCourseFromUserMutation,
+  useGetCurrentUserQuery,
 } from '@/app/api/userApi';
 import { useResetCourseProgressMutation } from '@/app/api/coursesApi';
-import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/app/api/auth';
-import { useState, useEffect, useCallback } from 'react';
-import { isCourseAddedByUser } from '@/app/utils/courseUtils';
 
 interface MotivationSectionProps {
   courseId: string;
   courseName: string;
-  userData: any;
 }
 
 export default function MotivationSection({
   courseId,
   courseName,
-  userData,
 }: MotivationSectionProps) {
   const router = useRouter();
-  const [addingCourse, setAddingCourse] = useState(false);
-  const [removingCourse, setRemovingCourse] = useState(false);
-  const [authState, setAuthState] = useState(false);
-  const [courseAdded, setCourseAdded] = useState(false);
-  const [loading, setLoading] = useState(true);
 
-  const [addCourse] = useAddCourseToUserMutation();
-  const [removeCourse] = useRemoveCourseFromUserMutation();
-  const [resetProgress] = useResetCourseProgressMutation();
+  // Проверяем авторизацию
+  const isAuthenticated =
+    typeof window !== 'undefined' && !!localStorage.getItem('auth_token');
 
-  // Функция проверки статуса курса
-  const checkCourseStatus = useCallback(async () => {
-    const auth = isAuthenticated();
-    setAuthState(auth);
+  // RTK Query хуки
+  const {
+    data: user,
+    isLoading: userLoading,
+    refetch,
+  } = useGetCurrentUserQuery(undefined, {
+    skip: !isAuthenticated,
+  });
 
-    if (auth) {
-      try {
-        // Используем утилиту для проверки курса у пользователя
-        const isAdded = await isCourseAddedByUser(courseId);
-        setCourseAdded(isAdded);
-      } catch (error) {
-        console.error('Ошибка при проверке курса:', error);
-        // Fallback: проверяем по userData из пропсов
-        const isAdded =
-          userData?.user?.selectedCourses?.includes(courseId) || false;
-        setCourseAdded(isAdded);
-      }
-    } else {
-      setCourseAdded(false);
-    }
+  const [addCourse, { isLoading: addingCourse }] = useAddCourseToUserMutation();
+  const [removeCourse, { isLoading: removingCourse }] =
+    useRemoveCourseFromUserMutation();
+  const [resetProgress, { isLoading: resettingProgress }] =
+    useResetCourseProgressMutation();
 
-    setLoading(false);
-  }, [courseId, userData]);
+  // Проверяем, добавлен ли курс пользователю
+  const isCourseAdded = user?.selectedCourses?.includes(courseId) || false;
 
-  // Инициализация при загрузке компонента
-  useEffect(() => {
-    checkCourseStatus();
-  }, [checkCourseStatus]);
-
-  // Слушаем события изменения авторизации
-  useEffect(() => {
-    const handleAuthChange = () => {
-      checkCourseStatus();
-    };
-
-    window.addEventListener('authStateChanged', handleAuthChange);
-
-    return () => {
-      window.removeEventListener('authStateChanged', handleAuthChange);
-    };
-  }, [checkCourseStatus]);
-
-  // Слушаем события изменения курсов
-  useEffect(() => {
-    const handleCourseChange = () => {
-      checkCourseStatus();
-    };
-
-    window.addEventListener('courseStateChanged', handleCourseChange);
-
-    return () => {
-      window.removeEventListener('courseStateChanged', handleCourseChange);
-    };
-  }, [checkCourseStatus]);
-
-  const addCourseToUserHandler = async () => {
-    if (!authState) {
-      alert('Требуется авторизация. Пожалуйста, войдите в систему.');
+  // Обработчик добавления курса
+  const handleAddCourse = async () => {
+    if (!isAuthenticated) {
       router.push('/page/SignIn');
       return;
     }
 
-    setAddingCourse(true);
     try {
       await addCourse(courseId).unwrap();
-      alert('Курс успешно добавлен!');
-
-      // Обновляем состояние
-      setCourseAdded(true);
-
-      // Уведомляем другие компоненты
-      window.dispatchEvent(new Event('courseStateChanged'));
-
-      // Обновляем данные страницы
-      router.refresh();
-    } catch (err: any) {
-      console.error('Ошибка при добавлении курса:', err);
-      alert(err.data?.message || 'Ошибка при добавлении курса');
-    } finally {
-      setAddingCourse(false);
+      // После успешного добавления обновляем данные пользователя
+      await refetch();
+    } catch (error) {
+      console.error('Ошибка при добавлении курса:', error);
+      alert('Не удалось добавить курс. Попробуйте еще раз.');
     }
   };
 
-  const removeCourseFromUserHandler = async () => {
+  // Обработчик удаления курса
+  const handleRemoveCourse = async () => {
     if (
       !confirm(
         'Вы уверены, что хотите удалить этот курс? Весь прогресс будет сброшен.'
@@ -128,27 +73,73 @@ export default function MotivationSection({
       return;
     }
 
-    setRemovingCourse(true);
     try {
+      // Сначала сбрасываем прогресс
       await resetProgress(courseId).unwrap();
+      // Затем удаляем курс
       await removeCourse(courseId).unwrap();
-      alert('Курс успешно удален!');
-
-      // Обновляем состояние
-      setCourseAdded(false);
-
-      // Уведомляем другие компоненты
-      window.dispatchEvent(new Event('courseStateChanged'));
-
-      // Обновляем данные страницы
-      router.refresh();
-    } catch (err: any) {
-      console.error('Ошибка при удалении курса:', err);
-      alert(err.data?.message || 'Ошибка при удалении курса');
-    } finally {
-      setRemovingCourse(false);
+      // Обновляем данные пользователя
+      await refetch();
+    } catch (error) {
+      console.error('Ошибка при удалении курса:', error);
+      alert('Не удалось удалить курс. Попробуйте еще раз.');
     }
   };
+
+  // Определяем состояние кнопки
+  const getButtonState = () => {
+    // Если идет загрузка данных пользователя
+    if (isAuthenticated && userLoading) {
+      return {
+        text: 'Загрузка...',
+        className: styles.motivation__butLink,
+        onClick: undefined,
+        href: '#',
+        disabled: true,
+      };
+    }
+
+    // Если не авторизован
+    if (!isAuthenticated) {
+      return {
+        text: 'Войдите, чтобы добавить курс',
+        className: styles.motivation__butLink,
+        onClick: undefined,
+        href: '/page/SignIn',
+        disabled: false,
+      };
+    }
+
+    // Если курс уже добавлен
+    if (isCourseAdded) {
+      return {
+        text:
+          removingCourse || resettingProgress
+            ? 'Удаление...'
+            : 'Курс уже добавлен, Удалить?',
+        className: styles.removeCourseLink,
+        onClick: handleRemoveCourse,
+        href: '#',
+        disabled: removingCourse || resettingProgress,
+      };
+    }
+
+    // Если курс не добавлен
+    return {
+      text: addingCourse ? 'Добавление...' : 'Добавить курс',
+      className: styles.motivation__butLink,
+      onClick: handleAddCourse,
+      href: '#',
+      disabled: addingCourse,
+    };
+  };
+
+  const buttonState = getButtonState();
+  const isLoading =
+    (isAuthenticated && userLoading) ||
+    addingCourse ||
+    removingCourse ||
+    resettingProgress;
 
   const motivationPoints = [
     'проработка всех групп мышц',
@@ -157,52 +148,6 @@ export default function MotivationSection({
     'упражнения заряжают бодростью',
     'помогают противостоять стрессам',
   ];
-
-  // Показываем загрузку
-  if (loading) {
-    return (
-      <div className={styles.motivation}>
-        <div className={styles.motivation__box}>
-          <div className={styles.motivation__text}>
-            Проверка статуса курса...
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Определяем состояние кнопки
-  let buttonText = '';
-  let buttonLink = '#';
-  let buttonOnClick:
-    | ((e: React.MouseEvent<HTMLAnchorElement>) => void)
-    | undefined;
-  let buttonClassName = '';
-
-  if (!authState) {
-    // Не авторизован
-    buttonText = 'Войдите, чтобы добавить курс';
-    buttonLink = '/page/SignIn';
-    buttonClassName = styles.motivation__butLink;
-  } else if (courseAdded) {
-    // Авторизован, курс уже добавлен
-    buttonText = removingCourse ? 'Удаление...' : 'Курс уже добавлен, Удалить?';
-    buttonLink = '#';
-    buttonOnClick = (e) => {
-      e.preventDefault();
-      removeCourseFromUserHandler();
-    };
-    buttonClassName = styles.removeCourseLink;
-  } else {
-    // Авторизован, курс не добавлен
-    buttonText = addingCourse ? 'Добавление...' : 'Добавить курс';
-    buttonLink = '#';
-    buttonOnClick = (e) => {
-      e.preventDefault();
-      addCourseToUserHandler();
-    };
-    buttonClassName = styles.motivation__butLink;
-  }
 
   return (
     <div className={styles.motivation}>
@@ -217,17 +162,27 @@ export default function MotivationSection({
           ))}
         </p>
         <div className={styles.motivation__but}>
-          {buttonOnClick ? (
-            <Link
-              href={buttonLink}
-              className={buttonClassName}
-              onClick={buttonOnClick}
+          {isLoading ? (
+            <div
+              className={styles.motivation__butLink}
+              style={{ opacity: 0.7 }}
             >
-              {buttonText}
+              {buttonState.text}
+            </div>
+          ) : buttonState.onClick ? (
+            <Link
+              href={buttonState.href}
+              className={buttonState.className}
+              onClick={(e) => {
+                e.preventDefault();
+                buttonState.onClick!();
+              }}
+            >
+              {buttonState.text}
             </Link>
           ) : (
-            <Link href={buttonLink} className={buttonClassName}>
-              {buttonText}
+            <Link href={buttonState.href} className={buttonState.className}>
+              {buttonState.text}
             </Link>
           )}
         </div>
