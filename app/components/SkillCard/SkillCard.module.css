@@ -2,10 +2,8 @@
   height: 310px;
   padding: 40px 0 0 40px;
   border-radius: 30px;
-  background: rgba(255, 199, 0, 1);
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: row-reverse;
   overflow: hidden;
   position: relative;
 }

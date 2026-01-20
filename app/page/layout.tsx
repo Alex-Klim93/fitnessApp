@@ -14,13 +14,12 @@ export default function PageLayout({
 }) {
   const pathname = usePathname();
   const isCoursePage =
-    pathname === '/page/Course' || pathname === '/page/Course/';
+    pathname === '/page/Course/' || pathname === '/page/Course/';
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <main className={styles.main}>
-          <TestNav />
           <Header />
           {isCoursePage && <Subtitle />}
 

@@ -1,6 +1,12 @@
+.courses__box {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 40px;
+}
 .courses__card {
   width: 360px;
-  margin-top: 50px;
   border-radius: 30px;
   /* Shadow */
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
@@ -77,10 +83,15 @@
   letter-spacing: 0px;
   text-align: left;
 }
-.progres__sidebar {
+.progres__scrollbar {
   height: 6px;
   border-radius: 50px;
   background: rgba(247, 247, 247, 1);
+}
+.progres__bar {
+  height: 100%;
+  border-radius: 50px;
+  background: rgba(0, 193, 255, 1);
 }
 .progres__but {
   margin-top: 40px;

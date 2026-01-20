@@ -1,51 +1,39 @@
+// app/page.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useEffect } from 'react';
 import Header from '@/app/components/Header/Header';
 import styles from './page.module.css';
 import Subtitle from './components/Subtitle/Subtitle';
 import MainTitle from './components/MainTitle/MainTitle';
 import Сourses from './components/Сourses/Сourses';
 import ButUp from './components/ButUp/ButUp';
-import TestNav from './components/TestNav/TestNav';
-import { checkAuthOnStart } from '@/app/api/auth-checker';
+import TestNav from '@/app/components/TestNav/TestNav';
+// УДАЛИТЬ ЭТУ СТРОКУ: import { initializeUser } from '@/app/api/auth';
 
 export default function Home() {
-  const [authChecked, setAuthChecked] = useState(false);
-
   useEffect(() => {
-    // Проверка авторизации при загрузке страницы
-    const initializeApp = async () => {
-      console.log('Initializing app...');
+    // Простая проверка авторизации при загрузке
+    const initApp = () => {
+      const token = localStorage.getItem('auth_token');
+      const email = localStorage.getItem('user_email');
 
-      try {
-        const { isAuthenticated, user } = await checkAuthOnStart();
-        console.log('Auth check result:', { isAuthenticated, user });
-
-        if (isAuthenticated) {
-          console.log(
-            'Приложение запущено, пользователь авторизован:',
-            user?.email
-          );
-        } else {
-          console.log('Приложение запущено, пользователь не авторизован');
-        }
-      } catch (error) {
-        console.error('Error during app initialization:', error);
-      } finally {
-        setAuthChecked(true);
+      console.log(
+        'Инициализация приложения:',
+        token ? 'Авторизован' : 'Не авторизован'
+      );
+      if (email) {
+        console.log('Пользователь:', email);
       }
     };
 
-    initializeApp();
+    initApp();
   }, []);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <main className={styles.main}>
-          <TestNav />
           <Header />
           <Subtitle />
           <MainTitle />

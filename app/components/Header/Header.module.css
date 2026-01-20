@@ -21,6 +21,8 @@
   font-size: 28px;
   font-weight: 500;
 }
+
+/* Стили для кнопки Войти (показывается когда НЕ авторизован) */
 .but__box {
   /* Button */
   width: 103px;
@@ -32,10 +34,8 @@
   align-items: center;
   gap: 8;
   padding: 16px 26px 16px 26px;
-
   border-radius: 46px;
   background: rgba(188, 236, 48, 1);
-
   color: rgba(0, 0, 0, 1);
   font-style: Regular;
   font-size: 18px;
@@ -43,33 +43,51 @@
   line-height: 110%;
   letter-spacing: 0px;
   text-align: center;
+  cursor: pointer;
 }
+
 .but__link {
   background: none;
   border: none;
   cursor: pointer;
-  /* Добавьте сюда остальные стили из вашего файла */
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 1);
 }
-.userMenu {
+
+/* Стили для кнопки профиля (показывается когда авторизован) */
+.profile_container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
-.userEmail {
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 14px;
-}
-
-.logoutButton {
+.profile_button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
   background: none;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  border-radius: 4px;
+  border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 1);
 }
 
-.logoutButton:hover {
-  background-color: #f5f5f5;
+.profile_login {
+  color: rgba(0, 0, 0, 1);
+
+  font-family: Roboto;
+  font-style: Regular;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: right;
+}
+
+.profile_arrow {
+  font-size: 12px;
+  margin-top: 2px;
 }

@@ -1,17 +1,18 @@
 .butup_box {
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: 81px;
-  /* Button */
+  transform: translateX(-50%);
   width: 127px;
   height: 52px;
-
   border-radius: 46px;
   background: rgba(188, 236, 48, 1);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  z-index: 100;
 }
 .but__link {
   color: rgba(0, 0, 0, 1);

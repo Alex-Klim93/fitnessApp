@@ -1,0 +1,197 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup {
+  width: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 48px;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgba(255, 255, 255, 1);
+}
+
+.title {
+  color: rgba(0, 0, 0, 1);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menuItem__profil {
+  width: 206px;
+  height: 52px;
+  padding: 16px 26px 16px 26px;
+  border: none;
+  border-radius: 46px;
+  background: rgba(188, 236, 48, 1);
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.menuItem__profil:disabled {
+  background: rgba(188, 236, 48, 0.5);
+  cursor: not-allowed;
+}
+
+.workout__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+}
+
+.workout__list {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: 10px;
+}
+
+.checkbox__box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.checkbox__box:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.workout__text {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.checkbox__text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox__custom {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.checkbox__input {
+  display: none;
+}
+
+.checkbox__input:checked + .checkbox__custom {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.checkmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.checkbox__input:checked + .checkbox__custom .checkmark {
+  display: flex;
+}
+
+.workout__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 8px 0;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.workout__link:hover {
+  text-decoration: underline;
+}
+
+.workout__progress {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.workout__progress.completed {
+  color: #4caf50;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.button__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Добавляем стили для выбранных тренировок */
+.checkbox__box.selected {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.checkbox__box.selected:hover {
+  background-color: rgba(76, 175, 80, 0.15);
+}

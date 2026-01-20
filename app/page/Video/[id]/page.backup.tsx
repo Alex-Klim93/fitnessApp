@@ -5,7 +5,7 @@ import styles from './page.module.css';
 import Link from 'next/link';
 import VideoPlayer from '@/app/components/VideoPlayer/VideoPlayer';
 
-export default function ProfilePage() {
+export default function VideoPage() {
   return (
     <div>
       <div className={styles.video}>

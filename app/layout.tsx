@@ -2,17 +2,14 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
+import StoreProvider from './store/StoreProvider';
 
-// Настройка шрифта Roboto
 const roboto = Roboto({
   subsets: ['latin', 'cyrillic'],
   weight: ['100', '300', '400', '500', '700', '900'],
   style: ['normal', 'italic'],
   display: 'swap',
   variable: '--font-roboto',
-  preload: true,
-  fallback: ['system-ui', 'arial'],
-  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -27,7 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru" className={roboto.variable}>
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        {/* StoreProvider будет инициализировать Redux store только один раз на клиенте */}
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }

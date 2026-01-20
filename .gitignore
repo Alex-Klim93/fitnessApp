@@ -40,5 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# api instructions
-api_instructions/
+# colbeck
+.backup.tsx

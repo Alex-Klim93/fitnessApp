@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "app/page/Video/[id]/page.backup.tsx"  ],
   "exclude": ["node_modules"]
 }

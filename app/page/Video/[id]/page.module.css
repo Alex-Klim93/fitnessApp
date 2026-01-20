@@ -51,11 +51,16 @@
   letter-spacing: 0px;
   text-align: left;
 }
-.exercises__sidebar {
+.exercises__scrollbar {
   width: 320px;
   height: 6px;
   border-radius: 50px;
   background: rgba(247, 247, 247, 1);
+}
+.progressBar {
+  height: 6px;
+  border-radius: 50px;
+  background: rgba(0, 193, 255, 1);
 }
 .exercises__but {
   margin-top: 40px;
@@ -77,4 +82,93 @@
   line-height: 110%;
   letter-spacing: 0px;
   text-align: left;
+}
+.selectedCount {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+.video {
+  margin-bottom: 40px;
+}
+
+.video__title {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.video__exercises {
+  margin-top: 20px;
+}
+
+.exercises__title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.exercises__box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.exercises__min {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.exercises__text {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progressControls {
+  margin-top: 5px;
+}
+
+.exercises__sidebar {
+  width: 100%;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.3s ease;
+}
+
+.exercises__but {
+  text-align: center;
+  padding: 15px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.exercises__but:hover {
+  background: #e0e0e0;
+}
+
+.exercises__link {
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.exercises__link:hover {
+  text-decoration: underline;
 }

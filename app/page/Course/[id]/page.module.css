@@ -1,3 +1,27 @@
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+}
+
+.loading,
+.error,
+.notFound {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.backLink {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
 .entice {
   margin-top: 60px;
   display: flex;
@@ -80,6 +104,7 @@
   gap: 8px;
 }
 .Directions__text {
+  width: 250px;
   color: rgba(0, 0, 0, 1);
   font-size: 24px;
   font-weight: 400;

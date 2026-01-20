@@ -1,23 +1,19 @@
+// app/components/SignupPopup/SignupPopup.tsx
 'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styles from './SignupPopup.module.css';
-import {
-  register,
-  isAuthenticated,
-  getCurrentUser,
-  login,
-} from '@/app/api/auth';
+import { register, isAuthenticated, login } from '@/app/api/auth';
+import { isValidEmail, validatePassword } from '@/app/api/api-utils';
 import { getErrorMessage } from '@/app/api/errors';
-import { validatePassword, isValidEmail } from '@/app/api/api-utils';
 
 interface AuthPopupProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenSignin: () => void;
-  onRegisterSuccess: () => void;
+  onRegisterSuccess?: () => void;
 }
 
 export default function SignupPopup({
@@ -36,11 +32,12 @@ export default function SignupPopup({
     if (isOpen) {
       document.body.style.overflow = 'hidden';
 
+      // Проверяем, не авторизован ли уже пользователь
       if (isAuthenticated()) {
-        const user = getCurrentUser();
-        console.log('Пользователь уже авторизован:', user?.email);
-        onClose();
-        onRegisterSuccess();
+        handleClose();
+        if (onRegisterSuccess) {
+          onRegisterSuccess();
+        }
       }
     }
     return () => {
@@ -95,25 +92,37 @@ export default function SignupPopup({
       // Пытаемся автоматически войти после регистрации
       try {
         await login(email, password);
-        onClose();
-        onRegisterSuccess();
+
+        // Уведомляем все компоненты об изменении состояния авторизации
+        window.dispatchEvent(new Event('authStateChanged'));
+
+        // Вызываем callback успешной регистрации если есть
+        if (onRegisterSuccess) {
+          onRegisterSuccess();
+        }
+
+        // Закрываем попап
+        handleClose();
+
+        // Принудительно обновляем страницу для полного обновления состояния
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
       } catch (loginError) {
         console.log('Регистрация успешна, но автоматический вход не удался');
         // Если вход не удался, открываем форму входа
-        onClose();
+        handleClose();
         onOpenSignin();
       }
     } catch (error: any) {
       const errorMessage = getErrorMessage(error);
-      console.error('Ошибка регистрации:', errorMessage);
       setErrors([errorMessage]);
-    } finally {
       setLoading(false);
     }
   };
 
   const handleOpenSignin = () => {
-    onClose();
+    handleClose();
     onOpenSignin();
   };
 
@@ -131,8 +140,22 @@ export default function SignupPopup({
     );
   };
 
+  const handleClose = () => {
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setErrors([]);
+    onClose();
+  };
+
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header_logo}>
           <Image
@@ -147,7 +170,8 @@ export default function SignupPopup({
             SkyFitnessPro
           </Link>
         </div>
-        <form onSubmit={handleSubmit} noValidate>
+
+        <form onSubmit={handleSubmit}>
           <div className={styles.auth__Box}>
             <div className={styles.auth__inputBox}>
               <input
@@ -157,6 +181,7 @@ export default function SignupPopup({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
+                required
               />
               <input
                 className={`${styles.auth__input} ${isInputError('password') ? styles.inputError : ''}`}
@@ -165,6 +190,7 @@ export default function SignupPopup({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
+                required
               />
               <input
                 className={`${styles.auth__input} ${isInputError('confirmPassword') ? styles.inputError : ''}`}
@@ -173,6 +199,7 @@ export default function SignupPopup({
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 disabled={loading}
+                required
               />
 
               {errors.length > 0 && (

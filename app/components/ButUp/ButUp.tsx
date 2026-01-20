@@ -1,13 +1,18 @@
-import Image from 'next/image';
 import styles from './ButUp.module.css';
-import Link from 'next/link';
 
 export default function ButUp() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <div className={styles.butup_box}>
-      <Link href="/" className={styles.but__link}>
+    <div className={styles.butup_box} onClick={scrollToTop}>
+      <div className={styles.but__link}>
         Наверх ♂
-      </Link>
+      </div>
     </div>
   );
 }

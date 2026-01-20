@@ -1,3 +1,4 @@
+// app/components/Header/Header.tsx
 'use client';
 
 import Image from 'next/image';
@@ -6,64 +7,94 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import SigninPopup from '@/app/components/PopUp/Signin/SigninPopup';
 import SignupPopup from '@/app/components/PopUp/Signup/SignupPopup';
-import { checkAuthOnStart } from '@/app/api/auth-checker';
-import { isAuthenticated, getCurrentUser, logout } from '@/app/api/auth';
+import {
+  isAuthenticated,
+  getUserEmail,
+  getUserLogin,
+  logout,
+} from '@/app/api/auth';
+import ProfilePopup from '../PopUp/ProfilePopup/ProfilePopup';
 
 export default function Header() {
   const [isSigninOpen, setIsSigninOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
-  const [isAuthChecked, setIsAuthChecked] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [authStatus, setAuthStatus] = useState(false);
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [loginName, setLoginName] = useState<string>('');
 
-  // Проверка авторизации при загрузке компонента
+  // Проверяем авторизацию при загрузке и при изменении состояния
   useEffect(() => {
-    const checkAuth = async () => {
-      const { isAuthenticated: isAuth, user } = await checkAuthOnStart();
+    const checkAuth = () => {
+      const isAuth = isAuthenticated();
+      setAuthStatus(isAuth);
+
       if (isAuth) {
-        setCurrentUser(user);
-        console.log('Пользователь авторизован:', user?.email);
+        const email = getUserEmail();
+        const login = getUserLogin();
+
+        setUserEmail(email || '');
+        setLoginName(login || email?.split('@')[0] || 'Пользователь');
+      } else {
+        setUserEmail('');
+        setLoginName('');
       }
-      setIsAuthChecked(true);
     };
 
     checkAuth();
+
+    // Слушаем события изменения авторизации
+    const handleAuthChange = () => {
+      checkAuth();
+    };
+
+    window.addEventListener('authStateChanged', handleAuthChange);
+
+    return () => {
+      window.removeEventListener('authStateChanged', handleAuthChange);
+    };
   }, []);
 
-  const handleAuthClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (isAuthenticated()) {
-      // Если пользователь уже авторизован
-      console.log('Пользователь уже вошел в систему');
-      // Можно показать меню пользователя или сделать logout
-    } else {
-      setIsSigninOpen(true);
-    }
+  const handleSigninClick = () => {
+    setIsSigninOpen(true);
+  };
+
+  const handleProfileClick = () => {
+    setIsProfileOpen(true);
   };
 
   const handleLoginSuccess = () => {
     // Обновляем состояние после успешного входа
-    const user = getCurrentUser();
-    setCurrentUser(user);
-    console.log('Вход выполнен успешно:', user?.email);
+    const isAuth = isAuthenticated();
+    setAuthStatus(isAuth);
+
+    if (isAuth) {
+      const email = getUserEmail();
+      const login = getUserLogin();
+      setUserEmail(email || '');
+      setLoginName(login || email?.split('@')[0] || 'Пользователь');
+    }
   };
 
   const handleRegisterSuccess = () => {
-    // Обновляем состояние после успешной регистрации
-    const user = getCurrentUser();
-    setCurrentUser(user);
-    console.log('Регистрация выполнена успешно:', user?.email);
+    handleLoginSuccess(); // Та же логика
   };
 
   const handleLogout = () => {
     logout();
-    setCurrentUser(null);
+    setAuthStatus(false);
+    setUserEmail('');
+    setLoginName('');
+    setIsProfileOpen(false);
   };
 
   const handleOpenSignup = () => {
+    setIsSigninOpen(false);
     setIsSignupOpen(true);
   };
 
   const handleOpenSignin = () => {
+    setIsSignupOpen(false);
     setIsSigninOpen(true);
   };
 
@@ -78,30 +109,37 @@ export default function Header() {
             src="/img/Logo.png"
             alt="logo"
             priority
-          ></Image>
+          />
           <Link href="/" className={styles.logo__link}>
             SkyFitnessPro
           </Link>
         </div>
-        <div className={styles.but__box} onClick={handleAuthClick}>
-          {isAuthChecked &&
-            (currentUser ? (
-              <div className={styles.userMenu}>
-                <span className={styles.userEmail}>{currentUser.email}</span>
-                <button className={styles.logoutButton} onClick={handleLogout}>
-                  Выйти
-                </button>
-              </div>
-            ) : (
-              <Link
-                href="/"
-                className={styles.but__link}
-                onClick={(e) => e.preventDefault()}
-              >
-                Войти
-              </Link>
-            ))}
-        </div>
+
+        {authStatus ? (
+          <div className={styles.profile_container}>
+            <Image
+              width={41.67}
+              height={41.67}
+              className={styles.profile__icon}
+              src="/img/Icon.png"
+              alt="Profile icon"
+              priority
+            />
+            <button
+              className={styles.profile_button}
+              onClick={handleProfileClick}
+            >
+              <span className={styles.profile_login}>{loginName}</span>
+              <span className={styles.profile_arrow}>▼</span>
+            </button>
+          </div>
+        ) : (
+          <div className={styles.but__box}>
+            <button className={styles.but__link} onClick={handleSigninClick}>
+              Войти
+            </button>
+          </div>
+        )}
       </div>
 
       <SigninPopup
@@ -117,6 +155,16 @@ export default function Header() {
         onOpenSignin={handleOpenSignin}
         onRegisterSuccess={handleRegisterSuccess}
       />
+
+      {authStatus && (
+        <ProfilePopup
+          isOpen={isProfileOpen}
+          onClose={() => setIsProfileOpen(false)}
+          userEmail={userEmail}
+          loginName={loginName}
+          onLogout={handleLogout}
+        />
+      )}
     </>
   );
 }

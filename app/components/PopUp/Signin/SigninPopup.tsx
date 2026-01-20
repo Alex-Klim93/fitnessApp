@@ -1,17 +1,18 @@
+// app/components/SigninPopup/SigninPopup.tsx
 'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styles from './SigninPopup.module.css';
-import { login, isAuthenticated, getCurrentUser } from '@/app/api/auth';
+import { login, isAuthenticated } from '@/app/api/auth';
 import { getErrorMessage } from '@/app/api/errors';
 
 interface AuthPopupProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenSignup: () => void;
-  onLoginSuccess: () => void;
+  onLoginSuccess?: () => void;
 }
 
 export default function SigninPopup({
@@ -29,10 +30,12 @@ export default function SigninPopup({
     if (isOpen) {
       document.body.style.overflow = 'hidden';
 
+      // Проверяем, не авторизован ли уже пользователь
       if (isAuthenticated()) {
-        const user = getCurrentUser();
-        onClose();
-        onLoginSuccess();
+        handleClose();
+        if (onLoginSuccess) {
+          onLoginSuccess();
+        }
       }
     }
     return () => {
@@ -59,19 +62,31 @@ export default function SigninPopup({
 
     try {
       await login(email, password);
-      onClose();
-      onLoginSuccess();
+
+      // Уведомляем все компоненты об изменении состояния авторизации
+      window.dispatchEvent(new Event('authStateChanged'));
+
+      // Вызываем callback успешного входа если есть
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      }
+
+      // Закрываем попап
+      handleClose();
+
+      // Принудительно обновляем страницу для полного обновления состояния
+      setTimeout(() => {
+        window.location.reload();
+      }, 300);
     } catch (error: any) {
       const errorMessage = getErrorMessage(error);
-      console.error('Login error:', error);
       setErrors([errorMessage]);
-    } finally {
       setLoading(false);
     }
   };
 
   const handleOpenSignup = () => {
-    onClose();
+    handleClose();
     onOpenSignup();
   };
 
@@ -92,8 +107,14 @@ export default function SigninPopup({
     onClose();
   };
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className={styles.overlay} onClick={handleClose}>
+    <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header_logo}>
           <Image
@@ -108,6 +129,7 @@ export default function SigninPopup({
             SkyFitnessPro
           </Link>
         </div>
+
         <form onSubmit={handleSubmit}>
           <div className={styles.auth__Box}>
             <div className={styles.auth__inputBox}>
@@ -118,6 +140,7 @@ export default function SigninPopup({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
+                required
               />
               <input
                 className={`${styles.auth__input} ${isInputError('password') ? styles.inputError : ''}`}
@@ -126,6 +149,7 @@ export default function SigninPopup({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
+                required
               />
               {errors.length > 0 && (
                 <div className={styles.errorBox}>
