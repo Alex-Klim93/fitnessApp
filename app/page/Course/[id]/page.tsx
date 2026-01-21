@@ -387,7 +387,7 @@ export default function CoursePage({
   });
 
   return (
-    <div>
+    <div className={styles.container}>
       {/* SkillCard с синхронизированным состоянием */}
       <SkillCard
         courseName={course.nameRU}
@@ -404,7 +404,9 @@ export default function CoursePage({
       />
 
       <div className={styles.entice}>
+      <div>
         <h3 className={styles.entice__title}>Подойдет для вас, если:</h3>
+        </div>
         <div className={styles.entice__disBox}>
           {course.fitting && course.fitting.length > 0
             ? course.fitting.map((item, index) => (

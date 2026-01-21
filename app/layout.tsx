@@ -1,7 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import './globals.css';
+import './Globals.css';
 import StoreProvider from './store/StoreProvider';
 
 const roboto = Roboto({

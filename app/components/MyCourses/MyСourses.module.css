@@ -1,5 +1,5 @@
 .courses__box {
-  margin-top: 50px;
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -112,4 +112,41 @@
   line-height: 110%;
   letter-spacing: 0px;
   text-align: left;
+}
+
+@media (max-width: 768px) {
+  .courses__box {
+    margin-top: 24px;
+    gap: 24px;
+  }
+  .courses__card {
+    width: 343px;
+  }
+  .courses__image {
+    width: 343px;
+  }
+  .courses__title {
+    font-size: 24px;
+  }
+  .courses__complexity {
+    color: rgba(32, 32, 32, 1);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  .progres__percent {
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .progres__link {
+    color: rgba(0, 0, 0, 1);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: 0px;
+    text-align: left;
+  }
 }

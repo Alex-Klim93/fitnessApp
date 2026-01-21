@@ -1,11 +1,4 @@
-.notFoundContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 50vh;
-  text-align: center;
-}
+
 
 .loading,
 .error,
@@ -39,6 +32,7 @@
 .entice__disBox {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 17px;
 }
 .entice__dis {
@@ -195,3 +189,13 @@
   z-index: 1;
   transform: rotate(-12.38deg) scale(1.4);
 }
+
+@media (max-width: 768px) {
+  .entice__disBox {
+    flex-direction: column;
+  }
+  .Directions__box{
+    flex-direction: column;
+  }
+}
+

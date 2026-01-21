@@ -1,4 +1,4 @@
-.overlay {
+.window {
   position: fixed;
   top: 0;
   left: 0;
@@ -7,11 +7,18 @@
   background: transparent;
   z-index: 1000;
 }
-
+.overlay {
+  max-width: 1440px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding-right: 140px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
 .popup {
   position: absolute;
   top: 124px;
-  right: 140px;
   border-radius: 30px;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
   background: rgba(255, 255, 255, 1);
@@ -99,4 +106,25 @@
 .logoutButton:hover {
   background-color: rgba(219, 0, 48, 0.08);
   color: rgba(219, 0, 48, 0.9);
+}
+@media (max-width: 768) {
+  .overlay {
+    justify-content: center;
+    max-width: 1440px;
+    min-height: 100dvh;
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+    padding-right: 0;
+  }
+  .popup {
+    width: 343px;
+    max-height: 365px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30;
+    padding: 30px;
+  }
 }

@@ -392,7 +392,7 @@ function CourseCard({
                 src="/img/Calendar.svg"
                 alt="Calendar"
               />
-              <p className={styles.courses__daysDisc}>{durationText}</p>
+              <p className={styles.courses__complexity}>{durationText}</p>
             </div>
             <div className={styles.courses__minDay}>
               <Image
@@ -437,7 +437,7 @@ function CourseCard({
                   }
                 />
               </svg>
-              <p className={styles.courses__complexityDisc}>
+              <p className={styles.courses__complexity}>
                 {course.difficulty || 'Средняя'}
               </p>
             </div>

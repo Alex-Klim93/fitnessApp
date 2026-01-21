@@ -43,7 +43,6 @@ h6 {
   font-family: var(--font-roboto);
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 1rem;
 }
 
 h1 {
@@ -126,6 +125,9 @@ h6 {
   body {
     font-size: 0.9375rem;
   }
+    .popup {
+      width: 343px;
+    }
 }
 
 /* Утилитарные классы */

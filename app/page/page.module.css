@@ -4,17 +4,22 @@
   overflow: hidden;
   background-color: #ffffff;
 }
-
 .container {
   min-height: 100dvh;
   max-width: 1440px;
   margin: 0 auto;
   position: relative;
   background-color: #ffffff;
-  padding-left: 140px; /* отступы по бокам */
+  padding-left: 140px; 
   padding-right: 140px;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
 .main {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;

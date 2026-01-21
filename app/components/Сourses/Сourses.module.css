@@ -1,11 +1,14 @@
-.courses__cardLink {
+.courses__image {
   display: block;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
-
+.courses__box1 {
+  display: flex;
+  flex-direction: column;
+}
 .courses__box {
   margin-bottom: 170px;
   margin-top: 50px;
@@ -17,13 +20,13 @@
 .courses__card {
   width: 360px;
   border-radius: 30px;
-  /* Shadow */
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
   background: rgba(255, 255, 255, 1);
 }
 .courses__imgBox {
   position: relative;
 }
+
 .courses__imageSvg {
   position: absolute;
   top: 20px;
@@ -77,4 +80,26 @@
   display: flex;
   align-items: center;
   gap: 6px;
+}
+@media (max-width: 768px) {
+  .courses__box {
+    gap:24px;
+  }
+  .courses__card {
+    width: 343px;
+  }
+  .courses__cardLink {
+    width: 343px;
+  }
+  .courses__image {
+    width: 343px;
+  }
+  .courses__title {
+    color: rgba(0, 0, 0, 1);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 110%;
+    letter-spacing: 0px;
+    text-align: left;
+  }
 }

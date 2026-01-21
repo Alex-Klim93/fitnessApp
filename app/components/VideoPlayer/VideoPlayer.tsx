@@ -15,8 +15,6 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
     return (
       <div className={styles.Player__box}>
         <Image
-          width={156}
-          height={156}
           className={styles.Player__img}
           src="/img/Subtract.svg"
           alt="Subtract"
@@ -34,8 +32,6 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
     return (
       <div className={styles.Player__box}>
         <Image
-          width={156}
-          height={156}
           className={styles.Player__img}
           src="/img/Subtract.svg"
           alt="Subtract"
@@ -72,7 +68,6 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
               width: '100%',
               height: '100%',
               position: 'relative',
-              borderRadius: '30px',
               overflow: 'hidden',
               backgroundColor: '#000',
             }}
@@ -87,7 +82,6 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
               title="YouTube video player"
               style={{
                 border: 'none',
-                borderRadius: '30px',
               }}
             />
           </div>
@@ -106,7 +100,6 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
         height="100%"
         className={styles.videoElement}
         style={{
-          borderRadius: '30px',
           display: hasError ? 'none' : 'block',
         }}
         onError={() => setHasError(true)}
@@ -118,8 +111,6 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
       {hasError && (
         <div className={styles.Player__content}>
           <Image
-            width={156}
-            height={156}
             className={styles.Player__img}
             src="/img/Subtract.svg"
             alt="Subtract"

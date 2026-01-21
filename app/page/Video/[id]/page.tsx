@@ -334,10 +334,7 @@ export default function VideoPage({
 
         return (
           <div key={workout._id} className={styles.video}>
-            <div className={styles.video__header}></div>
-            <div className={styles.video__player}>
               <VideoPlayer videoUrl={workout.video} />
-            </div>
             <div className={styles.video__exercises}>
               <h4 className={styles.exercises__title}>
                 Упражнения тренировки {index + 1}

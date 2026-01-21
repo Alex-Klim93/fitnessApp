@@ -57,24 +57,29 @@ export default function ProfilePopup({
   };
 
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.profileHeader}>
-          <div className={styles.loginName}>{loginName}</div>
-          <div className={styles.userEmail}>{userEmail}</div>
-        </div>
+    <div className={styles.window}>
+      <div className={styles.overlay} onClick={handleOverlayClick}>
+        <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
+          <div className={styles.profileHeader}>
+            <div className={styles.loginName}>{loginName}</div>
+            <div className={styles.userEmail}>{userEmail}</div>
+          </div>
 
-        <div className={styles.menuItems}>
-          <Link
-            href="/page/Profile"
-            className={styles.menuItem__profil}
-            onClick={onClose}
-          >
-            Мой профиль
-          </Link>
-          <button className={styles.menuItem__exit} onClick={handleLogoutClick}>
-            Выйти
-          </button>
+          <div className={styles.menuItems}>
+            <Link
+              href="/page/Profile"
+              className={styles.menuItem__profil}
+              onClick={onClose}
+            >
+              Мой профиль
+            </Link>
+            <button
+              className={styles.menuItem__exit}
+              onClick={handleLogoutClick}
+            >
+              Выйти
+            </button>
+          </div>
         </div>
       </div>
     </div>

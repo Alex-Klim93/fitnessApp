@@ -82,28 +82,32 @@ export default function ProfilePage() {
       <div className={styles.profile}>
         <h1 className={styles.profile__title}>Профиль</h1>
         <div className={styles.profile__box}>
-          <Image
-            width={197}
-            height={197}
-            className={styles.profile__img}
-            src="/img/Mask group.png"
-            alt="Profile"
-            priority
-          />
-          <div>
+          <div className={styles.profile__boxImg}>
+            <Image
+              width={197}
+              height={197}
+              className={styles.profile__img}
+              src="/img/Mask group.png"
+              alt="Profile"
+              priority
+            />
+          </div>
+          <div className={styles.profile__data}>
             <h3 className={styles.profile__name}>Сергей</h3>
             <p className={styles.profile__login}>Логин: {userLogin}</p>
-            <div className={styles.profile__but}>
-              <Link
-                href="#"
-                className={styles.profile__link}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLogout();
-                }}
-              >
-                Выйти
-              </Link>
+            <div className={styles.profile__butBox}>
+              <div className={styles.profile__but}>
+                <Link
+                  href="#"
+                  className={styles.profile__link}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLogout();
+                  }}
+                >
+                  Выйти
+                </Link>
+              </div>
             </div>
           </div>
         </div>
