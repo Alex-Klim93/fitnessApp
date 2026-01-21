@@ -15,6 +15,8 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
     return (
       <div className={styles.Player__box}>
         <Image
+          width={100}
+          height={639}
           className={styles.Player__img}
           src="/img/Subtract.svg"
           alt="Subtract"
@@ -32,6 +34,8 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
     return (
       <div className={styles.Player__box}>
         <Image
+          width={100}
+          height={639}
           className={styles.Player__img}
           src="/img/Subtract.svg"
           alt="Subtract"
@@ -111,6 +115,8 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
       {hasError && (
         <div className={styles.Player__content}>
           <Image
+            width={100}
+            height={639}
             className={styles.Player__img}
             src="/img/Subtract.svg"
             alt="Subtract"

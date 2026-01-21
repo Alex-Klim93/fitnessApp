@@ -404,8 +404,8 @@ export default function CoursePage({
       />
 
       <div className={styles.entice}>
-      <div>
-        <h3 className={styles.entice__title}>Подойдет для вас, если:</h3>
+        <div>
+          <h3 className={styles.entice__title}>Подойдет для вас, если:</h3>
         </div>
         <div className={styles.entice__disBox}>
           {course.fitting && course.fitting.length > 0
@@ -458,10 +458,10 @@ export default function CoursePage({
           </h3>
           <p className={styles.motivation__text}>
             {motivationPoints.map((point, index) => (
-              <span key={index}>
+              <div key={index}>
                 • {point}
-                {index < motivationPoints.length - 1 && <br />}
-              </span>
+                {index < motivationPoints.length - 1 }
+              </div>
             ))}
           </p>
           <div className={styles.motivation__but}>

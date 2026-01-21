@@ -2,8 +2,7 @@
 
 .Player__box {
   width: 100%;
-  max-height: 639px;
-  min-height: 189px;
+  height: 639px;
   border: none;
   background: #000;
   position: relative;
@@ -181,7 +180,8 @@
   font-family: monospace;
 }
 @media (max-width: 768px) {
-  .Player__box{
+  .Player__box {
+    height: 189px;
     border-radius: 8.87px;
   }
 }

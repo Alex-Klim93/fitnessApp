@@ -10,7 +10,7 @@
   margin: 0 auto;
   position: relative;
   background-color: #ffffff;
-  padding-left: 140px; 
+  padding-left: 140px;
   padding-right: 140px;
 }
 
@@ -35,5 +35,10 @@
   flex-direction: column;
 }
 .main__padding {
-  padding-top: 60px;
+  padding-top: 50px;
+}
+@media (max-width: 768px) {
+  .main__padding {
+    padding-top: 42px;
+  }
 }
