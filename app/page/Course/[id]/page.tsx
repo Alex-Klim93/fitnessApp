@@ -450,58 +450,62 @@ export default function CoursePage({
           )}
         </div>
       </div>
-
-      <div className={styles.motivation}>
-        <div className={styles.motivation__box}>
-          <h3 className={styles.motivation__title}>
-            Начните путь к новому телу
-          </h3>
-          <p className={styles.motivation__text}>
-            {motivationPoints.map((point, index) => (
-              <p key={index}>
-                • {point}
-                {index < motivationPoints.length - 1 }
-              </p>
-            ))}
-          </p>
-          <div className={styles.motivation__but}>
-            {checkingCourseStatus ? (
-              <div style={{ padding: '10px', textAlign: 'center' }}>
-                <div>Проверка статуса курса...</div>
-              </div>
-            ) : isAuth ? (
-              courseAdded ? (
-                <div className={styles.courseActions}>
+      <div className={styles.motivation__main}>
+        <div className={styles.motivation}>
+          <div className={styles.motivation__box}>
+            <h3 className={styles.motivation__title}>
+              Начните путь к новому телу
+            </h3>
+            <p className={styles.motivation__text}>
+              {motivationPoints.map((point, index) => (
+                <p key={index}>
+                  • {point}
+                  {index < motivationPoints.length - 1}
+                </p>
+              ))}
+            </p>
+            <div className={styles.motivation__but}>
+              {checkingCourseStatus ? (
+                <div style={{ padding: '10px', textAlign: 'center' }}>
+                  <div>Проверка статуса курса...</div>
+                </div>
+              ) : isAuth ? (
+                courseAdded ? (
+                  <div className={styles.courseActions}>
+                    <Link
+                      href="#"
+                      className={styles.removeCourseLink}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        removeCourseFromUserHandler();
+                      }}
+                    >
+                      {removingCourse
+                        ? 'Удаление...'
+                        : 'Курс уже добавлен, Удалить?'}
+                    </Link>
+                  </div>
+                ) : (
                   <Link
                     href="#"
-                    className={styles.removeCourseLink}
+                    className={styles.motivation__butLink}
                     onClick={(e) => {
                       e.preventDefault();
-                      removeCourseFromUserHandler();
+                      addCourseToUserHandler();
                     }}
                   >
-                    {removingCourse
-                      ? 'Удаление...'
-                      : 'Курс уже добавлен, Удалить?'}
+                    {addingCourse ? 'Добавление...' : 'Добавить курс'}
                   </Link>
-                </div>
+                )
               ) : (
                 <Link
-                  href="#"
+                  href="/page/SignIn"
                   className={styles.motivation__butLink}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    addCourseToUserHandler();
-                  }}
                 >
-                  {addingCourse ? 'Добавление...' : 'Добавить курс'}
+                  Войдите, чтобы добавить курс
                 </Link>
-              )
-            ) : (
-              <Link href="/page/SignIn" className={styles.motivation__butLink}>
-                Войдите, чтобы добавить курс
-              </Link>
-            )}
+              )}
+            </div>
           </div>
         </div>
         <Image
