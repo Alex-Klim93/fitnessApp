@@ -106,7 +106,7 @@
 }
 .motivation__main {
   position: relative;
-  z-index: 200;
+  z-index: 6;
 }
 .motivation {
   margin-top: 102px;
@@ -167,7 +167,6 @@
   top: -72px;
   right: 12px;
   margin-left: auto;
-  z-index: 3;
   transform: rotate(-2.99deg);
 }
 .motivation__imgSvg1 {
@@ -257,7 +256,43 @@
   .entice__disBox {
     flex-direction: column;
   }
+}
+
+@media (min-width: 769px) and (max-width: 1070px) {
   .Directions__box {
     flex-direction: column;
+  }
+  .motivation__img {
+    width: 375px;
+    top: -353px;
+    right: -94px;
+    z-index: -1;
+  }
+  .motivation__imgSvg1 {
+    top: -190.4px;
+    right: 158px;
+    z-index: -1;
+  }
+  .motivation__imgSvg2 {
+    width: 431.03px;
+    height: 251.47px;
+    top: -86.4px;
+    right: -43.5px;
+    z-index: -1;
+  }
+}
+@media (min-width: 769px) and (max-width: 1370px) {
+  .motivation__box {
+    background-color: white;
+    opacity: 1;
+  }
+  .motivation__img {
+    opacity: 0.3;
+  }
+  .motivation__imgSvg1 {
+    opacity: 0.3;
+  }
+  .motivation__imgSvg2 {
+    opacity: 0.3;
   }
 }
