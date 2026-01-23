@@ -144,58 +144,6 @@ Docker (опционально):
 
 dockerfile
 
-# Dockerfile
-
-FROM node:18-alpine
-WORKDIR /app
-COPY package\*.json ./
-RUN npm ci --only=production
-COPY . .
-RUN npm run build
-EXPOSE 3000
-CMD ["npm", "start"]
-🔧 Конфигурация разработки
-Рекомендуемые расширения для VSCode:
-ESLint
-
-Prettier
-
-TypeScript Hero
-
-Tailwind CSS IntelliSense
-
-Redux DevTools
-
-Настройки форматирования:
-json
-{
-"editor.formatOnSave": true,
-"editor.defaultFormatter": "esbenp.prettier-vscode"
-}
-🤝 Вклад в проект
-Форкните репозиторий
-
-Создайте ветку для фичи (git checkout -b feature/amazing-feature)
-
-Закоммитьте изменения (git commit -m 'Add amazing feature')
-
-Запушьте в ветку (git push origin feature/amazing-feature)
-
-Откройте Pull Request
-
-Структура коммитов:
-feat: - новая функциональность
-
-fix: - исправление ошибок
-
-style: - форматирование, точки с запятой и т.д.
-
-refactor: - рефакторинг кода
-
-test: - добавление тестов
-
-chore: - обновление сборки, инструментов и т.д.
-
 📄 Лицензия
 MIT License
 
