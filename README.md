@@ -28,30 +28,6 @@ Automatic retries - автоматические повторы запросов
 
 Optimistic updates - оптимистичные обновления UI
 
-📁 Структура проекта
-text
-src/app/
-├── api/ # API утилиты и обработка ошибок
-│ ├── auth.ts # Функции аутентификации
-│ ├── simple-api.ts # Базовые API функции (резервные)
-│ ├── api-utils.ts # Валидация email и паролей
-│ └── errors.ts # Обработка ошибок API
-├── lib/api/ # RTK Query API слои
-│ ├── apiSlice.ts # Базовый API слой
-│ ├── coursesApi.ts # API для работы с курсами
-│ ├── userApi.ts # API для работы с пользователями
-│ ├── workoutsApi.ts # API для работы с тренировками
-│ └── progressApi.ts # API для отслеживания прогресса
-├── components/ # React компоненты
-│ ├── Header/ # Компонент заголовка
-│ ├── Subtitle/ # Подзаголовок страницы
-│ ├── MainTitle/ # Главный заголовок
-│ ├── Сourses/ # Компонент отображения курсов
-│ └── ButUp/ # Кнопка "Наверх"
-├── store/ # Redux store
-│ └── StoreProvider.tsx # Провайдер хранилища
-└── (routes)/ # Маршруты приложения
-
 Основные эндпоинты:
 typescript
 // Примеры использования API
