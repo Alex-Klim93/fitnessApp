@@ -5,7 +5,6 @@ import { RootState, AppDispatch } from '../store/store';
 import {
   setDuration,
   setCurrentTime,
-  playVideo,
   pauseVideo,
 } from '../store/slices/videoPlayerSlice';
 

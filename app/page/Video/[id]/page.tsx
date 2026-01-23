@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';

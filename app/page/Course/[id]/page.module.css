@@ -30,7 +30,7 @@
 .entice__disBox {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 17px;
 }
 .entice__dis {

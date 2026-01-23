@@ -104,7 +104,6 @@ export default function Сourses() {
       <div className={styles.courses__box}>
         <div className={styles.error}>
           <p>Ошибка при загрузке курсов</p>
-          <button onClick={() => window.location.reload()}>Обновить</button>
         </div>
       </div>
     );

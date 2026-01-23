@@ -1,6 +1,4 @@
-import Image from 'next/image';
 import styles from './Subtitle.module.css';
-import Link from 'next/link';
 
 export default function Subtitle() {
   return (

@@ -104,10 +104,6 @@ export default function SignupPopup({
         // Закрываем попап
         handleClose();
 
-        // Принудительно обновляем страницу для полного обновления состояния
-        setTimeout(() => {
-          window.location.reload();
-        }, 300);
       } catch (loginError) {
         console.log('Регистрация успешна, но автоматический вход не удался');
         // Если вход не удался, открываем форму входа

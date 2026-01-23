@@ -4,8 +4,6 @@
 import { useRef } from 'react';
 import { Provider } from 'react-redux';
 import { initializeStore, AppStore } from './store';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
 
 export default function StoreProvider({
   children,

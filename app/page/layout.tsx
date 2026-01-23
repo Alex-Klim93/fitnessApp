@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import Header from '../components/Header/Header';
 import Subtitle from '../components/Subtitle/Subtitle';
 import styles from './page.module.css';
-import TestNav from '../components/TestNav/TestNav';
 
 export default function PageLayout({
   children,

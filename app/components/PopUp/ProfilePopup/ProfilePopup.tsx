@@ -50,10 +50,6 @@ export default function ProfilePopup({
     // Закрываем попап
     onClose();
 
-    // Принудительно перезагружаем страницу для обновления состояния
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
 
   return (

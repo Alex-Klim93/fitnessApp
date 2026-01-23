@@ -74,10 +74,6 @@ export default function SigninPopup({
       // Закрываем попап
       handleClose();
 
-      // Принудительно обновляем страницу для полного обновления состояния
-      setTimeout(() => {
-        window.location.reload();
-      }, 300);
     } catch (error: any) {
       const errorMessage = getErrorMessage(error);
       setErrors([errorMessage]);

@@ -1,5 +1,5 @@
 // app/utils/courseUtils.ts
-import { userApi } from '@/app/lib/api/userApi';
+import { userApi } from '@/app/api/userApi';
 import { store } from '@/app/store/store';
 
 export const isCourseInUserSelection = async (

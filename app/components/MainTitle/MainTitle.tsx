@@ -1,6 +1,4 @@
-import Image from 'next/image';
 import styles from './MainTitle.module.css';
-import Link from 'next/link';
 
 export default function MainTitle() {
   return (
