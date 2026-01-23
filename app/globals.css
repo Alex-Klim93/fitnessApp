@@ -31,6 +31,7 @@ body {
 
 a {
   text-decoration: none;
+  color: rgba(32, 32, 32, 1);
 }
 
 /* Типографика с Roboto */
@@ -74,6 +75,9 @@ h5 {
 h6 {
   font-size: 1rem;
   font-weight: 500;
+}
+p {
+  color: rgba(32, 32, 32, 1);
 }
 
 /* Классы для разных начертаний Roboto */
@@ -125,9 +129,9 @@ h6 {
   body {
     font-size: 0.9375rem;
   }
-    .popup {
-      width: 343px;
-    }
+  .popup {
+    width: 343px;
+  }
 }
 
 /* Утилитарные классы */
