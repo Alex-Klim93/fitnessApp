@@ -458,10 +458,10 @@ export default function CoursePage({
           </h3>
           <p className={styles.motivation__text}>
             {motivationPoints.map((point, index) => (
-              <div key={index}>
+              <p key={index}>
                 • {point}
                 {index < motivationPoints.length - 1 }
-              </div>
+              </p>
             ))}
           </p>
           <div className={styles.motivation__but}>

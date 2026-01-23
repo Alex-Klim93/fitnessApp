@@ -49,7 +49,6 @@ export default function ProfilePopup({
 
     // Закрываем попап
     onClose();
-
   };
 
   return (
@@ -69,12 +68,14 @@ export default function ProfilePopup({
             >
               Мой профиль
             </Link>
-            <button
-              className={styles.menuItem__exit}
-              onClick={handleLogoutClick}
-            >
-              Выйти
-            </button>
+            <a href="/">
+              <button
+                className={styles.menuItem__exit}
+                onClick={handleLogoutClick}
+              >
+                Выйти
+              </button>
+            </a>
           </div>
         </div>
       </div>

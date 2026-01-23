@@ -158,6 +158,7 @@ export default function Сourses() {
                     className={styles.courses__cardLink}
                     src={courseImages[imageIndex]}
                     alt={course.nameRU}
+                    loading="eager"
                     priority={imageIndex < 2}
                   />
                   <div>

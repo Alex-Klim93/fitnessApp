@@ -22,7 +22,9 @@ export default function PageLayout({
           <Header />
           {isCoursePage && <Subtitle />}
 
-          <div className={styles.main__padding}>{children}</div>
+          <div className={styles.main__padding}>
+            {children}
+          </div>
         </main>
       </div>
     </div>

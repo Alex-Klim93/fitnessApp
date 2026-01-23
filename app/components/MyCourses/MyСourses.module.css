@@ -121,9 +121,11 @@
   }
   .courses__card {
     width: 343px;
+    
   }
   .courses__image {
     width: 343px;
+    height: 343px;
   }
   .courses__title {
     font-size: 24px;
