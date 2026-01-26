@@ -1,0 +1,153 @@
+.video {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.video__title {
+  margin-bottom: 40px;
+  color: rgba(0, 0, 0, 1);
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.video__player {
+  height: 639px;
+  border-radius: 30px;
+  background-color: bisque;
+}
+.video__exercises {
+  margin-bottom: 50px;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgba(255, 255, 255, 1);
+}
+.exercises__title {
+  color: rgba(0, 0, 0, 1);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0%;
+  text-align: left;
+}
+.exercises__box {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px 60px;
+}
+.exercises__min {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.exercises__text {
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.exercises__scrollbar {
+  width: 320px;
+  height: 6px;
+  border-radius: 50px;
+  background: rgba(247, 247, 247, 1);
+}
+.progressBar {
+  height: 6px;
+  border-radius: 50px;
+  background: rgba(0, 193, 255, 1);
+}
+.exercises__but {
+  margin-top: 40px;
+  width: 320px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10;
+  padding: 16px 26px 16px 26px;
+  border-radius: 46px;
+  background: rgba(188, 236, 48, 1);
+}
+.exercises__link {
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.selectedCount {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+.exercises__sidebar {
+  height: 6px;
+  border-radius: 50px;
+  background: rgba(247, 247, 247, 1);
+}
+.progressBar {
+  height: 6px;
+  border-radius: 50px;
+  background: rgba(0, 193, 255, 1);
+}
+@media (max-width: 768px) {
+  .video__title {
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: rgba(0, 0, 0, 1);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 110%;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  .video__player {
+    border-radius: 8.87px;
+  }
+  .video__exercises {
+    padding: 30px;
+  }
+  .exercises__title {
+    color: rgba(0, 0, 0, 1);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: 0%;
+    text-align: left;
+  }
+  .exercises__min {
+    width: 283px;
+  }
+  .exercises__but {
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  .exercises__but {
+    width: 283px;
+    height: 52px;
+    padding: 16px 26px 16px 26px;
+  }
+  .exercises__link {
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+}

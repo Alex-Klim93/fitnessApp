@@ -1,8 +1,28 @@
 {
   "app": {
     "[project]/app/page": [
-      "static/media/caa3a2e1cccd8315-s.p.853070df.woff2",
-      "static/media/797e433ab948586e-s.p.dbea232f.woff2"
+      "static/media/2102e2e60baee814-s.p.8c0063c6.woff2",
+      "static/media/345b029bff63acdd-s.p.21997a02.woff2",
+      "static/media/62d4b50592542c9f-s.p.682c4823.woff2",
+      "static/media/ce62453a442c7f35-s.p.a9507876.woff2"
+    ],
+    "[project]/app/page/Course/[id]/page": [
+      "static/media/2102e2e60baee814-s.p.8c0063c6.woff2",
+      "static/media/345b029bff63acdd-s.p.21997a02.woff2",
+      "static/media/62d4b50592542c9f-s.p.682c4823.woff2",
+      "static/media/ce62453a442c7f35-s.p.a9507876.woff2"
+    ],
+    "[project]/app/page/Profile/page": [
+      "static/media/2102e2e60baee814-s.p.8c0063c6.woff2",
+      "static/media/345b029bff63acdd-s.p.21997a02.woff2",
+      "static/media/62d4b50592542c9f-s.p.682c4823.woff2",
+      "static/media/ce62453a442c7f35-s.p.a9507876.woff2"
+    ],
+    "[project]/app/page/Video/[id]/page": [
+      "static/media/2102e2e60baee814-s.p.8c0063c6.woff2",
+      "static/media/345b029bff63acdd-s.p.21997a02.woff2",
+      "static/media/62d4b50592542c9f-s.p.682c4823.woff2",
+      "static/media/ce62453a442c7f35-s.p.a9507876.woff2"
     ]
   },
   "appUsingSizeAdjust": true,

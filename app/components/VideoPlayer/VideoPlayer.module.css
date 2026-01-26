@@ -1,0 +1,187 @@
+/* app/components/VideoPlayer/VideoPlayer.module.css */
+
+.Player__box {
+  width: 100%;
+  height: 639px;
+  border: none;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Контейнер для контента при отсутствии видео */
+.Player__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.Player__img {
+  position: absolute;
+  top: 38%;
+  left: 43%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+}
+
+.noVideoText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Контейнер для видео */
+.videoContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: none;
+  background: #000;
+}
+
+/* Стили для iframe (YouTube) */
+.videoIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Стили для HTML5 video */
+.videoElement {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+/* Кастомные элементы управления */
+.customControls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.Player__box:hover .customControls,
+.Player__box:focus-within .customControls {
+  opacity: 1;
+}
+
+/* Кнопка Play/Pause */
+.playPauseButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.playPauseButton:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 1;
+}
+
+.playIcon,
+.pauseIcon {
+  position: absolute;
+  transition: opacity 0.3s ease;
+}
+
+.playPauseButton.playing .playIcon {
+  opacity: 0;
+}
+
+.playPauseButton.playing .pauseIcon {
+  opacity: 1;
+}
+
+.playPauseButton.paused .playIcon {
+  opacity: 1;
+}
+
+.playPauseButton.paused .pauseIcon {
+  opacity: 0;
+}
+
+/* Прогресс бар */
+.progressBarContainer {
+  margin-top: auto;
+}
+
+.progressBar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.progress {
+  position: absolute;
+  height: 100%;
+  background: #4caf50;
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+.progressSlider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.progressSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+}
+
+.timeDisplay {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-size: 14px;
+  font-family: monospace;
+}
+@media (max-width: 768px) {
+  .Player__box {
+    height: 189px;
+    border-radius: 8.87px;
+  }
+}

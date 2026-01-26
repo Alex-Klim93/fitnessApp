@@ -1,0 +1,98 @@
+.header_box {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_logo {
+  width: 220px;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo__link {
+  color: rgba(0, 0, 0, 1);
+  font-size: 28px;
+  font-weight: 500;
+}
+
+/* Стили для кнопки Войти (показывается когда НЕ авторизован) */
+.but__box {
+  /* Button */
+  width: 103px;
+  height: 52px;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8;
+  padding: 16px 26px 16px 26px;
+  border-radius: 46px;
+  background: rgba(188, 236, 48, 1);
+  color: rgba(0, 0, 0, 1);
+  font-style: Regular;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.but__link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 1);
+}
+
+/* Стили для кнопки профиля (показывается когда авторизован) */
+.profile_container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile_button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 1);
+}
+
+.profile_login {
+  color: rgba(0, 0, 0, 1);
+
+  font-family: Roboto;
+  font-style: Regular;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0px;
+  text-align: right;
+}
+
+.profile_arrow {
+  font-size: 12px;
+  margin-top: 2px;
+}
+@media (max-width: 768px) {
+  .profile_login {
+    display: none;
+  }
+}
