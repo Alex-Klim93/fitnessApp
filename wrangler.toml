@@ -1,6 +1,11 @@
 name = "fitnessapp"
-main = "./public/_worker.js"
 compatibility_date = "2024-01-01"
 
-[site]
-bucket = "./public"
+[build]
+command = "npm run build"
+
+pages_build_output_dir = ".next"
+
+[[environments]]
+name = "production"
+pages_build_output_dir = ".next"
