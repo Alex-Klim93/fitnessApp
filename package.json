@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "postbuild": "echo 'Build completed'",
+    "deploy": "npx wrangler pages deploy .next --project-name=fitnessapp",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint .",
