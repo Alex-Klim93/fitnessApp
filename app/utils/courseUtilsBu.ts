@@ -1,4 +1,4 @@
-// app/utils/courseUtils.ts
+// app/utils/courseUtilsBu.ts
 import { userApi } from '@/app/api/userApi';
 import { store } from '@/app/store/store';
 
@@ -11,11 +11,19 @@ export const isCourseInUserSelection = async (
     if (!token) return false;
 
     // Получаем данные пользователя из кэша RTK Query или делаем запрос
-    const { data: user } = await store.dispatch(
-      userApi.endpoints.getCurrentUser.initiate()
+    const result = await store.dispatch(
+      userApi.endpoints.getCurrentUser.initiate(undefined, {
+        forceRefetch: false, // Используем кэш если есть
+      })
     );
 
-    return user?.selectedCourses?.includes(courseId) || false;
+    // Проверяем, есть ли данные и не было ли ошибки
+    if (result.error) {
+      console.error('Ошибка получения данных пользователя:', result.error);
+      return false;
+    }
+
+    return result.data?.selectedCourses?.includes(courseId) || false;
   } catch (error) {
     console.error('Ошибка проверки курса пользователя:', error);
     return false;

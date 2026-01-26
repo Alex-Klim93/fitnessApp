@@ -1,5 +1,5 @@
 // app/api/simple-api.ts
-const API_BASE_URL = 'https://wedev-api.sky.pro/api/fitness';
+const API_BASE_URL = "https://wedev-api.sky.pro/api/fitness";
 
 // Интерфейсы
 export interface Course {
@@ -50,17 +50,44 @@ export interface ProgressData {
   }>;
 }
 
+export interface CourseProgress {
+  courseId: string;
+  courseCompleted: boolean;
+  workoutsProgress: WorkoutProgress[];
+  _id: string;
+}
+
+export interface WorkoutProgress {
+  workoutId: string;
+  workoutCompleted: boolean;
+  progressData: number[];
+  _id: string;
+}
+
+export interface Workout {
+  _id: string;
+  name: string;
+  video: string;
+  exercises: Exercise[];
+}
+
+export interface Exercise {
+  name: string;
+  quantity: number;
+  _id: string;
+}
+
 // Получение заголовков с токеном
 const getAuthHeaders = (): Record<string, string> => {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return {};
   }
 
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem("auth_token");
   const headers: Record<string, string> = {};
 
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+    headers["Authorization"] = `Bearer ${token}`;
   }
 
   // НЕ добавляем Content-Type
@@ -70,7 +97,7 @@ const getAuthHeaders = (): Record<string, string> => {
 // Базовый fetch с улучшенной обработкой ошибок
 const fetchApi = async <T>(
   url: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> => {
   try {
     const headers = getAuthHeaders();
@@ -86,14 +113,14 @@ const fetchApi = async <T>(
 
     // Удаляем Content-Type если он есть
     if (requestOptions.headers instanceof Headers) {
-      requestOptions.headers.delete('Content-Type');
+      requestOptions.headers.delete("Content-Type");
     } else if (Array.isArray(requestOptions.headers)) {
       requestOptions.headers = requestOptions.headers.filter(
-        ([key]) => key.toLowerCase() !== 'content-type'
+        ([key]) => key.toLowerCase() !== "content-type",
       );
-    } else if (typeof requestOptions.headers === 'object') {
-      delete (requestOptions.headers as Record<string, string>)['Content-Type'];
-      delete (requestOptions.headers as Record<string, string>)['content-type'];
+    } else if (typeof requestOptions.headers === "object") {
+      delete (requestOptions.headers as Record<string, string>)["Content-Type"];
+      delete (requestOptions.headers as Record<string, string>)["content-type"];
     }
 
     console.log(`API Request to: ${url}`);
@@ -124,24 +151,24 @@ const fetchApi = async <T>(
 
     if (error instanceof Error) {
       // Более понятные сообщения об ошибках
-      if (error.message.includes('Failed to fetch')) {
+      if (error.message.includes("Failed to fetch")) {
         throw new Error(
-          'Не удалось подключиться к серверу. Проверьте интернет-соединение.'
+          "Не удалось подключиться к серверу. Проверьте интернет-соединение.",
         );
       }
 
-      if (error.message.includes('401')) {
+      if (error.message.includes("401")) {
         // Удаляем невалидный токен
-        if (typeof window !== 'undefined') {
-          localStorage.removeItem('auth_token');
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("auth_token");
         }
-        throw new Error('Сессия истекла. Пожалуйста, войдите снова.');
+        throw new Error("Сессия истекла. Пожалуйста, войдите снова.");
       }
 
       throw error;
     }
 
-    throw new Error('Произошла неизвестная ошибка');
+    throw new Error("Произошла неизвестная ошибка");
   }
 };
 
@@ -158,10 +185,10 @@ export const getCourseWorkouts = (courseId: string): Promise<Workout[]> =>
   fetchApi<Workout[]>(`${API_BASE_URL}/courses/${courseId}/workouts`);
 
 export const resetCourseProgress = (
-  courseId: string
+  courseId: string,
 ): Promise<{ message: string }> =>
   fetchApi<{ message: string }>(`${API_BASE_URL}/courses/${courseId}/reset`, {
-    method: 'PATCH',
+    method: "PATCH",
   });
 
 // 2. ПОЛЬЗОВАТЕЛИ
@@ -169,26 +196,26 @@ export const getCurrentUser = (): Promise<UserData> =>
   fetchApi<UserData>(`${API_BASE_URL}/users/me`);
 
 export const addCourseToUser = (
-  courseId: string
+  courseId: string,
 ): Promise<{ message: string }> =>
   fetchApi<{ message: string }>(`${API_BASE_URL}/users/me/courses`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({ courseId }), // Сериализуем вручную
   });
 
 export const removeCourseFromUser = (
-  courseId: string
+  courseId: string,
 ): Promise<{ message: string }> =>
   fetchApi<{ message: string }>(
     `${API_BASE_URL}/users/me/courses/${courseId}`,
     {
-      method: 'DELETE',
-    }
+      method: "DELETE",
+    },
   );
 
 export const getUserProgress = (
   courseId: string,
-  workoutId?: string
+  workoutId?: string,
 ): Promise<ProgressData> => {
   let url = `${API_BASE_URL}/users/me/progress?courseId=${courseId}`;
   if (workoutId) {
@@ -204,23 +231,23 @@ export const getWorkoutById = (workoutId: string): Promise<Workout> =>
 export const saveWorkoutProgress = (
   courseId: string,
   workoutId: string,
-  progressData: number[]
+  progressData: number[],
 ): Promise<{ message: string }> =>
   fetchApi<{ message: string }>(
     `${API_BASE_URL}/courses/${courseId}/workouts/${workoutId}`,
     {
-      method: 'PATCH',
+      method: "PATCH",
       body: JSON.stringify({ progressData }), // Сериализуем вручную
-    }
+    },
   );
 
 export const resetWorkoutProgress = (
   courseId: string,
-  workoutId: string
+  workoutId: string,
 ): Promise<{ message: string }> =>
   fetchApi<{ message: string }>(
     `${API_BASE_URL}/courses/${courseId}/workouts/${workoutId}/reset`,
     {
-      method: 'PATCH',
-    }
+      method: "PATCH",
+    },
   );

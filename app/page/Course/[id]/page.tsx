@@ -14,48 +14,17 @@ import {
   addCourseToUser,
   removeCourseFromUser,
   resetCourseProgress,
+  Course as CourseType,
+  UserData,
 } from "@/app/api/simple-api";
 import SigninPopup from "@/app/components/PopUp/Signin/SigninPopup";
-
-interface CourseDetails {
-  _id: string;
-  nameRU: string;
-  nameEN: string;
-  description: string;
-  directions: string[];
-  fitting: string[];
-  difficulty: string;
-  durationInDays: number;
-  dailyDurationInMinutes: {
-    from: number;
-    to: number;
-  };
-  workouts: string[];
-}
-
-interface CourseProgressItem {
-  courseId: string;
-  completedWorkouts: string[];
-  lastAccessed?: string;
-  progressPercentage: number;
-}
-
-interface UserData {
-  _id: string;
-  email: string;
-  selectedCourses: string[];
-  courseProgress?: CourseProgressItem[];
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
 
 export default function CoursePage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const [course, setCourse] = useState<CourseDetails | null>(null);
+  const [course, setCourse] = useState<CourseType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [addingCourse, setAddingCourse] = useState(false);
@@ -95,14 +64,14 @@ export default function CoursePage({
       }
 
       console.log("Загружаю данные пользователя...");
-      const user = await getCurrentUser();
+      const userResponse = await getCurrentUser();
       console.log("Данные пользователя загружены:", {
-        email: user?.email,
-        selectedCoursesCount: user?.selectedCourses?.length || 0,
-        selectedCourses: user?.selectedCourses,
+        email: userResponse?.email,
+        selectedCoursesCount: userResponse?.selectedCourses?.length || 0,
+        selectedCourses: userResponse?.selectedCourses,
       });
 
-      return user as UserData;
+      return userResponse;
     } catch (error) {
       console.error("Ошибка загрузки данных пользователя:", error);
       // Если ошибка 401 (не авторизован), очищаем токен
@@ -133,28 +102,29 @@ export default function CoursePage({
         });
 
         // 2. Загружаем данные пользователя
-        const user = await fetchUserData();
-        setUserData(user);
+        const userResponse = await fetchUserData();
+        setUserData(userResponse);
 
-        if (user && courseData) {
+        if (userResponse && courseData) {
           const isCourseAdded =
-            user?.selectedCourses?.includes(courseData._id) || false;
+            userResponse?.selectedCourses?.includes(courseData._id) || false;
           console.log("Статус курса у пользователя:", {
             courseId: courseData._id,
             courseName: courseData.nameRU,
             isCourseAdded: isCourseAdded,
-            userCourses: user?.selectedCourses,
+            userCourses: userResponse?.selectedCourses,
           });
         }
-      } catch (err: any) {
+      } catch (err) {
         console.error("Error loading data:", err);
+        const error = err as Error;
 
-        if (err.message?.includes("404")) {
+        if (error.message?.includes("404")) {
           setError("Курс не найден");
-        } else if (err.message?.includes("400")) {
+        } else if (error.message?.includes("400")) {
           setError("Неверный запрос. Проверьте ID курса.");
         } else {
-          setError(err.message || "Ошибка при загрузке данных");
+          setError(error.message || "Ошибка при загрузке данных");
         }
       } finally {
         setLoading(false);
@@ -173,12 +143,12 @@ export default function CoursePage({
       console.log("Событие userDataUpdated получено, обновляю данные...");
       if (isAuthenticated() && courseId && course) {
         try {
-          const user = await fetchUserData();
-          setUserData(user);
+          const userResponse = await fetchUserData();
+          setUserData(userResponse);
 
-          if (user && course) {
+          if (userResponse && course) {
             const isCourseAdded =
-              user?.selectedCourses?.includes(course._id) || false;
+              userResponse?.selectedCourses?.includes(course._id) || false;
             console.log("Данные пользователя обновлены после события:", {
               courseId: course._id,
               isCourseAdded: isCourseAdded,
@@ -199,7 +169,7 @@ export default function CoursePage({
 
   // Проверяем, добавлен ли курс пользователю
   const isCourseAlreadyAdded = (): boolean => {
-    if (!userData || !course || !userData?.selectedCourses) {
+    if (!userData || !course || !userData.selectedCourses) {
       console.log("Недостаточно данных для проверки:", {
         hasUserData: !!userData,
         hasCourse: !!course,
@@ -252,14 +222,15 @@ export default function CoursePage({
       window.dispatchEvent(new Event("userDataUpdated"));
 
       alert("Курс успешно добавлен!");
-    } catch (err: any) {
+    } catch (err) {
       console.error("Ошибка при добавлении курса:", err);
+      const error = err as Error;
 
-      if (err.message?.includes("401")) {
+      if (error.message?.includes("401")) {
         alert("Требуется авторизация. Пожалуйста, войдите в систему.");
         router.push("/page/SignIn");
       } else {
-        alert(err.message || "Ошибка при добавлении курса");
+        alert(error.message || "Ошибка при добавлении курса");
       }
     } finally {
       setAddingCourse(false);
@@ -314,9 +285,10 @@ export default function CoursePage({
       window.dispatchEvent(new Event("userDataUpdated"));
 
       alert("Курс успешно удален!");
-    } catch (err: any) {
+    } catch (err) {
       console.error("Ошибка при удалении курса:", err);
-      alert(err.message || "Ошибка при удалении курса");
+      const error = err as Error;
+      alert(error.message || "Ошибка при удалении курса");
     } finally {
       setRemovingCourse(false);
     }
@@ -420,10 +392,6 @@ export default function CoursePage({
         imageHeight={decodedImageHeight}
         imageTop={decodedImageTop}
         imageRight={decodedImageRight}
-        courseId={course._id}
-        initialCourseAdded={courseAdded}
-        isAuthenticated={isAuth}
-        userCourses={userData?.selectedCourses || []}
       />
 
       {/* Попап авторизации */}
@@ -431,6 +399,7 @@ export default function CoursePage({
         isOpen={isSigninOpen}
         onClose={() => setIsSigninOpen(false)}
         onLoginSuccess={handleLoginSuccess}
+        onOpenSignup={() => {}}
       />
 
       <div className={styles.entice}>

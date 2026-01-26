@@ -1,7 +1,7 @@
 // app/store/slices/authSlice.ts
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { login as apiLogin, logout as apiLogout } from '@/app/api/auth';
-import { getErrorMessage } from '@/app/api/errors';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { login as apiLogin, logout as apiLogout } from "@/app/api/auth";
+import { getErrorMessage } from "@/app/api/errors";
 
 export interface User {
   _id: string;
@@ -25,13 +25,13 @@ const initialState: AuthState = {
 
 // Удаляем старую функцию loadUserData и заменяем её на loadUserProfile
 export const loadUserProfile = createAsyncThunk(
-  'auth/loadUserProfile',
+  "auth/loadUserProfile",
   async (_, { rejectWithValue }) => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return null;
     }
 
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem("auth_token");
     if (!token) {
       return null;
     }
@@ -39,11 +39,11 @@ export const loadUserProfile = createAsyncThunk(
     try {
       // Данные теперь загружаются через RTK Query в компонентах
       // Эта функция используется только для установки состояния в Redux
-      const userFromLocalStorage = localStorage.getItem('user_email');
+      const userFromLocalStorage = localStorage.getItem("user_email");
       if (userFromLocalStorage) {
-        const coursesFromStorage = localStorage.getItem('user_courses');
+        const coursesFromStorage = localStorage.getItem("user_courses");
         return {
-          _id: 'temp-id', // Временный ID, будет заменен RTK Query
+          _id: "temp-id", // Временный ID, будет заменен RTK Query
           email: userFromLocalStorage,
           selectedCourses: coursesFromStorage
             ? JSON.parse(coursesFromStorage)
@@ -52,21 +52,21 @@ export const loadUserProfile = createAsyncThunk(
       }
       return null;
     } catch (error) {
-      console.error('Ошибка загрузки данных пользователя:', error);
+      console.error("Ошибка загрузки данных пользователя:", error);
       if (error instanceof Error) {
         return rejectWithValue(getErrorMessage(error));
       }
-      return rejectWithValue('Неизвестная ошибка загрузки данных пользователя');
+      return rejectWithValue("Неизвестная ошибка загрузки данных пользователя");
     }
-  }
+  },
 );
 
 // Вход
 export const login = createAsyncThunk(
-  'auth/login',
+  "auth/login",
   async (
     { email, password }: { email: string; password: string },
-    { dispatch }
+    { dispatch },
   ) => {
     try {
       await apiLogin(email, password);
@@ -77,19 +77,19 @@ export const login = createAsyncThunk(
       if (error instanceof Error) {
         throw new Error(getErrorMessage(error));
       }
-      throw new Error('Неизвестная ошибка входа');
+      throw new Error("Неизвестная ошибка входа");
     }
-  }
+  },
 );
 
 // Выход
-export const logout = createAsyncThunk('auth/logout', async () => {
+export const logout = createAsyncThunk("auth/logout", async () => {
   apiLogout();
   return null;
 });
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
@@ -116,7 +116,7 @@ const authSlice = createSlice({
     removeUserCourse: (state, action: PayloadAction<string>) => {
       if (state.user) {
         state.user.selectedCourses = state.user.selectedCourses.filter(
-          (id) => id !== action.payload
+          (id) => id !== action.payload,
         );
       }
     },
@@ -138,7 +138,7 @@ const authSlice = createSlice({
       })
       .addCase(loadUserProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) || 'Ошибка загрузки профиля';
+        state.error = (action.payload as string) || "Ошибка загрузки профиля";
       })
       // login
       .addCase(login.pending, (state) => {
@@ -151,7 +151,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Ошибка входа';
+        state.error = action.error.message || "Ошибка входа";
       })
       // logout
       .addCase(logout.fulfilled, (state) => {
