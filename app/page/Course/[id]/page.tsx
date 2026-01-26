@@ -15,6 +15,7 @@ import {
   removeCourseFromUser,
   resetCourseProgress,
 } from '@/app/api/simple-api';
+import SigninPopup from '@/app/components/PopUp/Signin/SigninPopup';
 
 interface CourseDetails {
   _id: string;
@@ -57,6 +58,7 @@ export default function CoursePage({
   const [userData, setUserData] = useState<UserResponse | null>(null);
   const [courseId, setCourseId] = useState<string>('');
   const [checkingCourseStatus, setCheckingCourseStatus] = useState(true);
+  const [isSigninOpen, setIsSigninOpen] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -316,6 +318,23 @@ export default function CoursePage({
     }
   };
 
+  // Обработчик успешной авторизации
+  const handleLoginSuccess = () => {
+    // Обновляем статус авторизации
+    const isAuth = isAuthenticated();
+
+    // Закрываем попап
+    setIsSigninOpen(false);
+
+    // Если пользователь авторизовался, обновляем данные
+    if (isAuth) {
+      fetchUserData().then((updatedUserData) => {
+        setUserData(updatedUserData);
+        window.dispatchEvent(new Event('authStateChanged'));
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div style={{ padding: '40px', textAlign: 'center' }}>
@@ -401,6 +420,13 @@ export default function CoursePage({
         initialCourseAdded={courseAdded}
         isAuthenticated={isAuth}
         userCourses={userData?.user?.selectedCourses || []}
+      />
+
+      {/* Попап авторизации */}
+      <SigninPopup
+        isOpen={isSigninOpen}
+        onClose={() => setIsSigninOpen(false)}
+        onLoginSuccess={handleLoginSuccess}
       />
 
       <div className={styles.entice}>
@@ -499,8 +525,12 @@ export default function CoursePage({
                 )
               ) : (
                 <Link
-                  href="/page/SignIn"
+                  href="#"
                   className={styles.motivation__butLink}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsSigninOpen(true);
+                  }}
                 >
                   Войдите, чтобы добавить курс
                 </Link>
