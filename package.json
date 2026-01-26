@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build && npx @cloudflare/next-on-pages",
+    "deploy": "npx @cloudflare/next-on-pages deploy",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint .",

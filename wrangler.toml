@@ -1,5 +1,5 @@
-name = "your-dash-app"
-main = "app.js"
+name = "fitnessapp"
+main = "./.vercel/output/static/_worker.js"
 compatibility_date = "2024-01-01"
 
 [build]

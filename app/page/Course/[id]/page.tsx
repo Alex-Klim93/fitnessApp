@@ -1,5 +1,6 @@
 // app/page/Course/[id]/page.tsx
-"use client";
+export const dynamic = "force-dynamic";
+("use client");
 
 import Image from "next/image";
 import styles from "./page.module.css";
@@ -31,8 +32,8 @@ export default function CoursePage({
   const [removingCourse, setRemovingCourse] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [courseId, setCourseId] = useState<string>("");
-  const [checkingCourseStatus, setCheckingCourseStatus] = useState(true);
   const [isSigninOpen, setIsSigninOpen] = useState(false);
+  const [courseAdded, setCourseAdded] = useState<boolean>(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -83,12 +84,33 @@ export default function CoursePage({
     }
   };
 
+  // Функция для проверки, добавлен ли курс
+  const checkIfCourseAdded = async (): Promise<boolean> => {
+    if (!course || !isAuthenticated()) {
+      return false;
+    }
+
+    try {
+      const userResponse = await getCurrentUser();
+      const isAdded =
+        userResponse?.selectedCourses?.includes(course._id) || false;
+      console.log("Проверка курса:", {
+        courseId: course._id,
+        isAdded,
+        userCourses: userResponse?.selectedCourses,
+      });
+      return isAdded;
+    } catch (error) {
+      console.error("Ошибка при проверке курса:", error);
+      return false;
+    }
+  };
+
   // Загружаем данные курса и пользователя
   useEffect(() => {
     const loadAllData = async () => {
       try {
         setLoading(true);
-        setCheckingCourseStatus(true);
 
         if (!courseId) return;
 
@@ -105,15 +127,19 @@ export default function CoursePage({
         const userResponse = await fetchUserData();
         setUserData(userResponse);
 
+        // 3. Проверяем, добавлен ли курс
         if (userResponse && courseData) {
-          const isCourseAdded =
-            userResponse?.selectedCourses?.includes(courseData._id) || false;
+          const isAdded =
+            userResponse.selectedCourses?.includes(courseData._id) || false;
+          setCourseAdded(isAdded);
           console.log("Статус курса у пользователя:", {
             courseId: courseData._id,
             courseName: courseData.nameRU,
-            isCourseAdded: isCourseAdded,
-            userCourses: userResponse?.selectedCourses,
+            isCourseAdded: isAdded,
+            userCourses: userResponse.selectedCourses,
           });
+        } else {
+          setCourseAdded(false);
         }
       } catch (err) {
         console.error("Error loading data:", err);
@@ -128,7 +154,6 @@ export default function CoursePage({
         }
       } finally {
         setLoading(false);
-        setCheckingCourseStatus(false);
       }
     };
 
@@ -147,11 +172,12 @@ export default function CoursePage({
           setUserData(userResponse);
 
           if (userResponse && course) {
-            const isCourseAdded =
-              userResponse?.selectedCourses?.includes(course._id) || false;
+            const isAdded =
+              userResponse.selectedCourses?.includes(course._id) || false;
+            setCourseAdded(isAdded);
             console.log("Данные пользователя обновлены после события:", {
               courseId: course._id,
-              isCourseAdded: isCourseAdded,
+              isCourseAdded: isAdded,
             });
           }
         } catch (err) {
@@ -167,34 +193,21 @@ export default function CoursePage({
     };
   }, [courseId, course]);
 
-  // Проверяем, добавлен ли курс пользователю
-  const isCourseAlreadyAdded = (): boolean => {
-    if (!userData || !course || !userData.selectedCourses) {
-      console.log("Недостаточно данных для проверки:", {
-        hasUserData: !!userData,
-        hasCourse: !!course,
-        hasSelectedCourses: !!userData?.selectedCourses,
-      });
-      return false;
-    }
-
-    const isAdded =
-      Array.isArray(userData.selectedCourses) &&
-      userData.selectedCourses.includes(course._id);
-
-    console.log("Проверка курса у пользователя:", {
-      courseId: course._id,
-      userCourses: userData.selectedCourses,
-      courseName: course.nameRU,
-      isAdded: isAdded,
-    });
-
-    return isAdded;
-  };
-
   // Функция для добавления курса
   const addCourseToUserHandler = async () => {
     if (!course) return;
+
+    // ПРЕЖДЕ чем добавлять, проверяем, не добавлен ли уже курс
+    try {
+      const isAlreadyAdded = await checkIfCourseAdded();
+      if (isAlreadyAdded) {
+        alert("Курс уже был добавлен ранее!");
+        setCourseAdded(true); // Обновляем состояние
+        return;
+      }
+    } catch (error) {
+      console.error("Ошибка при проверке курса перед добавлением:", error);
+    }
 
     setAddingCourse(true);
     try {
@@ -210,9 +223,11 @@ export default function CoursePage({
       await addCourseToUser(course._id);
       console.log("Курс добавлен успешно");
 
-      // Обновляем данные пользователя
+      // Обновляем данные пользователя и статус курса
       const updatedUserData = await fetchUserData();
       setUserData(updatedUserData);
+      setCourseAdded(true); // Устанавливаем состояние добавленного курса
+
       console.log(
         "Данные пользователя обновлены после добавления курса:",
         updatedUserData?.selectedCourses,
@@ -229,6 +244,9 @@ export default function CoursePage({
       if (error.message?.includes("401")) {
         alert("Требуется авторизация. Пожалуйста, войдите в систему.");
         router.push("/page/SignIn");
+      } else if (error.message?.includes("Курс уже был добавлен")) {
+        alert("Курс уже был добавлен ранее!");
+        setCourseAdded(true); // Обновляем состояние
       } else {
         alert(error.message || "Ошибка при добавлении курса");
       }
@@ -273,9 +291,11 @@ export default function CoursePage({
       await removeCourseFromUser(course._id);
       console.log("Курс удален успешно");
 
-      // Обновляем данные пользователя
+      // Обновляем данные пользователя и статус курса
       const updatedUserData = await fetchUserData();
       setUserData(updatedUserData);
+      setCourseAdded(false); // Сбрасываем состояние добавленного курса
+
       console.log(
         "Данные пользователя обновлены после удаления курса:",
         updatedUserData?.selectedCourses,
@@ -288,7 +308,7 @@ export default function CoursePage({
     } catch (err) {
       console.error("Ошибка при удалении курса:", err);
       const error = err as Error;
-      alert(error.message || "Ошибка при удалении курса");
+      alert(error.message || "Ошибка при удаления курса");
     } finally {
       setRemovingCourse(false);
     }
@@ -306,6 +326,12 @@ export default function CoursePage({
     if (isAuth) {
       fetchUserData().then((updatedUserData) => {
         setUserData(updatedUserData);
+        // Обновляем статус курса после авторизации
+        if (updatedUserData && course) {
+          const isAdded =
+            updatedUserData.selectedCourses?.includes(course._id) || false;
+          setCourseAdded(isAdded);
+        }
         window.dispatchEvent(new Event("authStateChanged"));
       });
     }
@@ -368,14 +394,12 @@ export default function CoursePage({
     "помогают противостоять стрессам",
   ];
 
-  // Проверяем состояние курса
-  const courseAdded = isCourseAlreadyAdded();
+  // Проверяем авторизацию
   const isAuth = isAuthenticated();
 
   console.log("Текущий статус курса (для рендера):", {
     isAuth: isAuth,
     courseAdded: courseAdded,
-    checkingCourseStatus: checkingCourseStatus,
     hasUserData: !!userData,
     courseId: course._id,
     userSelectedCourses: userData?.selectedCourses,
@@ -455,16 +479,16 @@ export default function CoursePage({
             <h3 className={styles.motivation__title}>
               Начните путь к новому телу
             </h3>
-            <p className={styles.motivation__text}>
+            <div className={styles.motivation__text}>
               {motivationPoints.map((point, index) => (
                 <p key={index}>
                   • {point}
                   {index < motivationPoints.length - 1}
                 </p>
               ))}
-            </p>
+            </div>
             <div className={styles.motivation__but}>
-              {checkingCourseStatus ? (
+              {loading ? (
                 <div style={{ padding: "10px", textAlign: "center" }}>
                   <div>Проверка статуса курса...</div>
                 </div>
