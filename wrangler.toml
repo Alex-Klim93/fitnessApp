@@ -1,12 +1,13 @@
 name = "fitnessapp"
 compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".next"
 
 [build]
 command = "npm run build"
 
-pages_build_output_dir = ".next"
+[vars]
+NODE_VERSION = "22"
 
-
-[[environments]]
-name = "production"
+[env.production]
 pages_build_output_dir = ".next"
