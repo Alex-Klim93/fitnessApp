@@ -6,6 +6,7 @@ command = "npm run build"
 
 pages_build_output_dir = ".next"
 
+
 [[environments]]
 name = "production"
 pages_build_output_dir = ".next"
