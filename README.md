@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 SkyFitnessPro - Фитнес платформа
 https://img.shields.io/badge/Next.js-14-black
 https://img.shields.io/badge/TypeScript-5-blue
@@ -228,3 +229,6 @@ MIT License
 
 Проект разработан в рамках дипломной работы. Все права на дизайн и концепцию принадлежат SkyPro.
 vb
+=======
+FitnessApp
+>>>>>>> 7a9c58c4cf28e936251a19e6dac885f3b718ed9e
