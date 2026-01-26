@@ -1,46 +1,43 @@
-[00:00:01.212] Server  LOG     ✓ Ready in 859ms
-[00:00:03.998] Browser LOG     ID курса из URL: kfpq8e
-[00:00:03.998] Browser LOG     Загружаю данные курса...
-[00:00:03.998] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
-[00:00:03.998] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
-[00:00:03.998] Browser LOG     Загружаю данные пользователя...
-[00:00:03.998] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
-[00:00:03.998] Browser LOG     Данные пользователя загружены: {"selectedCoursesCount":0}
-[00:00:03.998] Browser LOG     Статус курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isCourseAdded":false}
-[00:00:03.998] Browser LOG     Текущий статус курса (для рендера): {"courseAdded":false,"courseId":"kfpq8e","hasUserData":true,"isAuth":true}
-[00:00:03.998] Browser LOG     Текущий статус курса (для рендера): {"courseAdded":false,"courseId":"kfpq8e","hasUserData":true,"isAuth":true}
-[00:00:03.998] Browser WARN    Image with src "http://localhost:3000/img/Vector%206094.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:05.427] Browser GROUPCOLLAPSED %cRedux Action: api/config/middlewareRegistered color: #764ba2; font-weight: bold
-[00:00:05.427] Browser LOG     %cPrevious State: color: #9E9E9E; font-weight: bold {"api":{"config":{"focused":false,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":false,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
-[00:00:05.427] Browser LOG     %cAction: color: #03A9F4; font-weight: bold {"payload":"wKvRkyRydlZr2pPPLvoae","type":"api/config/middlewareRegistered"}
-[00:00:05.427] Browser LOG     %cNext State: color: #4CAF50; font-weight: bold {"api":{"config":{"focused":false,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":true,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
-[00:00:05.427] Browser GROUPEND 
-[00:00:07.406] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
-[00:00:11.801] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:00:11.801] Browser LOG     Инициализация приложения: Авторизован
-[00:00:11.801] Browser LOG     Пользователь: melkimelki79@gmail.com
-[00:00:11.801] Browser LOG     Инициализация приложения: Авторизован
-[00:00:11.801] Browser LOG     Пользователь: melkimelki79@gmail.com
-[00:00:23.353] Browser LOG     Проверка курса: {"courseId":"kfpq8e","isAdded":false}
-[00:00:23.353] Browser LOG     Добавляю курс kfpq8e...
-[00:00:23.353] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me/courses
-[00:00:25.017] Browser LOG     ID курса из URL: kfpq8e
-[00:00:25.017] Browser LOG     ID курса из URL: kfpq8e
-[00:00:25.017] Browser LOG     Загружаю данные курса...
-[00:00:25.017] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
-[00:00:45.602] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
-[00:00:45.602] Browser LOG     Загружаю данные пользователя...
-[00:00:45.602] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
-[00:00:45.602] Browser ERROR   API Error for https://wedev-api.sky.pro/api/fitness/users/me/courses: {}
-[00:00:45.602] Browser ERROR   Ошибка при добавлении курса: {}
-[00:00:56.985] Browser LOG     ID курса из URL: kfpq8e
-[00:00:56.985] Browser LOG     Загружаю данные курса...
-[00:00:56.985] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
-[00:01:02.586] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
-[00:01:02.586] Browser LOG     Загружаю данные пользователя...
-[00:01:02.586] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
-[00:01:08.990] Browser GROUPCOLLAPSED %cRedux Action: api/config/middlewareRegistered color: #764ba2; font-weight: bold
-[00:01:08.990] Browser LOG     %cPrevious State: color: #9E9E9E; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":false,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
-[00:01:08.990] Browser LOG     %cAction: color: #03A9F4; font-weight: bold {"payload":"goX4wh5C4xmJkfCs5xhTR","type":"api/config/middlewareRegistered"}
-[00:01:08.990] Browser LOG     %cNext State: color: #4CAF50; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":true,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
-[00:01:08.990] Browser GROUPEND 
+[00:00:01.233] Server  LOG     ✓ Ready in 882ms
+[00:00:06.301] Browser LOG     ID курса из URL: kfpq8e
+[00:00:06.301] Browser LOG     === НАЧАЛО ЗАГРУЗКИ СТРАНИЦЫ КУРСА ===
+[00:00:06.301] Browser LOG     ID курса для загрузки: kfpq8e
+[00:00:06.301] Browser LOG     Загружаю данные курса...
+[00:00:06.302] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
+[00:00:06.302] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
+[00:00:06.302] Browser LOG     Пользователь авторизован: true
+[00:00:06.302] Browser LOG     Загружаю данные пользователя для проверки курса...
+[00:00:06.302] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
+[00:00:06.302] Browser LOG     Данные пользователя загружены: {"currentCourseId":"kfpq8e","selectedCoursesCount":0}
+[00:00:06.302] Browser LOG     Результат проверки курса: {"courseId":"kfpq8e","isAdded":false}
+[00:00:06.302] Browser LOG     === РЕЗУЛЬТАТ ПРОВЕРКИ ===
+[00:00:06.302] Browser LOG     Курс добавлен у пользователя: false
+[00:00:06.302] Browser LOG     ID текущего курса: kfpq8e
+[00:00:06.302] Browser LOG     Курсы пользователя: undefined
+[00:00:06.302] Browser LOG     === ЗАВЕРШЕНИЕ ЗАГРУЗКИ ===
+[00:00:06.302] Browser LOG     === ФИНАЛЬНЫЙ СТАТУС ПЕРЕД РЕНДЕРОМ === {"courseAdded":false,"courseId":"kfpq8e","courseName":"Стретчинг","isAuth":true,"loading":false,"userHasData":true}
+[00:00:06.302] Browser LOG     === ФИНАЛЬНЫЙ СТАТУС ПЕРЕД РЕНДЕРОМ === {"courseAdded":false,"courseId":"kfpq8e","courseName":"Стретчинг","isAuth":true,"loading":false,"userHasData":true}
+[00:00:06.302] Browser WARN    Image with src "http://localhost:3000/img/Vector%206094.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:07.751] Browser GROUPCOLLAPSED %cRedux Action: api/config/middlewareRegistered color: #764ba2; font-weight: bold
+[00:00:07.751] Browser LOG     %cPrevious State: color: #9E9E9E; font-weight: bold {"api":{"config":{"focused":false,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":false,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
+[00:00:07.751] Browser LOG     %cAction: color: #03A9F4; font-weight: bold {"payload":"sFfG0ujcyq6N_9aZW8ojw","type":"api/config/middlewareRegistered"}
+[00:00:07.751] Browser LOG     %cNext State: color: #4CAF50; font-weight: bold {"api":{"config":{"focused":false,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":true,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
+[00:00:07.751] Browser GROUPEND 
+[00:00:09.971] Browser LOG     === НАЧАЛО ДОБАВЛЕНИЯ КУРСА kfpq8e ===
+[00:00:09.971] Browser LOG     Загружаю данные пользователя для проверки курса...
+[00:00:09.971] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
+[00:00:09.971] Browser LOG     === ФИНАЛЬНЫЙ СТАТУС ПЕРЕД РЕНДЕРОМ === {"courseAdded":false,"courseId":"kfpq8e","courseName":"Стретчинг","isAuth":true,"loading":false,"userHasData":true}
+[00:00:09.971] Browser LOG     === ФИНАЛЬНЫЙ СТАТУС ПЕРЕД РЕНДЕРОМ === {"courseAdded":false,"courseId":"kfpq8e","courseName":"Стретчинг","isAuth":true,"loading":false,"userHasData":true}
+[00:00:10.181] Browser LOG     Данные пользователя загружены: {"currentCourseId":"kfpq8e","selectedCoursesCount":0}
+[00:00:10.181] Browser LOG     Результат проверки курса: {"courseId":"kfpq8e","isAdded":false}
+[00:00:10.181] Browser LOG     Курс не добавлен, продолжаем...
+[00:00:10.181] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me/courses
+[00:00:12.098] Browser ERROR   API Error for https://wedev-api.sky.pro/api/fitness/users/me/courses: {}
+[00:00:12.098] Browser ERROR   Ошибка при добавлении курса: {}
+[00:00:12.098] Browser LOG     Загружаю данные пользователя для проверки курса...
+[00:00:12.098] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
+[00:00:12.392] Browser LOG     Данные пользователя загружены: {"currentCourseId":"kfpq8e","selectedCoursesCount":0}
+[00:00:12.392] Browser LOG     Результат проверки курса: {"courseId":"kfpq8e","isAdded":false}
+[00:00:12.392] Browser LOG     === ЗАВЕРШЕНИЕ ДОБАВЛЕНИЯ КУРСА ===
+[00:00:12.392] Browser LOG     === ФИНАЛЬНЫЙ СТАТУС ПЕРЕД РЕНДЕРОМ === {"courseAdded":false,"courseId":"kfpq8e","courseName":"Стретчинг","isAuth":true,"loading":false,"userHasData":true}
+[00:00:12.392] Browser LOG     === ФИНАЛЬНЫЙ СТАТУС ПЕРЕД РЕНДЕРОМ === {"courseAdded":false,"courseId":"kfpq8e","courseName":"Стретчинг","isAuth":true,"loading":false,"userHasData":true}

@@ -1,12 +1,11 @@
 // app/page/Course/[id]/page.tsx
-export const dynamic = "force-dynamic";
-("use client");
+"use client";
 
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
 import SkillCard from "@/app/components/SkillCard/SkillCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { isAuthenticated } from "@/app/api/auth";
 import {
@@ -56,23 +55,39 @@ export default function CoursePage({
     getCourseId();
   }, [params]);
 
-  // Функция для загрузки данных пользователя
-  const fetchUserData = async (): Promise<UserData | null> => {
+  // Функция для загрузки данных пользователя с проверкой курса
+  const fetchUserDataWithCourseCheck = useCallback(async (): Promise<{
+    userData: UserData | null;
+    isCourseAdded: boolean;
+  }> => {
     try {
-      if (!isAuthenticated()) {
-        console.log("Пользователь не авторизован");
-        return null;
+      if (!isAuthenticated() || !courseId) {
+        console.log("Пользователь не авторизован или нет ID курса");
+        return { userData: null, isCourseAdded: false };
       }
 
-      console.log("Загружаю данные пользователя...");
+      console.log("Загружаю данные пользователя для проверки курса...");
       const userResponse = await getCurrentUser();
       console.log("Данные пользователя загружены:", {
         email: userResponse?.email,
         selectedCoursesCount: userResponse?.selectedCourses?.length || 0,
         selectedCourses: userResponse?.selectedCourses,
+        currentCourseId: courseId,
       });
 
-      return userResponse;
+      // Проверяем, добавлен ли текущий курс
+      const isAdded =
+        userResponse?.selectedCourses?.includes(courseId) || false;
+      console.log("Результат проверки курса:", {
+        courseId,
+        isAdded,
+        userCourses: userResponse?.selectedCourses,
+      });
+
+      return {
+        userData: userResponse,
+        isCourseAdded: isAdded,
+      };
     } catch (error) {
       console.error("Ошибка загрузки данных пользователя:", error);
       // Если ошибка 401 (не авторизован), очищаем токен
@@ -80,39 +95,21 @@ export default function CoursePage({
         localStorage.removeItem("auth_token");
         window.dispatchEvent(new Event("authStateChanged"));
       }
-      return null;
+      return { userData: null, isCourseAdded: false };
     }
-  };
+  }, [courseId]);
 
-  // Функция для проверки, добавлен ли курс
-  const checkIfCourseAdded = async (): Promise<boolean> => {
-    if (!course || !isAuthenticated()) {
-      return false;
-    }
-
-    try {
-      const userResponse = await getCurrentUser();
-      const isAdded =
-        userResponse?.selectedCourses?.includes(course._id) || false;
-      console.log("Проверка курса:", {
-        courseId: course._id,
-        isAdded,
-        userCourses: userResponse?.selectedCourses,
-      });
-      return isAdded;
-    } catch (error) {
-      console.error("Ошибка при проверке курса:", error);
-      return false;
-    }
-  };
-
-  // Загружаем данные курса и пользователя
+  // Загружаем данные курса и проверяем статус
   useEffect(() => {
-    const loadAllData = async () => {
+    const loadCourseAndCheckStatus = async () => {
       try {
         setLoading(true);
+        setError(null);
 
         if (!courseId) return;
+
+        console.log("=== НАЧАЛО ЗАГРУЗКИ СТРАНИЦЫ КУРСА ===");
+        console.log("ID курса для загрузки:", courseId);
 
         // 1. Загружаем данные курса
         console.log("Загружаю данные курса...");
@@ -123,26 +120,29 @@ export default function CoursePage({
           name: courseData.nameRU,
         });
 
-        // 2. Загружаем данные пользователя
-        const userResponse = await fetchUserData();
-        setUserData(userResponse);
+        // 2. Проверяем авторизацию
+        const auth = isAuthenticated();
+        console.log("Пользователь авторизован:", auth);
 
-        // 3. Проверяем, добавлен ли курс
-        if (userResponse && courseData) {
-          const isAdded =
-            userResponse.selectedCourses?.includes(courseData._id) || false;
-          setCourseAdded(isAdded);
-          console.log("Статус курса у пользователя:", {
-            courseId: courseData._id,
-            courseName: courseData.nameRU,
-            isCourseAdded: isAdded,
-            userCourses: userResponse.selectedCourses,
-          });
+        if (auth) {
+          // 3. Загружаем данные пользователя и проверяем курс
+          const { userData, isCourseAdded } =
+            await fetchUserDataWithCourseCheck();
+          setUserData(userData);
+          setCourseAdded(isCourseAdded);
+
+          console.log("=== РЕЗУЛЬТАТ ПРОВЕРКИ ===");
+          console.log("Курс добавлен у пользователя:", isCourseAdded);
+          console.log("ID текущего курса:", courseData._id);
+          console.log("Курсы пользователя:", userData?.selectedCourses);
         } else {
+          // Не авторизован - курс точно не добавлен
           setCourseAdded(false);
+          setUserData(null);
+          console.log("Пользователь не авторизован, курс не добавлен");
         }
       } catch (err) {
-        console.error("Error loading data:", err);
+        console.error("Ошибка загрузки данных:", err);
         const error = err as Error;
 
         if (error.message?.includes("404")) {
@@ -154,32 +154,31 @@ export default function CoursePage({
         }
       } finally {
         setLoading(false);
+        console.log("=== ЗАВЕРШЕНИЕ ЗАГРУЗКИ ===");
       }
     };
 
     if (courseId) {
-      loadAllData();
+      loadCourseAndCheckStatus();
     }
-  }, [courseId]);
+  }, [courseId, fetchUserDataWithCourseCheck]);
 
   // Слушаем события обновления данных пользователя
   useEffect(() => {
     const handleUserDataUpdated = async () => {
-      console.log("Событие userDataUpdated получено, обновляю данные...");
+      console.log("=== СОБЫТИЕ: userDataUpdated ===");
       if (isAuthenticated() && courseId && course) {
         try {
-          const userResponse = await fetchUserData();
-          setUserData(userResponse);
+          const { userData, isCourseAdded } =
+            await fetchUserDataWithCourseCheck();
+          setUserData(userData);
+          setCourseAdded(isCourseAdded);
 
-          if (userResponse && course) {
-            const isAdded =
-              userResponse.selectedCourses?.includes(course._id) || false;
-            setCourseAdded(isAdded);
-            console.log("Данные пользователя обновлены после события:", {
-              courseId: course._id,
-              isCourseAdded: isAdded,
-            });
-          }
+          console.log("Данные обновлены после события:", {
+            courseId: course._id,
+            isCourseAdded: isCourseAdded,
+            userCourses: userData?.selectedCourses,
+          });
         } catch (err) {
           console.error("Ошибка обновления данных пользователя:", err);
         }
@@ -191,23 +190,40 @@ export default function CoursePage({
     return () => {
       window.removeEventListener("userDataUpdated", handleUserDataUpdated);
     };
-  }, [courseId, course]);
+  }, [courseId, course, fetchUserDataWithCourseCheck]);
+
+  // Слушаем события изменения авторизации
+  useEffect(() => {
+    const handleAuthChanged = async () => {
+      console.log("=== СОБЫТИЕ: authStateChanged ===");
+      if (courseId && course) {
+        const auth = isAuthenticated();
+        console.log("Статус авторизации изменился:", auth);
+
+        if (auth) {
+          // Пользователь авторизовался - проверяем курс
+          const { userData, isCourseAdded } =
+            await fetchUserDataWithCourseCheck();
+          setUserData(userData);
+          setCourseAdded(isCourseAdded);
+        } else {
+          // Пользователь вышел - сбрасываем
+          setUserData(null);
+          setCourseAdded(false);
+        }
+      }
+    };
+
+    window.addEventListener("authStateChanged", handleAuthChanged);
+
+    return () => {
+      window.removeEventListener("authStateChanged", handleAuthChanged);
+    };
+  }, [courseId, course, fetchUserDataWithCourseCheck]);
 
   // Функция для добавления курса
   const addCourseToUserHandler = async () => {
     if (!course) return;
-
-    // ПРЕЖДЕ чем добавлять, проверяем, не добавлен ли уже курс
-    try {
-      const isAlreadyAdded = await checkIfCourseAdded();
-      if (isAlreadyAdded) {
-        alert("Курс уже был добавлен ранее!");
-        setCourseAdded(true); // Обновляем состояние
-        return;
-      }
-    } catch (error) {
-      console.error("Ошибка при проверке курса перед добавлением:", error);
-    }
 
     setAddingCourse(true);
     try {
@@ -218,19 +234,32 @@ export default function CoursePage({
         return;
       }
 
-      console.log(`Добавляю курс ${course._id}...`);
+      console.log(`=== НАЧАЛО ДОБАВЛЕНИЯ КУРСА ${course._id} ===`);
 
+      // Двойная проверка перед добавлением
+      const { isCourseAdded: checkBeforeAdd } =
+        await fetchUserDataWithCourseCheck();
+      if (checkBeforeAdd) {
+        alert("Курс уже был добавлен ранее!");
+        setCourseAdded(true);
+        return;
+      }
+
+      console.log("Курс не добавлен, продолжаем...");
       await addCourseToUser(course._id);
-      console.log("Курс добавлен успешно");
+      console.log("Курс добавлен успешно на сервере");
 
       // Обновляем данные пользователя и статус курса
-      const updatedUserData = await fetchUserData();
+      const { userData: updatedUserData, isCourseAdded } =
+        await fetchUserDataWithCourseCheck();
       setUserData(updatedUserData);
-      setCourseAdded(true); // Устанавливаем состояние добавленного курса
+      setCourseAdded(isCourseAdded);
 
       console.log(
         "Данные пользователя обновлены после добавления курса:",
         updatedUserData?.selectedCourses,
+        "Курс добавлен:",
+        isCourseAdded,
       );
 
       // Отправляем событие для обновления данных в SkillCard
@@ -244,14 +273,20 @@ export default function CoursePage({
       if (error.message?.includes("401")) {
         alert("Требуется авторизация. Пожалуйста, войдите в систему.");
         router.push("/page/SignIn");
-      } else if (error.message?.includes("Курс уже был добавлен")) {
+      } else if (
+        error.message?.includes("Курс уже был добавлен") ||
+        error.message?.includes("already added")
+      ) {
         alert("Курс уже был добавлен ранее!");
-        setCourseAdded(true); // Обновляем состояние
+        // Принудительно обновляем статус
+        const { isCourseAdded } = await fetchUserDataWithCourseCheck();
+        setCourseAdded(isCourseAdded);
       } else {
         alert(error.message || "Ошибка при добавлении курса");
       }
     } finally {
       setAddingCourse(false);
+      console.log("=== ЗАВЕРШЕНИЕ ДОБАВЛЕНИЯ КУРСА ===");
     }
   };
 
@@ -274,7 +309,7 @@ export default function CoursePage({
         throw new Error("Требуется авторизация");
       }
 
-      console.log(`Удаляю курс ${course._id}...`);
+      console.log(`=== НАЧАЛО УДАЛЕНИЯ КУРСА ${course._id} ===`);
 
       // 1. Сначала сбрасываем прогресс курса
       try {
@@ -289,16 +324,19 @@ export default function CoursePage({
 
       // 2. Удаляем курс из списка пользователя
       await removeCourseFromUser(course._id);
-      console.log("Курс удален успешно");
+      console.log("Курс удален успешно на сервере");
 
       // Обновляем данные пользователя и статус курса
-      const updatedUserData = await fetchUserData();
+      const { userData: updatedUserData, isCourseAdded } =
+        await fetchUserDataWithCourseCheck();
       setUserData(updatedUserData);
-      setCourseAdded(false); // Сбрасываем состояние добавленного курса
+      setCourseAdded(isCourseAdded);
 
       console.log(
         "Данные пользователя обновлены после удаления курса:",
         updatedUserData?.selectedCourses,
+        "Курс добавлен:",
+        isCourseAdded,
       );
 
       // Отправляем событие для обновления данных в SkillCard
@@ -311,11 +349,14 @@ export default function CoursePage({
       alert(error.message || "Ошибка при удаления курса");
     } finally {
       setRemovingCourse(false);
+      console.log("=== ЗАВЕРШЕНИЕ УДАЛЕНИЯ КУРСА ===");
     }
   };
 
   // Обработчик успешной авторизации
   const handleLoginSuccess = () => {
+    console.log("=== ОБРАБОТЧИК УСПЕШНОЙ АВТОРИЗАЦИИ ===");
+
     // Обновляем статус авторизации
     const isAuth = isAuthenticated();
 
@@ -323,15 +364,12 @@ export default function CoursePage({
     setIsSigninOpen(false);
 
     // Если пользователь авторизовался, обновляем данные
-    if (isAuth) {
-      fetchUserData().then((updatedUserData) => {
-        setUserData(updatedUserData);
-        // Обновляем статус курса после авторизации
-        if (updatedUserData && course) {
-          const isAdded =
-            updatedUserData.selectedCourses?.includes(course._id) || false;
-          setCourseAdded(isAdded);
-        }
+    if (isAuth && courseId) {
+      console.log("Пользователь авторизовался, проверяем курс...");
+      fetchUserDataWithCourseCheck().then(({ userData, isCourseAdded }) => {
+        setUserData(userData);
+        setCourseAdded(isCourseAdded);
+        console.log("Статус курса после авторизации:", isCourseAdded);
         window.dispatchEvent(new Event("authStateChanged"));
       });
     }
@@ -397,12 +435,14 @@ export default function CoursePage({
   // Проверяем авторизацию
   const isAuth = isAuthenticated();
 
-  console.log("Текущий статус курса (для рендера):", {
+  console.log("=== ФИНАЛЬНЫЙ СТАТУС ПЕРЕД РЕНДЕРОМ ===", {
     isAuth: isAuth,
     courseAdded: courseAdded,
-    hasUserData: !!userData,
     courseId: course._id,
-    userSelectedCourses: userData?.selectedCourses,
+    courseName: course.nameRU,
+    loading: loading,
+    userHasData: !!userData,
+    userCourses: userData?.selectedCourses,
   });
 
   return (
@@ -490,7 +530,7 @@ export default function CoursePage({
             <div className={styles.motivation__but}>
               {loading ? (
                 <div style={{ padding: "10px", textAlign: "center" }}>
-                  <div>Проверка статуса курса...</div>
+                  <div>Загрузка...</div>
                 </div>
               ) : isAuth ? (
                 courseAdded ? (

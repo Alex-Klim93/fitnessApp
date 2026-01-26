@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npx @cloudflare/next-on-pages",
-    "deploy": "npx @cloudflare/next-on-pages deploy",
+    "build": "next build",
+    "postbuild": "node create-worker.js",
+    "deploy": "npx wrangler deploy",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint .",
@@ -16,6 +17,7 @@
     "test:verbose": "jest --verbose"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.15.1",
     "@reduxjs/toolkit": "^2.11.2",
     "@types/youtube": "^0.1.2",
     "axios": "^1.13.2",
