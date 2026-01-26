@@ -1,6 +1,6 @@
 name = "fitnessapp"
-main = "./.vercel/output/static/_worker.js"
+main = "./public/_worker.js"
 compatibility_date = "2024-01-01"
 
-[build]
-command = "npm run build"
+[site]
+bucket = "./public"

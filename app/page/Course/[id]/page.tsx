@@ -19,6 +19,22 @@ import {
 } from "@/app/api/simple-api";
 import SigninPopup from "@/app/components/PopUp/Signin/SigninPopup";
 
+// Тип для ответа с вложенным user
+interface UserResponseWithNestedUser {
+  user: {
+    _id: string;
+    email: string;
+    selectedCourses: string[];
+    courseProgress?: any[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
+}
+
+// Тип для проверки структуры ответа
+type ApiUserResponse = UserData | UserResponseWithNestedUser | null;
+
 export default function CoursePage({
   params,
 }: {
@@ -29,7 +45,7 @@ export default function CoursePage({
   const [error, setError] = useState<string | null>(null);
   const [addingCourse, setAddingCourse] = useState(false);
   const [removingCourse, setRemovingCourse] = useState(false);
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState<ApiUserResponse>(null);
   const [courseId, setCourseId] = useState<string>("");
   const [isSigninOpen, setIsSigninOpen] = useState(false);
   const [courseAdded, setCourseAdded] = useState<boolean>(false);
@@ -57,7 +73,7 @@ export default function CoursePage({
 
   // Функция для загрузки данных пользователя с проверкой курса
   const fetchUserDataWithCourseCheck = useCallback(async (): Promise<{
-    userData: UserData | null;
+    userData: ApiUserResponse;
     isCourseAdded: boolean;
   }> => {
     try {
@@ -68,24 +84,54 @@ export default function CoursePage({
 
       console.log("Загружаю данные пользователя для проверки курса...");
       const userResponse = await getCurrentUser();
-      console.log("Данные пользователя загружены:", {
-        email: userResponse?.email,
-        selectedCoursesCount: userResponse?.selectedCourses?.length || 0,
-        selectedCourses: userResponse?.selectedCourses,
-        currentCourseId: courseId,
-      });
+
+      // Приводим к типу ApiUserResponse
+      const typedResponse = userResponse as ApiUserResponse;
+
+      // ВАЖНО: Проверяем структуру ответа
+      console.log(
+        "Полный ответ от getCurrentUser():",
+        JSON.stringify(typedResponse, null, 2),
+      );
+
+      // Обрабатываем возможные структуры ответа
+      let selectedCourses: string[] = [];
+
+      // Вариант 1: если ответ имеет структуру { user: { ... } }
+      if (typedResponse && "user" in typedResponse && typedResponse.user) {
+        selectedCourses = typedResponse.user.selectedCourses || [];
+        console.log(
+          "Нашли курсы в user.user.selectedCourses:",
+          selectedCourses,
+        );
+      }
+      // Вариант 2: если ответ имеет структуру UserData (прямые поля)
+      else if (typedResponse && "selectedCourses" in typedResponse) {
+        selectedCourses = typedResponse.selectedCourses || [];
+        console.log("Нашли курсы в user.selectedCourses:", selectedCourses);
+      }
+      // Вариант 3: если это уже массив курсов (вряд ли, но на всякий случай)
+      else if (Array.isArray(typedResponse)) {
+        selectedCourses = typedResponse;
+        console.log("Ответ - это массив курсов:", selectedCourses);
+      } else {
+        console.log("Неизвестная структура ответа");
+      }
+
+      console.log("Курсы пользователя после обработки:", selectedCourses);
+      console.log("Ищем курс с ID:", courseId);
 
       // Проверяем, добавлен ли текущий курс
-      const isAdded =
-        userResponse?.selectedCourses?.includes(courseId) || false;
+      const isAdded = selectedCourses.includes(courseId);
       console.log("Результат проверки курса:", {
         courseId,
         isAdded,
-        userCourses: userResponse?.selectedCourses,
+        foundIndex: selectedCourses.indexOf(courseId),
+        userCourses: selectedCourses,
       });
 
       return {
-        userData: userResponse,
+        userData: typedResponse,
         isCourseAdded: isAdded,
       };
     } catch (error) {
@@ -134,7 +180,21 @@ export default function CoursePage({
           console.log("=== РЕЗУЛЬТАТ ПРОВЕРКИ ===");
           console.log("Курс добавлен у пользователя:", isCourseAdded);
           console.log("ID текущего курса:", courseData._id);
-          console.log("Курсы пользователя:", userData?.selectedCourses);
+
+          // Дополнительная проверка
+          if (userData) {
+            let courses: string[] = [];
+            if ("user" in userData && userData.user) {
+              courses = userData.user.selectedCourses || [];
+            } else if ("selectedCourses" in userData) {
+              courses = userData.selectedCourses || [];
+            }
+            console.log("Курсы пользователя (для проверки):", courses);
+            console.log(
+              "Содержит ли текущий ID?",
+              courses.includes(courseData._id),
+            );
+          }
         } else {
           // Не авторизован - курс точно не добавлен
           setCourseAdded(false);
@@ -177,7 +237,6 @@ export default function CoursePage({
           console.log("Данные обновлены после события:", {
             courseId: course._id,
             isCourseAdded: isCourseAdded,
-            userCourses: userData?.selectedCourses,
           });
         } catch (err) {
           console.error("Ошибка обновления данных пользователя:", err);
@@ -189,35 +248,6 @@ export default function CoursePage({
 
     return () => {
       window.removeEventListener("userDataUpdated", handleUserDataUpdated);
-    };
-  }, [courseId, course, fetchUserDataWithCourseCheck]);
-
-  // Слушаем события изменения авторизации
-  useEffect(() => {
-    const handleAuthChanged = async () => {
-      console.log("=== СОБЫТИЕ: authStateChanged ===");
-      if (courseId && course) {
-        const auth = isAuthenticated();
-        console.log("Статус авторизации изменился:", auth);
-
-        if (auth) {
-          // Пользователь авторизовался - проверяем курс
-          const { userData, isCourseAdded } =
-            await fetchUserDataWithCourseCheck();
-          setUserData(userData);
-          setCourseAdded(isCourseAdded);
-        } else {
-          // Пользователь вышел - сбрасываем
-          setUserData(null);
-          setCourseAdded(false);
-        }
-      }
-    };
-
-    window.addEventListener("authStateChanged", handleAuthChanged);
-
-    return () => {
-      window.removeEventListener("authStateChanged", handleAuthChanged);
     };
   }, [courseId, course, fetchUserDataWithCourseCheck]);
 
@@ -257,13 +287,16 @@ export default function CoursePage({
 
       console.log(
         "Данные пользователя обновлены после добавления курса:",
-        updatedUserData?.selectedCourses,
         "Курс добавлен:",
         isCourseAdded,
       );
 
-      // Отправляем событие для обновления данных в SkillCard
-      window.dispatchEvent(new Event("userDataUpdated"));
+      // Отправляем событие для обновления данных
+      window.dispatchEvent(
+        new CustomEvent("userDataUpdated", {
+          detail: { courseId: course._id, action: "added" },
+        }),
+      );
 
       alert("Курс успешно добавлен!");
     } catch (err) {
@@ -334,13 +367,16 @@ export default function CoursePage({
 
       console.log(
         "Данные пользователя обновлены после удаления курса:",
-        updatedUserData?.selectedCourses,
         "Курс добавлен:",
         isCourseAdded,
       );
 
-      // Отправляем событие для обновления данных в SkillCard
-      window.dispatchEvent(new Event("userDataUpdated"));
+      // Отправляем событие для обновления данных
+      window.dispatchEvent(
+        new CustomEvent("userDataUpdated", {
+          detail: { courseId: course._id, action: "removed" },
+        }),
+      );
 
       alert("Курс успешно удален!");
     } catch (err) {
@@ -374,6 +410,17 @@ export default function CoursePage({
       });
     }
   };
+
+  // Отладка рендера
+  useEffect(() => {
+    console.log("=== ОТЛАДКА РЕНДЕРА ===", {
+      courseId,
+      courseAdded,
+      userData,
+      course: course?._id,
+      isAuth: isAuthenticated(),
+    });
+  });
 
   if (loading) {
     return (
@@ -442,7 +489,6 @@ export default function CoursePage({
     courseName: course.nameRU,
     loading: loading,
     userHasData: !!userData,
-    userCourses: userData?.selectedCourses,
   });
 
   return (
