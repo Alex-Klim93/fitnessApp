@@ -1,33 +1,74 @@
-[00:00:01.287] Server  LOG     ✓ Ready in 939ms
-[00:00:05.113] Server  LOG     ○ Compiling / ...
-[00:00:07.175] Server  LOG     [Redux Action: api/config/middlewareRegistered
-[00:00:07.176] Server  GROUPCOLLAPSED [Redux Action: api/config/middlewareRegistered
-[00:00:07.179] Server  LOG     [Previous State: {}
-[00:00:07.179] Server  LOG     [Action: {}
-[00:00:07.182] Server  LOG     [Next State: {}
-[00:00:07.182] Server  GROUPEND 
-[00:00:07.683] Browser GROUPCOLLAPSED %cRedux Action: api/config/middlewareRegistered color: #764ba2; font-weight: bold
-[00:00:07.683] Browser LOG     %cPrevious State: color: #9E9E9E; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":false,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
-[00:00:07.683] Browser LOG     %cAction: color: #03A9F4; font-weight: bold {"payload":"v5Cb1oZ9qw_DLF2Zy8AIo","type":"api/config/middlewareRegistered"}
-[00:00:07.683] Browser LOG     %cNext State: color: #4CAF50; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":true,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
-[00:00:07.683] Browser GROUPEND 
-[00:00:07.683] Browser LOG     Инициализация приложения: Авторизован
-[00:00:07.683] Browser LOG     Пользователь: melkimelki79@gmail.com
-[00:00:11.406] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:00:11.406] Browser LOG     ID курса из URL: kfpq8e
-[00:00:11.406] Browser LOG     ID курса из URL: kfpq8e
-[00:00:11.406] Browser LOG     Загружаю данные курса...
-[00:00:11.406] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
-[00:00:11.586] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
-[00:00:11.586] Browser LOG     Загружаю данные пользователя...
-[00:00:11.586] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
-[00:00:11.783] Browser LOG     Данные пользователя загружены: {"email":"melkimelki79@gmail.com","selectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"],"selectedCoursesCount":5}
-[00:00:11.783] Browser LOG     Статус курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isCourseAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
-[00:00:11.783] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
-[00:00:11.783] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
-[00:00:11.783] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
-[00:00:11.783] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
-[00:00:11.783] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+[00:00:01.231] Server  LOG     ✓ Ready in 880ms
+[00:00:05.388] Server  LOG     [Redux Action: api/config/middlewareRegistered
+[00:00:05.388] Server  GROUPCOLLAPSED [Redux Action: api/config/middlewareRegistered
+[00:00:05.391] Server  LOG     [Previous State: {}
+[00:00:05.391] Server  LOG     [Action: {}
+[00:00:05.394] Server  LOG     [Next State: {}
+[00:00:05.394] Server  GROUPEND 
+[00:00:05.996] Browser GROUPCOLLAPSED %cRedux Action: api/config/middlewareRegistered color: #764ba2; font-weight: bold
+[00:00:05.996] Browser LOG     %cPrevious State: color: #9E9E9E; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":false,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
+[00:00:05.996] Browser LOG     %cAction: color: #03A9F4; font-weight: bold {"payload":"4Zh_0KFP23c7K783fs0fp","type":"api/config/middlewareRegistered"}
+[00:00:05.996] Browser LOG     %cNext State: color: #4CAF50; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":true,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
+[00:00:05.996] Browser GROUPEND 
+[00:00:05.996] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="Profile/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+                <RedirectBoundary>
+                  <RedirectErrorBoundary router={{...}}>
+                    <InnerLayoutRouter url="/page/Profile" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} ...>
+                      <SegmentViewNode type="page" pagePath="page/Profi...">
+                        <SegmentTrieNode>
+                        <ClientPageRoot Component={function ProfilePage} serverProvidedParams={{...}}>
+                          <ProfilePage params={Promise} searchParams={Promise}>
+                            <div style={{padding:"40px", ...}}>
+                              <div>
++                               Загрузка профиля...
+-                               Пользователь не найден
+                      ...
+                    ...
+          ...
+
+[00:00:06.657] Browser LOG     Загрузка курсов пользователя...
+[00:00:06.657] Browser LOG     Загрузка курсов пользователя...
+[00:00:15.280] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:00:15.280] Browser LOG     Инициализация приложения: Авторизован
+[00:00:15.280] Browser LOG     Пользователь: melkimelki79@gmail.com
+[00:00:15.280] Browser LOG     Инициализация приложения: Авторизован
+[00:00:15.280] Browser LOG     Пользователь: melkimelki79@gmail.com
+[00:00:46.743] Browser LOG     Найдено курсов пользователя: 5
+[00:00:46.743] Browser LOG     Загружены курсы: [{"__v":0,"_id":"6i67sm","dailyDurationInMinutes":{"from":20,"to":50},"description":"направление фитнеса, основанное на наборе аэробных упражнений, выполняемых с помощью специальной ступеньки (степ-платформы). Данное направление было разработано в 1989 году Джиной Миллер: травмировав колено, она обратилась к различным методикам восстановления сустава, но наибольший эффект показали простые упражнения в виде шагов на молочном ящике. Впоследствии эти упражнения Миллер положила в основу целого комплекса, который и стал называться степ-аэробикой. Занятия степ-аэробикой состоят из комплексов в виде различного сочетания шагов, выполняемые под музыку с довольно высоким темпом. Каждое занятие длится от 30 до 50 минут в достаточно высоком темпе без остановок на отдых – для передышки используются переходы на простые шаги и наиболее простые упражнения. Такой режим тренировок приводит к эффективному сжиганию калорий, укреплению суставов и общему улучшению состояния здоровья, что и стало основой высокой популярности нового направления.","difficulty":"средний","directions":["Для начинающих","Для похудения","Для детей"],"durationInDays":25,"fitting":["Хотите укрепить дыхательную и сердечно-сосудистой системы","Быстрый сбросить лишние килограммы","Улучшить настроение, повысить жизненный тонус"],"nameEN":"StepAirobic","nameRU":"Степ-аэробика","order":4,"workouts":["e9ghsb","a1rqtt","mstcbg","t3cpno"]},{"__v":0,"_id":"ab1c3f","dailyDurationInMinutes":{"from":10,"to":30},"description":"это философия здорового образа жизни. Тот, кто занимается йогой, становится здоровее и выносливее, после занятий чувствует прилив сил, а также с новой силой может ощутить вкус к жизни.  Благодаря комплексному воздействию упражнений происходит проработка всех групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме того, упражнения дарят отличное настроение, заряжают бодростью и помогают противостоять стрессам.","difficulty":"начальный","directions":["Йога для новичков","Классическая йога","Йогатерапия","Кундалини-йога","Хатха-йога","Аштанга-йога"],"durationInDays":20,"fitting":["Давно хотели попробовать йогу, но не решались начать","Хотите укрепить позвоночник, избавиться от болей в спине и суставах","Ищете активность, полезную для тела и души"],"nameEN":"Yoga","nameRU":"Йога","order":1,"workouts":["3yvozj","hfgxlo","kcx5ai","kt6ah4","mrhuag"]},{"__v":0,"_id":"kfpq8e","dailyDurationInMinutes":{"from":30,"to":45},"description":"это система упражнений, целью которых является разогрев и растяжка мышц и связок. При этом стретчинг – не просто комплекс упражнений для разминки перед тренировкой, а самостоятельное направление фитнеса, которое может использоваться как в комплексе с другими направлениями, так и самостоятельно. Стретчинг в домашних условиях может использоваться для многих целей: ● Выступает в качестве гимнастики в период восстановления после травм; ● Входит в состав программы для похудения; ● Помогает развить гибкость и пластичность, при правильном подходе вы сядете на шпагат через несколько недель; ● Это эффективный способ расслабиться после трудного дня.","difficulty":"начальный","directions":["статический","динамический","пассивный","активный"],"durationInDays":40,"fitting":["Улучшить осанку и координацию","Хотите подтянуть тело, смоделировать мышечный корсет","Улучшить кровообращение и обмен веществ"],"nameEN":"Stretching","nameRU":"Стретчинг","order":2,"workouts":["9mefwq","9yolz2","pi5vtr"]},{"__v":0,"_id":"q02a6i","dailyDurationInMinutes":{"from":50,"to":70},"description":"BodyFlex – система, в которой особым образом сочетаются физические упражнения на укрепление и растяжку мышц, и дыхательная гимнастика. Такое сочетание приводит к ряду положительных эффектов, которые практически невозможно достичь с помощью других направлений фитнеса. Одна из самых интересных особенностей данной системы заключается в том, что это эффективный фитнес дома. Весь смысл бодифлекса сводится к правильному дыханию, благодаря которому упражнения на растяжку и укрепление мышц приобретают свою эффективность. При выдыхании воздуха и задержке дыхания организм на короткое время испытывает кислородное голодание, в крови накапливается углекислый газ, что приводит к запуску некоторых физиологических процессов, типичных для ситуации «бей или беги». То есть, организм приходит в состояние повышенной готовности и способен выполнять быстрые и энергичные действия.","difficulty":"сложный","directions":["базовый","продвинутый"],"durationInDays":15,"fitting":["Хотите укрепить легкие и снизить вероятность заболеваний дыхательной системы","Улучшить пищеварение","Ускорить метаболизм"],"nameEN":"BodyFlex","nameRU":"Бодифлекс","order":5,"workouts":["xlpkqy","17oz5f","pyvaec"]},{"__v":0,"_id":"ypox9r","dailyDurationInMinutes":{"from":45,"to":60},"description":"Фитнес и танцы – что между ними общего? А то, что они могут великолепно сочетаться и оказывать просто восхитительный эффект на ваше тело! Объединение хореографии и аэробики – это необычно и интересно, именно так родился танцевальный фитнес, которым вы теперь можете заниматься дома. Достичь отличной формы и при этом получить удовольствие вам поможет видео для похудения, которое мы представляем на этой странице – делайте упражнения, танцуйте и чувствуйте, как ваше тело меняется в лучшую сторону!","difficulty":"сложный","directions":["Зумба","Dance-mix","Caribbean-mix"],"durationInDays":20,"fitting":["Хотите укрепить мышцы, но тренировки в тренажерном зале для вас скучные и однообразные","Хотите сбросить лишний вес, но нет желания мучать себя диетами","Любите танцы и хотите совместить приятное с полезным."],"nameEN":"Fitness","nameRU":"Фитнес","order":3,"workouts":["gh7bd5","hwsut5","n18r8v","dq9rzo","rr70ie"]}]
+[00:00:46.743] Browser LOG     Найдено курсов пользователя: 5
+[00:00:46.743] Browser LOG     Загружены курсы: [{"__v":0,"_id":"6i67sm","dailyDurationInMinutes":{"from":20,"to":50},"description":"направление фитнеса, основанное на наборе аэробных упражнений, выполняемых с помощью специальной ступеньки (степ-платформы). Данное направление было разработано в 1989 году Джиной Миллер: травмировав колено, она обратилась к различным методикам восстановления сустава, но наибольший эффект показали простые упражнения в виде шагов на молочном ящике. Впоследствии эти упражнения Миллер положила в основу целого комплекса, который и стал называться степ-аэробикой. Занятия степ-аэробикой состоят из комплексов в виде различного сочетания шагов, выполняемые под музыку с довольно высоким темпом. Каждое занятие длится от 30 до 50 минут в достаточно высоком темпе без остановок на отдых – для передышки используются переходы на простые шаги и наиболее простые упражнения. Такой режим тренировок приводит к эффективному сжиганию калорий, укреплению суставов и общему улучшению состояния здоровья, что и стало основой высокой популярности нового направления.","difficulty":"средний","directions":["Для начинающих","Для похудения","Для детей"],"durationInDays":25,"fitting":["Хотите укрепить дыхательную и сердечно-сосудистой системы","Быстрый сбросить лишние килограммы","Улучшить настроение, повысить жизненный тонус"],"nameEN":"StepAirobic","nameRU":"Степ-аэробика","order":4,"workouts":["e9ghsb","a1rqtt","mstcbg","t3cpno"]},{"__v":0,"_id":"ab1c3f","dailyDurationInMinutes":{"from":10,"to":30},"description":"это философия здорового образа жизни. Тот, кто занимается йогой, становится здоровее и выносливее, после занятий чувствует прилив сил, а также с новой силой может ощутить вкус к жизни.  Благодаря комплексному воздействию упражнений происходит проработка всех групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме того, упражнения дарят отличное настроение, заряжают бодростью и помогают противостоять стрессам.","difficulty":"начальный","directions":["Йога для новичков","Классическая йога","Йогатерапия","Кундалини-йога","Хатха-йога","Аштанга-йога"],"durationInDays":20,"fitting":["Давно хотели попробовать йогу, но не решались начать","Хотите укрепить позвоночник, избавиться от болей в спине и суставах","Ищете активность, полезную для тела и души"],"nameEN":"Yoga","nameRU":"Йога","order":1,"workouts":["3yvozj","hfgxlo","kcx5ai","kt6ah4","mrhuag"]},{"__v":0,"_id":"kfpq8e","dailyDurationInMinutes":{"from":30,"to":45},"description":"это система упражнений, целью которых является разогрев и растяжка мышц и связок. При этом стретчинг – не просто комплекс упражнений для разминки перед тренировкой, а самостоятельное направление фитнеса, которое может использоваться как в комплексе с другими направлениями, так и самостоятельно. Стретчинг в домашних условиях может использоваться для многих целей: ● Выступает в качестве гимнастики в период восстановления после травм; ● Входит в состав программы для похудения; ● Помогает развить гибкость и пластичность, при правильном подходе вы сядете на шпагат через несколько недель; ● Это эффективный способ расслабиться после трудного дня.","difficulty":"начальный","directions":["статический","динамический","пассивный","активный"],"durationInDays":40,"fitting":["Улучшить осанку и координацию","Хотите подтянуть тело, смоделировать мышечный корсет","Улучшить кровообращение и обмен веществ"],"nameEN":"Stretching","nameRU":"Стретчинг","order":2,"workouts":["9mefwq","9yolz2","pi5vtr"]},{"__v":0,"_id":"q02a6i","dailyDurationInMinutes":{"from":50,"to":70},"description":"BodyFlex – система, в которой особым образом сочетаются физические упражнения на укрепление и растяжку мышц, и дыхательная гимнастика. Такое сочетание приводит к ряду положительных эффектов, которые практически невозможно достичь с помощью других направлений фитнеса. Одна из самых интересных особенностей данной системы заключается в том, что это эффективный фитнес дома. Весь смысл бодифлекса сводится к правильному дыханию, благодаря которому упражнения на растяжку и укрепление мышц приобретают свою эффективность. При выдыхании воздуха и задержке дыхания организм на короткое время испытывает кислородное голодание, в крови накапливается углекислый газ, что приводит к запуску некоторых физиологических процессов, типичных для ситуации «бей или беги». То есть, организм приходит в состояние повышенной готовности и способен выполнять быстрые и энергичные действия.","difficulty":"сложный","directions":["базовый","продвинутый"],"durationInDays":15,"fitting":["Хотите укрепить легкие и снизить вероятность заболеваний дыхательной системы","Улучшить пищеварение","Ускорить метаболизм"],"nameEN":"BodyFlex","nameRU":"Бодифлекс","order":5,"workouts":["xlpkqy","17oz5f","pyvaec"]},{"__v":0,"_id":"ypox9r","dailyDurationInMinutes":{"from":45,"to":60},"description":"Фитнес и танцы – что между ними общего? А то, что они могут великолепно сочетаться и оказывать просто восхитительный эффект на ваше тело! Объединение хореографии и аэробики – это необычно и интересно, именно так родился танцевальный фитнес, которым вы теперь можете заниматься дома. Достичь отличной формы и при этом получить удовольствие вам поможет видео для похудения, которое мы представляем на этой странице – делайте упражнения, танцуйте и чувствуйте, как ваше тело меняется в лучшую сторону!","difficulty":"сложный","directions":["Зумба","Dance-mix","Caribbean-mix"],"durationInDays":20,"fitting":["Хотите укрепить мышцы, но тренировки в тренажерном зале для вас скучные и однообразные","Хотите сбросить лишний вес, но нет желания мучать себя диетами","Любите танцы и хотите совместить приятное с полезным."],"nameEN":"Fitness","nameRU":"Фитнес","order":3,"workouts":["gh7bd5","hwsut5","n18r8v","dq9rzo","rr70ie"]}]
+[00:01:59.663] Browser LOG     ID курса из URL: kfpq8e
+[00:01:59.663] Browser LOG     ID курса из URL: kfpq8e
+[00:01:59.663] Browser LOG     Загружаю данные курса...
+[00:01:59.663] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
+[00:02:19.735] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
+[00:02:19.735] Browser LOG     Загружаю данные пользователя...
+[00:02:19.735] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
+[00:02:19.735] Browser LOG     Данные пользователя загружены: {"selectedCoursesCount":0}
+[00:02:19.735] Browser LOG     Статус курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isCourseAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:02:19.735] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:02:19.735] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:02:19.735] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:02:19.735] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:02:19.735] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
 This will cause a hydration error.%s <p> p 
 
   ...
@@ -58,10 +99,518 @@ This will cause a hydration error.%s <p> p
                 ...
               ...
 
-[00:00:11.783] Browser WARN    Image with src "http://localhost:3000/img/Vector%206094.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:19.418] Browser LOG     Загрузка курсов пользователя...
-[00:00:19.418] Browser LOG     Загрузка курсов пользователя...
-[00:00:19.716] Browser LOG     Найдено курсов пользователя: 5
-[00:00:19.716] Browser LOG     Загружены курсы: [{"__v":0,"_id":"6i67sm","dailyDurationInMinutes":{"from":20,"to":50},"description":"направление фитнеса, основанное на наборе аэробных упражнений, выполняемых с помощью специальной ступеньки (степ-платформы). Данное направление было разработано в 1989 году Джиной Миллер: травмировав колено, она обратилась к различным методикам восстановления сустава, но наибольший эффект показали простые упражнения в виде шагов на молочном ящике. Впоследствии эти упражнения Миллер положила в основу целого комплекса, который и стал называться степ-аэробикой. Занятия степ-аэробикой состоят из комплексов в виде различного сочетания шагов, выполняемые под музыку с довольно высоким темпом. Каждое занятие длится от 30 до 50 минут в достаточно высоком темпе без остановок на отдых – для передышки используются переходы на простые шаги и наиболее простые упражнения. Такой режим тренировок приводит к эффективному сжиганию калорий, укреплению суставов и общему улучшению состояния здоровья, что и стало основой высокой популярности нового направления.","difficulty":"средний","directions":["Для начинающих","Для похудения","Для детей"],"durationInDays":25,"fitting":["Хотите укрепить дыхательную и сердечно-сосудистой системы","Быстрый сбросить лишние килограммы","Улучшить настроение, повысить жизненный тонус"],"nameEN":"StepAirobic","nameRU":"Степ-аэробика","order":4,"workouts":["e9ghsb","a1rqtt","mstcbg","t3cpno"]},{"__v":0,"_id":"ab1c3f","dailyDurationInMinutes":{"from":10,"to":30},"description":"это философия здорового образа жизни. Тот, кто занимается йогой, становится здоровее и выносливее, после занятий чувствует прилив сил, а также с новой силой может ощутить вкус к жизни.  Благодаря комплексному воздействию упражнений происходит проработка всех групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме того, упражнения дарят отличное настроение, заряжают бодростью и помогают противостоять стрессам.","difficulty":"начальный","directions":["Йога для новичков","Классическая йога","Йогатерапия","Кундалини-йога","Хатха-йога","Аштанга-йога"],"durationInDays":20,"fitting":["Давно хотели попробовать йогу, но не решались начать","Хотите укрепить позвоночник, избавиться от болей в спине и суставах","Ищете активность, полезную для тела и души"],"nameEN":"Yoga","nameRU":"Йога","order":1,"workouts":["3yvozj","hfgxlo","kcx5ai","kt6ah4","mrhuag"]},{"__v":0,"_id":"kfpq8e","dailyDurationInMinutes":{"from":30,"to":45},"description":"это система упражнений, целью которых является разогрев и растяжка мышц и связок. При этом стретчинг – не просто комплекс упражнений для разминки перед тренировкой, а самостоятельное направление фитнеса, которое может использоваться как в комплексе с другими направлениями, так и самостоятельно. Стретчинг в домашних условиях может использоваться для многих целей: ● Выступает в качестве гимнастики в период восстановления после травм; ● Входит в состав программы для похудения; ● Помогает развить гибкость и пластичность, при правильном подходе вы сядете на шпагат через несколько недель; ● Это эффективный способ расслабиться после трудного дня.","difficulty":"начальный","directions":["статический","динамический","пассивный","активный"],"durationInDays":40,"fitting":["Улучшить осанку и координацию","Хотите подтянуть тело, смоделировать мышечный корсет","Улучшить кровообращение и обмен веществ"],"nameEN":"Stretching","nameRU":"Стретчинг","order":2,"workouts":["9mefwq","9yolz2","pi5vtr"]},{"__v":0,"_id":"q02a6i","dailyDurationInMinutes":{"from":50,"to":70},"description":"BodyFlex – система, в которой особым образом сочетаются физические упражнения на укрепление и растяжку мышц, и дыхательная гимнастика. Такое сочетание приводит к ряду положительных эффектов, которые практически невозможно достичь с помощью других направлений фитнеса. Одна из самых интересных особенностей данной системы заключается в том, что это эффективный фитнес дома. Весь смысл бодифлекса сводится к правильному дыханию, благодаря которому упражнения на растяжку и укрепление мышц приобретают свою эффективность. При выдыхании воздуха и задержке дыхания организм на короткое время испытывает кислородное голодание, в крови накапливается углекислый газ, что приводит к запуску некоторых физиологических процессов, типичных для ситуации «бей или беги». То есть, организм приходит в состояние повышенной готовности и способен выполнять быстрые и энергичные действия.","difficulty":"сложный","directions":["базовый","продвинутый"],"durationInDays":15,"fitting":["Хотите укрепить легкие и снизить вероятность заболеваний дыхательной системы","Улучшить пищеварение","Ускорить метаболизм"],"nameEN":"BodyFlex","nameRU":"Бодифлекс","order":5,"workouts":["xlpkqy","17oz5f","pyvaec"]},{"__v":0,"_id":"ypox9r","dailyDurationInMinutes":{"from":45,"to":60},"description":"Фитнес и танцы – что между ними общего? А то, что они могут великолепно сочетаться и оказывать просто восхитительный эффект на ваше тело! Объединение хореографии и аэробики – это необычно и интересно, именно так родился танцевальный фитнес, которым вы теперь можете заниматься дома. Достичь отличной формы и при этом получить удовольствие вам поможет видео для похудения, которое мы представляем на этой странице – делайте упражнения, танцуйте и чувствуйте, как ваше тело меняется в лучшую сторону!","difficulty":"сложный","directions":["Зумба","Dance-mix","Caribbean-mix"],"durationInDays":20,"fitting":["Хотите укрепить мышцы, но тренировки в тренажерном зале для вас скучные и однообразные","Хотите сбросить лишний вес, но нет желания мучать себя диетами","Любите танцы и хотите совместить приятное с полезным."],"nameEN":"Fitness","nameRU":"Фитнес","order":3,"workouts":["gh7bd5","hwsut5","n18r8v","dq9rzo","rr70ie"]}]
-[00:00:19.827] Browser LOG     Найдено курсов пользователя: 5
-[00:00:19.827] Browser LOG     Загружены курсы: [{"__v":0,"_id":"6i67sm","dailyDurationInMinutes":{"from":20,"to":50},"description":"направление фитнеса, основанное на наборе аэробных упражнений, выполняемых с помощью специальной ступеньки (степ-платформы). Данное направление было разработано в 1989 году Джиной Миллер: травмировав колено, она обратилась к различным методикам восстановления сустава, но наибольший эффект показали простые упражнения в виде шагов на молочном ящике. Впоследствии эти упражнения Миллер положила в основу целого комплекса, который и стал называться степ-аэробикой. Занятия степ-аэробикой состоят из комплексов в виде различного сочетания шагов, выполняемые под музыку с довольно высоким темпом. Каждое занятие длится от 30 до 50 минут в достаточно высоком темпе без остановок на отдых – для передышки используются переходы на простые шаги и наиболее простые упражнения. Такой режим тренировок приводит к эффективному сжиганию калорий, укреплению суставов и общему улучшению состояния здоровья, что и стало основой высокой популярности нового направления.","difficulty":"средний","directions":["Для начинающих","Для похудения","Для детей"],"durationInDays":25,"fitting":["Хотите укрепить дыхательную и сердечно-сосудистой системы","Быстрый сбросить лишние килограммы","Улучшить настроение, повысить жизненный тонус"],"nameEN":"StepAirobic","nameRU":"Степ-аэробика","order":4,"workouts":["e9ghsb","a1rqtt","mstcbg","t3cpno"]},{"__v":0,"_id":"ab1c3f","dailyDurationInMinutes":{"from":10,"to":30},"description":"это философия здорового образа жизни. Тот, кто занимается йогой, становится здоровее и выносливее, после занятий чувствует прилив сил, а также с новой силой может ощутить вкус к жизни.  Благодаря комплексному воздействию упражнений происходит проработка всех групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме того, упражнения дарят отличное настроение, заряжают бодростью и помогают противостоять стрессам.","difficulty":"начальный","directions":["Йога для новичков","Классическая йога","Йогатерапия","Кундалини-йога","Хатха-йога","Аштанга-йога"],"durationInDays":20,"fitting":["Давно хотели попробовать йогу, но не решались начать","Хотите укрепить позвоночник, избавиться от болей в спине и суставах","Ищете активность, полезную для тела и души"],"nameEN":"Yoga","nameRU":"Йога","order":1,"workouts":["3yvozj","hfgxlo","kcx5ai","kt6ah4","mrhuag"]},{"__v":0,"_id":"kfpq8e","dailyDurationInMinutes":{"from":30,"to":45},"description":"это система упражнений, целью которых является разогрев и растяжка мышц и связок. При этом стретчинг – не просто комплекс упражнений для разминки перед тренировкой, а самостоятельное направление фитнеса, которое может использоваться как в комплексе с другими направлениями, так и самостоятельно. Стретчинг в домашних условиях может использоваться для многих целей: ● Выступает в качестве гимнастики в период восстановления после травм; ● Входит в состав программы для похудения; ● Помогает развить гибкость и пластичность, при правильном подходе вы сядете на шпагат через несколько недель; ● Это эффективный способ расслабиться после трудного дня.","difficulty":"начальный","directions":["статический","динамический","пассивный","активный"],"durationInDays":40,"fitting":["Улучшить осанку и координацию","Хотите подтянуть тело, смоделировать мышечный корсет","Улучшить кровообращение и обмен веществ"],"nameEN":"Stretching","nameRU":"Стретчинг","order":2,"workouts":["9mefwq","9yolz2","pi5vtr"]},{"__v":0,"_id":"q02a6i","dailyDurationInMinutes":{"from":50,"to":70},"description":"BodyFlex – система, в которой особым образом сочетаются физические упражнения на укрепление и растяжку мышц, и дыхательная гимнастика. Такое сочетание приводит к ряду положительных эффектов, которые практически невозможно достичь с помощью других направлений фитнеса. Одна из самых интересных особенностей данной системы заключается в том, что это эффективный фитнес дома. Весь смысл бодифлекса сводится к правильному дыханию, благодаря которому упражнения на растяжку и укрепление мышц приобретают свою эффективность. При выдыхании воздуха и задержке дыхания организм на короткое время испытывает кислородное голодание, в крови накапливается углекислый газ, что приводит к запуску некоторых физиологических процессов, типичных для ситуации «бей или беги». То есть, организм приходит в состояние повышенной готовности и способен выполнять быстрые и энергичные действия.","difficulty":"сложный","directions":["базовый","продвинутый"],"durationInDays":15,"fitting":["Хотите укрепить легкие и снизить вероятность заболеваний дыхательной системы","Улучшить пищеварение","Ускорить метаболизм"],"nameEN":"BodyFlex","nameRU":"Бодифлекс","order":5,"workouts":["xlpkqy","17oz5f","pyvaec"]},{"__v":0,"_id":"ypox9r","dailyDurationInMinutes":{"from":45,"to":60},"description":"Фитнес и танцы – что между ними общего? А то, что они могут великолепно сочетаться и оказывать просто восхитительный эффект на ваше тело! Объединение хореографии и аэробики – это необычно и интересно, именно так родился танцевальный фитнес, которым вы теперь можете заниматься дома. Достичь отличной формы и при этом получить удовольствие вам поможет видео для похудения, которое мы представляем на этой странице – делайте упражнения, танцуйте и чувствуйте, как ваше тело меняется в лучшую сторону!","difficulty":"сложный","directions":["Зумба","Dance-mix","Caribbean-mix"],"durationInDays":20,"fitting":["Хотите укрепить мышцы, но тренировки в тренажерном зале для вас скучные и однообразные","Хотите сбросить лишний вес, но нет желания мучать себя диетами","Любите танцы и хотите совместить приятное с полезным."],"nameEN":"Fitness","nameRU":"Фитнес","order":3,"workouts":["gh7bd5","hwsut5","n18r8v","dq9rzo","rr70ie"]}]
+[00:02:19.735] Browser WARN    Image with src "http://localhost:3000/img/Vector%206094.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:02:35.766] Server  LOG     ✓ Compiled in 12ms
+[00:05:19.150] Server  LOG     ✓ Compiled in 11ms
+[00:05:20.406] Server  LOG     ✓ Compiled in 14ms
+[00:05:21.146] Server  LOG     ✓ Compiled in 11ms
+[00:05:58.583] Server  LOG     ✓ Compiled in 77ms
+[00:06:00.737] Browser ERROR   ./app/page/Course/[id]/page.tsx:417:3
+Parsing ecmascript source code failed
+  415 |   });
+  416 |
+> 417 |   return (
+      |   ^^^^^^^^
+> 418 |     <div className={styles.container}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 419 |       {/* SkillCard с синхронизированным состоянием */}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 420 |       <SkillCard
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 421 |         courseName={course.nameRU}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 422 |         imageUrl={decodedImageUrl}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 423 |         backgroundColor={decodedBackgroundColor}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 424 |         imageWidth={decodedImageWidth}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 425 |         imageHeight={decodedImageHeight}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 426 |         imageTop={decodedImageTop}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 427 |         imageRight={decodedImageRight}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 428 |         courseId={course._id}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 429 |         initialCourseAdded={courseAdded}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 430 |         isAuthenticated={isAuth}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 431 |         userCourses={userData?.user?.selectedCourses || []}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 432 |       />
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 433 |
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 434 |       {/* Попап авторизации */}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 435 |       <SigninPopup
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 436 |         isOpen={isSigninOpen}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 437 |         onClose={() => setIsSigninOpen(false)}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 438 |         onLoginSuccess={handleLoginSuccess}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 439 |       />
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 440 |
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 441 |       <div className={styles.entice}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 442 |         <div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 443 |           <h3 className={styles.entice__title}>Подойдет для вас, если:</h3>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 444 |         </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 445 |         <div className={styles.entice__disBox}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 446 |           {course.fitting && course.fitting.length > 0
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 447 |             ? course.fitting.map((item, index) => (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 448 |                 <div key={index} className={styles.entice__dis}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 449 |                   <p className={styles.entice__numb}>{index + 1}</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 450 |                   <p className={styles.entice__text}>{item}</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 451 |                 </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 452 |               ))
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 453 |             : [
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 454 |                 "Давно хотели попробовать, но не решались начать",
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 455 |                 "Хотите укрепить позвоночник, избавиться от болей в спине и суставах",
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 456 |                 "Ищете активность, полезную для тела и души",
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 457 |               ].map((item, index) => (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 458 |                 <div key={index} className={styles.entice__dis}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 459 |                   <p className={styles.entice__numb}>{index + 1}</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 460 |                   <p className={styles.entice__text}>{item}</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 461 |                 </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 462 |               ))}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 463 |         </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 464 |       </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 465 |
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 466 |       <div className={styles.Directions}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 467 |         <h3 className={styles.Directions__title}>Направления</h3>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 468 |         <div className={styles.Directions__box}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 469 |           {course.directions && course.directions.length > 0 ? (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 470 |             course.directions.map((direction, index) => (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 471 |               <div key={index} className={styles.Directions__description}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 472 |                 <Image
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 473 |                   width={26}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 474 |                   height={26}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 475 |                   className={styles.Directions__img}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 476 |                   src="/img/Sparcle.svg"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 477 |                   alt="Sparcle"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 478 |                   priority
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 479 |                 />
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 480 |                 <p className={styles.Directions__text}>{direction}</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 481 |               </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 482 |             ))
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 483 |           ) : (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 484 |             <p className={styles.noDirections}>Направления не указаны</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 485 |           )}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 486 |         </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 487 |       </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 488 |       <div className={styles.motivation__main}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 489 |         <div className={styles.motivation}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 490 |           <div className={styles.motivation__box}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 491 |             <h3 className={styles.motivation__title}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 492 |               Начните путь к новому телу
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 493 |             </h3>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 494 |             <p className={styles.motivation__text}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 495 |               {motivationPoints.map((point, index) => (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 496 |                 <p key={index}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 497 |                   • {point}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 498 |                   {index < motivationPoints.length - 1}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 499 |                 </p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 500 |               ))}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 501 |             </p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 502 |             <div className={styles.motivation__but}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 503 |               {checkingCourseStatus ? (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 504 |                 <div style={{ padding: "10px", textAlign: "center" }}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 505 |                   <div>Проверка статуса курса...</div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 506 |                 </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 507 |               ) : isAuth ? (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 508 |                 courseAdded ? (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 509 |                   <div className={styles.courseActions}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 510 |                     <Link
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 511 |                       href="#"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 512 |                       className={styles.removeCourseLink}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 513 |                       onClick={(e) => {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 514 |                         e.preventDefault();
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 515 |                         removeCourseFromUserHandler();
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 516 |                       }}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 517 |                     >
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 518 |                       {removingCourse
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 519 |                         ? "Удаление..."
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 520 |                         : "Курс уже добавлен, Удалить?"}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 521 |                     </Link>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 522 |                   </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 523 |                 ) : (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 524 |                   <Link
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 525 |                     href="#"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 526 |                     className={styles.motivation__butLink}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 527 |                     onClick={(e) => {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 528 |                       e.preventDefault();
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 529 |                       addCourseToUserHandler();
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 530 |                     }}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 531 |                   >
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 532 |                     {addingCourse ? "Добавление..." : "Добавить курс"}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 533 |                   </Link>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 534 |                 )
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 535 |               ) : (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 536 |                 <Link
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 537 |                   href="#"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 538 |                   className={styles.motivation__butLink}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 539 |                   onClick={(e) => {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 540 |                     e.preventDefault();
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 541 |                     setIsSigninOpen(true);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 542 |                   }}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 543 |                 >
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 544 |                   Войдите, чтобы добавить курс
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 545 |                 </Link>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 546 |               )}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 547 |             </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 548 |           </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 549 |         </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 550 |         <Image
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 551 |           width={670.18}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 552 |           height={390.98}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 553 |           className={styles.motivation__imgSvg2}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 554 |           src="/img/Vector 6084.svg"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 555 |           alt="Sparcle"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 556 |           priority
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 557 |         />
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 558 |         <Image
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 559 |           width={50}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 560 |           height={42.5}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 561 |           className={styles.motivation__imgSvg1}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 562 |           src="/img/Vector 6094.svg"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 563 |           alt="Sparcle"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 564 |           priority
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 565 |         />
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 566 |         <Image
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 567 |           width={547}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 568 |           height={566}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 569 |           className={styles.motivation__img}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 570 |           src="/img/skypro_mid23_Crouching_man_in_green_polo_shirt_and_navy_shorts__934c6a97-07c8-4c5b-9487-96389d003dfd Background Removed 2.png"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 571 |           alt="Sparcle"
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 572 |           priority
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 573 |         />
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 574 |       </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 575 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 576 |   );
+      | ^^^^^
+  577 | }
+  578 |
+
+Return statement is not allowed here
+
+Import traces:
+  Client Component Browser:
+    ./app/page/Course/[id]/page.tsx [Client Component Browser]
+    ./app/page/Course/[id]/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page/Course/[id]/page.tsx [Client Component SSR]
+    ./app/page/Course/[id]/page.tsx [Server Component]
+[00:06:00.737] Browser ERROR   ./app/page/Course/[id]/page.tsx:103:24
+Parsing ecmascript source code failed
+  101 |
+  102 |       console.log("Загружаю данные пользователя...");
+> 103 |       const userData = await getCurrentUser();
+      |                        ^^^^^
+  104 |       console.log("Данные пользователя загружены:", {
+  105 |         email: userData?.email,
+  106 |         selectedCoursesCount: userData?.selectedCourses?.length || 0,
+
+await isn't allowed in non-async function
+
+Import traces:
+  Client Component Browser:
+    ./app/page/Course/[id]/page.tsx [Client Component Browser]
+    ./app/page/Course/[id]/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page/Course/[id]/page.tsx [Client Component SSR]
+    ./app/page/Course/[id]/page.tsx [Server Component]
+[00:06:00.737] Browser LOG     ID курса из URL: kfpq8e
+[00:06:00.737] Browser LOG     ID курса из URL: kfpq8e
+[00:06:00.737] Browser LOG     Загружаю данные курса...
+[00:06:00.737] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
+[00:06:00.737] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
+[00:06:00.737] Browser LOG     Загружаю данные пользователя...
+[00:06:00.737] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
+[00:06:00.737] Browser LOG     Данные пользователя загружены: {"selectedCoursesCount":0}
+[00:06:00.737] Browser LOG     Статус курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isCourseAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:06:00.737] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:06:00.737] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:06:00.737] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:06:00.737] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:36.908] Browser LOG     ID курса из URL: kfpq8e
+[00:08:36.908] Browser LOG     Загружаю данные курса...
+[00:08:36.908] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
+[00:08:37.456] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
+[00:08:37.457] Browser LOG     Загружаю данные пользователя...
+[00:08:37.457] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
+[00:08:37.691] Browser LOG     Данные пользователя загружены: {"selectedCoursesCount":0}
+[00:08:37.691] Browser LOG     Статус курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isCourseAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:37.691] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:37.691] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:37.691] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:37.691] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:37.691] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <p> p 
+
+  ...
+    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+      <LoadingBoundary name="kfpq8e/" loading={null}>
+        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url={"/page/Co..."} tree={[...]} params={{id:"kfpq8e"}} ...>
+                <SegmentViewNode type="page" pagePath="page/Cours...">
+                  <SegmentTrieNode>
+                  <ClientPageRoot Component={function CoursePage} serverProvidedParams={{...}}>
+                    <CoursePage params={Promise} searchParams={Promise}>
+                      <div className={undefined}>
+                        <SkillCard>
+                        <SigninPopup>
+                        <div>
+                        <div>
+                        <div className="page-modul...">
+                          <div className="page-modul...">
+                            <div className="page-modul...">
+                              <h3>
+>                             <p className="page-module__dXRpxq__motivation__text">
+>                               <p>
+                                ...
+                              ...
+                          ...
+                ...
+              ...
+
+[00:08:37.691] Browser WARN    Image with src "http://localhost:3000/img/Vector%206094.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:08:49.113] Browser LOG     Удаляю курс kfpq8e...
+[00:08:49.113] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e/reset
+[00:08:49.114] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:49.114] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:49.114] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":true,"userCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:49.114] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":true,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["kfpq8e","6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:49.114] Browser GROUPCOLLAPSED %cRedux Action: api/config/middlewareRegistered color: #764ba2; font-weight: bold
+[00:08:49.114] Browser LOG     %cPrevious State: color: #9E9E9E; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":false,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
+[00:08:49.114] Browser LOG     %cAction: color: #03A9F4; font-weight: bold {"payload":"2XflnoOSOeMICTv9cUDWA","type":"api/config/middlewareRegistered"}
+[00:08:49.114] Browser LOG     %cNext State: color: #4CAF50; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":true,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
+[00:08:49.114] Browser GROUPEND 
+[00:08:49.351] Browser LOG     Прогресс курса kfpq8e сброшен
+[00:08:49.351] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me/courses/kfpq8e
+[00:08:49.594] Browser LOG     Курс удален успешно
+[00:08:49.594] Browser LOG     Загружаю данные пользователя...
+[00:08:49.594] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
+[00:08:51.935] Browser LOG     Данные пользователя загружены: {"selectedCoursesCount":0}
+[00:08:51.935] Browser LOG     Данные пользователя обновлены после удаления курса: ["6i67sm","ab1c3f","ypox9r","q02a6i"]
+[00:08:51.935] Browser LOG     Событие userDataUpdated получено, обновляю данные...
+[00:08:51.935] Browser LOG     Загружаю данные пользователя...
+[00:08:51.935] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/users/me
+[00:08:51.935] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":false,"userCourses":["6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:51.935] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:51.935] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":false,"userCourses":["6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:51.935] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:51.935] Browser LOG     Данные пользователя загружены: {"selectedCoursesCount":0}
+[00:08:51.935] Browser LOG     Данные пользователя обновлены после события: {"courseId":"kfpq8e","isCourseAdded":false}
+[00:08:51.935] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":false,"userCourses":["6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:51.935] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:51.935] Browser LOG     Проверка курса у пользователя: {"courseId":"kfpq8e","courseName":"Стретчинг","isAdded":false,"userCourses":["6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:08:51.935] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":true,"isAuth":true,"userSelectedCourses":["6i67sm","ab1c3f","ypox9r","q02a6i"]}
+[00:09:04.622] Server  LOG     ✓ Compiled in 12ms
+[00:09:19.521] Server  LOG     [Redux Action: api/config/middlewareRegistered
+[00:09:19.521] Server  GROUPCOLLAPSED [Redux Action: api/config/middlewareRegistered
+[00:09:19.523] Server  LOG     [Previous State: {}
+[00:09:19.523] Server  LOG     [Action: {}
+[00:09:19.527] Server  LOG     [Next State: {}
+[00:09:19.527] Server  GROUPEND 
+[00:09:20.223] Browser GROUPCOLLAPSED %cRedux Action: api/config/middlewareRegistered color: #764ba2; font-weight: bold
+[00:09:20.223] Browser LOG     %cPrevious State: color: #9E9E9E; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":false,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
+[00:09:20.223] Browser LOG     %cAction: color: #03A9F4; font-weight: bold {"payload":"-PEzGIVgpV785sRB9NyL3","type":"api/config/middlewareRegistered"}
+[00:09:20.223] Browser LOG     %cNext State: color: #4CAF50; font-weight: bold {"api":{"config":{"focused":true,"invalidationBehavior":"delayed","keepUnusedDataFor":60,"middlewareRegistered":true,"online":true,"reducerPath":"api","refetchOnFocus":false,"refetchOnMountOrArgChange":false,"refetchOnReconnect":false},"mutations":{},"provided":{"keys":{},"tags":{}},"queries":{},"subscriptions":{}},"auth":{"error":null,"isAuthenticated":false,"loading":false,"user":null},"player":{"currentTime":0,"currentVideoId":null,"isPlaying":false,"playbackRate":1,"volume":1},"videoPlayer":{"currentTime":0,"currentVideoUrl":null,"duration":0,"error":null,"isFullscreen":false,"isLoading":false,"isMuted":false,"isPlaying":false,"playbackRate":1,"volume":1}}
+[00:09:20.223] Browser GROUPEND 
+[00:09:20.223] Browser LOG     Инициализация приложения: Не авторизован
+[00:09:22.589] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:09:22.589] Browser LOG     ID курса из URL: kfpq8e
+[00:09:22.589] Browser LOG     ID курса из URL: kfpq8e
+[00:09:22.589] Browser LOG     Загружаю данные курса...
+[00:09:22.589] Browser LOG     API Request to: https://wedev-api.sky.pro/api/fitness/courses/kfpq8e
+[00:09:22.748] Browser LOG     Данные курса загружены: {"id":"kfpq8e","name":"Стретчинг"}
+[00:09:22.748] Browser LOG     Пользователь не авторизован
+[00:09:22.748] Browser LOG     Недостаточно данных для проверки: {"hasCourse":true,"hasSelectedCourses":false,"hasUserData":false}
+[00:09:22.748] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":false,"isAuth":false}
+[00:09:22.748] Browser LOG     Недостаточно данных для проверки: {"hasCourse":true,"hasSelectedCourses":false,"hasUserData":false}
+[00:09:22.748] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":false,"isAuth":false}
+[00:09:22.748] Browser ERROR   In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <p> p 
+
+  ...
+    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+      <LoadingBoundary name="kfpq8e/" loading={null}>
+        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url={"/page/Co..."} tree={[...]} params={{id:"kfpq8e"}} ...>
+                <SegmentViewNode type="page" pagePath="page/Cours...">
+                  <SegmentTrieNode>
+                  <ClientPageRoot Component={function CoursePage} serverProvidedParams={{...}}>
+                    <CoursePage params={Promise} searchParams={Promise}>
+                      <div className={undefined}>
+                        <SkillCard>
+                        <SigninPopup>
+                        <div>
+                        <div>
+                        <div className="page-modul...">
+                          <div className="page-modul...">
+                            <div className="page-modul...">
+                              <h3>
+>                             <p className="page-module__dXRpxq__motivation__text">
+>                               <p>
+                                ...
+                              ...
+                          ...
+                ...
+              ...
+
+[00:09:22.748] Browser WARN    Image with src "http://localhost:3000/img/Vector%206094.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:09:25.381] Browser LOG     Недостаточно данных для проверки: {"hasCourse":true,"hasSelectedCourses":false,"hasUserData":false}
+[00:09:25.381] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":false,"isAuth":false}
+[00:09:25.381] Browser LOG     Недостаточно данных для проверки: {"hasCourse":true,"hasSelectedCourses":false,"hasUserData":false}
+[00:09:25.381] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":false,"isAuth":false}
+[00:09:26.335] Browser LOG     Недостаточно данных для проверки: {"hasCourse":true,"hasSelectedCourses":false,"hasUserData":false}
+[00:09:26.335] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":false,"isAuth":false}
+[00:09:26.335] Browser LOG     Недостаточно данных для проверки: {"hasCourse":true,"hasSelectedCourses":false,"hasUserData":false}
+[00:09:26.335] Browser LOG     Текущий статус курса (для рендера): {"checkingCourseStatus":false,"courseAdded":false,"courseId":"kfpq8e","hasUserData":false,"isAuth":false}
