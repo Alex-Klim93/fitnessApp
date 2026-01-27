@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "deploy": "wrangler pages deploy .next --project-name=fitnessup",
+    "build:deploy": "npm run build && npm run deploy",
+    "dev": "next dev",
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
