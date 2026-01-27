@@ -22,8 +22,8 @@
     "axios": "^1.13.2",
     "next": "16.1.1",
     "prop-types": "^15.8.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-redux": "^9.2.0"
   },
   "devDependencies": {
