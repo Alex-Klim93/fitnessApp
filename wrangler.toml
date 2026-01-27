@@ -1,1 +1,15 @@
-name = "fitnessup"compatibility_date = "2024-01-01"pages_build_output_dir = ".next"[build]command = "npm run build"[[routes]]pattern = "/*"run = ""# Опционально: настройки для окружений[vars]NODE_ENV = "production"# Опционально: настройки сборки[env.production]vars = { NODE_ENV = "production" }
+name = "fitnessup"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = ".next"
+[build]
+command = "npm run build"
+
+[[routes]]
+pattern = "/*"
+run = ""# Опционально: настройки для 
+
+[vars]
+NODE_ENV = "production"# Опционально: настройки сборки
+
+[env.production]
+vars = { NODE_ENV = "production" }
