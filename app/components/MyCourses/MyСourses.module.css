@@ -105,6 +105,12 @@
   gap: 10;
   padding: 16px 26px 16px 26px;
 }
+.progres__but:hover {
+  background: rgba(198, 255, 0, 1);
+}
+.progres__but:active {
+  background: rgba(0, 0, 0, 1);
+}
 .progres__link {
   color: rgba(0, 0, 0, 1);
   font-size: 18px;
@@ -121,7 +127,6 @@
   }
   .courses__card {
     width: 343px;
-    
   }
   .courses__image {
     width: 343px;

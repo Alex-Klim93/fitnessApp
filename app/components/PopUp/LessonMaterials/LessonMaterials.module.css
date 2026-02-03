@@ -52,6 +52,13 @@
   letter-spacing: 0px;
   text-align: left;
 }
+.menuItem__profil:hover {
+  background: rgba(198, 255, 0, 1);
+}
+.menuItem__profil:active {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 1);
+}
 
 .menuItem__profil:disabled {
   background: rgba(188, 236, 48, 1);

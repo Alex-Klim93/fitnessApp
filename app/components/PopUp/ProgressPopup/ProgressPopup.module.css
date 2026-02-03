@@ -96,6 +96,13 @@
   letter-spacing: 0px;
   text-align: left;
 }
+.saveButton:hover {
+  background: rgba(198, 255, 0, 1);
+}
+.saveButton:active {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 1);
+}
 @media (max-width: 768px) {
   .title {
     color: rgba(0, 0, 0, 1);

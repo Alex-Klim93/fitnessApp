@@ -15,6 +15,9 @@
   z-index: 100;
   transition: opacity 0.3s ease-in-out;
 }
+.butup_box:hover {
+  background: rgba(198, 255, 0, 1);
+}
 .but__link {
   color: rgba(0, 0, 0, 1);
   font-size: 18px;

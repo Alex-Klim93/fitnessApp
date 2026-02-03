@@ -57,6 +57,14 @@
   justify-content: center;
   align-items: center;
 }
+.profile__but:hover {
+  border: 1px solid rgba(0, 0, 0, 1);
+  background: rgba(247, 247, 247, 1);
+}
+.profile__but:active {
+  border: 1px solid rgba(0, 0, 0, 1);
+  background: rgba(233, 236, 237, 1);
+}
 .profile__link {
   color: rgba(0, 0, 0, 1);
   font-size: 18px;

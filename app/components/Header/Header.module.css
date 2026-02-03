@@ -45,6 +45,13 @@
   text-align: center;
   cursor: pointer;
 }
+.but__box:hover {
+  color: rgba(0, 0, 0, 1);
+  background: rgba(198, 255, 0, 1);
+}
+.but__box:active {
+  background: rgba(0, 0, 0, 1);
+}
 
 .but__link {
   background: none;
@@ -53,6 +60,9 @@
   font-size: 18px;
   font-weight: 400;
   color: rgba(0, 0, 0, 1);
+}
+.but__link:active {
+  color: rgba(255, 255, 255, 1);
 }
 
 /* Стили для кнопки профиля (показывается когда авторизован) */
