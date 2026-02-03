@@ -32,7 +32,6 @@ interface UserResponseWithNestedUser {
   };
 }
 
-// Тип для проверки структуры ответа
 type ApiUserResponse = UserData | UserResponseWithNestedUser | null;
 
 export default function CoursePage({

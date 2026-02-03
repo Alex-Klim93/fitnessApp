@@ -33,9 +33,9 @@ const courseImages = [
 
 const courseColors = ["#FFC700", "#2491D2", "#F7A012", "#FF7E65", "#7D458C"];
 const courseImageWidths = ["58%", "87%", "58%", "58%", "58%"];
-const courseImageHeights = ["146%", "113%", "119%", "119%", "119%"];
-const courseImageTops = ["-125px", "-33px", "-50px", "-230px", "-230px"];
-const courseImageRights = ["-48px", "-215px", "-65px", "-205px", "-205px"];
+const courseImageHeights = ["146%", "113%", "119%", "114%", "120%"];
+const courseImageTops = ["-125px", "-33px", "-50px", "-44px", "-42px"];
+const courseImageRights = ["-48px", "-215px", "-65px","-155px", "-59px" ];
 
 const getCourseImage = (courseName: string): number => {
   const name = courseName.toLowerCase();
