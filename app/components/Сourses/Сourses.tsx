@@ -37,6 +37,7 @@ const courseImageHeights = ["146%", "113%", "119%", "114%", "120%"];
 const courseImageTops = ["-125px", "-33px", "-50px", "-44px", "-42px"];
 const courseImageRights = ["-48px", "-215px", "-65px","-155px", "-59px" ];
 
+
 const getCourseImage = (courseName: string): number => {
   const name = courseName.toLowerCase();
   if (name.includes("йога") || name.includes("yoga")) return 0;
